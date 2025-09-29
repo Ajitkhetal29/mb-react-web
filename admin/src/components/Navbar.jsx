@@ -1,8 +1,12 @@
 import { useState, useEffect, useContext } from "react";
+import { AppConetxt } from "../context/context";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+
+  const { logout } = useContext(AppConetxt);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -15,67 +19,119 @@ const Navbar = () => {
   return (
     <header
       id="siteHeader"
-      className={`z-50 w-full bg-black transition-colors duration-300" bg-black   ${
-        scrolled ? "fixed" : ""
-      } `}
+      className={`z-50 w-full bg-black transition-colors duration-300 ${
+        scrolled ? "fixed top-0 left-0" : ""
+      }`}
     >
-    <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
-        <a href="#" className="text-2xl font-bold text-white">
+      <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
+        <NavLink to="/dashboard" className="text-2xl font-bold text-white flex items-center">
           <img
             src="/img/logo/logo.png"
             alt="logo"
             className="h-10 w-auto max-w-[150px]"
           />
-        </a>
+        </NavLink>
 
         <ul className="hidden md:flex space-x-8 text-white font-medium relative">
           <li>
-            <a href="#" className="hover:text-yellow-400">
+            <NavLink
+              to="/dashboard"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-200" : "text-white"
+              }
+            >
               Dashboard
-            </a>
+            </NavLink>
           </li>
 
           <li>
-            <a href="#" className="hover:text-yellow-400">
+            <NavLink
+              to="/allProjects"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-200" : "text-white"
+              }
+            >
               Projects
-            </a>
+            </NavLink>
           </li>
+
           <li>
-            <a href="#" className="hover:text-yellow-400">
+            <NavLink
+              to="/blogs"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-200" : "text-white"
+              }
+            >
               Blogs
-            </a>
+            </NavLink>
           </li>
+
           <li>
-            <a href="#" className="hover:text-yellow-400">
+            <NavLink
+              to="/testimonials"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-200" : "text-white"
+              }
+            >
               Testimonials
-            </a>
+            </NavLink>
           </li>
         </ul>
 
-        <div className="flex flex-row">
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="md:hidden text-white text-3xl"
-          >
-            &#9776;
-          </button>
-        </div>
+        <button
+          onClick={logout}
+          className="bg-red-500 text-white px-2 rounded cursor-pointer border border-black"
+        >
+          Logout
+        </button>
+
+        <button
+          onClick={() => setMobileOpen(!mobileOpen)}
+          className="md:hidden text-white text-3xl"
+          aria-label="Toggle menu"
+        >
+          &#9776;
+        </button>
       </nav>
 
       {mobileOpen && (
         <div className="md:hidden text-white text-center shadow px-4 pb-4 overflow-x-hidden">
-          <a href="#" className="block py-2 sm:border-b">
+          <NavLink
+            to="/dashboard"
+            className={({ isActive }) =>
+              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
             Dashboard
-          </a>
-          <a href="#" className="block py-2 sm:border-b">
+          </NavLink>
+          <NavLink
+            to="/allProjects"
+            className={({ isActive }) =>
+              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
             Projects
-          </a>
-          <a href="#" className="block py-2 sm:border-b">
+          </NavLink>
+          <NavLink
+            to="/blogs"
+            className={({ isActive }) =>
+              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
             Blogs
-          </a>
-          <a href="#" className="block py-2 sm:border-b">
+          </NavLink>
+          <NavLink
+            to="/testimonials"
+            className={({ isActive }) =>
+              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
             Testimonials
-          </a>
+          </NavLink>
         </div>
       )}
     </header>

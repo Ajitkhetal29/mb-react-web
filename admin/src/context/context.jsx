@@ -11,7 +11,6 @@ const AppConetxtProvider = (props) => {
   const [allProjects, setAllProjects] = useState([]);
 
   // fetch all projects
-
   const getAllProjects = async () => {
     try {
       const response = await axios.get(`${backendUrl}/project/allProjects`);
@@ -23,6 +22,30 @@ const AppConetxtProvider = (props) => {
     } catch (error) {
       console.log(error);
     }
+  };
+
+  // delete project
+  const deleteProject = async (id) => {
+    try {
+      const response = await axios.post(`${backendUrl}/project/deleteProject`, {
+        id,
+      });
+      if (response.data.success) {
+        getAllProjects();
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // logout
+
+  const logout = async () => {
+    localStorage.removeItem("token");
+    setToken("");
+    navigate("/");
   };
 
   useEffect(() => {
@@ -40,6 +63,8 @@ const AppConetxtProvider = (props) => {
     setToken,
     getAllProjects,
     allProjects,
+    deleteProject,
+    logout
   };
 
   return (

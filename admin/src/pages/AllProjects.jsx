@@ -1,11 +1,23 @@
 import React, { useContext } from "react";
 import { AppConetxt } from "../context/context";
+import { useEffect } from "react";
 
 const AllProjects = () => {
-  const { allProjects, navigate } = useContext(AppConetxt);
+  const { allProjects, navigate ,deleteProject} = useContext(AppConetxt);
+
+  useEffect(() => { 
+
+    console.log("allProjects:", allProjects);
+
+  }, [allProjects]);
+
+
 
   return (
     <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
+      <div className="flex w-full item-end justify-end p-4">
+        <button className="bg-green-200 rounded px-4 py-2 cursor-pointer border border-black" type="button" onClick={()=>navigate('/addProject')} >+ Add Project</button>
+      </div>
       {allProjects && allProjects.length > 0 ? (
         <table className="min-w-full text-sm text-left text-gray-600 dark:text-gray-300">
           <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
@@ -83,13 +95,13 @@ const AllProjects = () => {
                 </td>
                 <td className="px-6 py-4 space-x-2">
                   <button
-                    onClick={()=>navigate(`/updateProject/${project._id}`)}
-                    className="px-3 py-1 text-xs text-white bg-indigo-600 rounded hover:bg-indigo-700"
+                    onClick={() => navigate(`/updateProject/${project._id}`)}
+                    className="px-3 py-1 text-xs cursor-pointer text-white bg-yellow-600 rounded hover:bg-emerald-700"
                   >
-                    Edit
-                  </button>
-                  <button className="px-3 py-1 text-xs text-white bg-emerald-600 rounded hover:bg-emerald-700">
                     Update
+                  </button>
+                  <button type="button" onClick={()=>deleteProject(project._id)} className="px-3 py-1 text-xs cursor-pointer text-white bg-red-600 rounded hover:bg-emerald-700">
+                    Delete
                   </button>
                 </td>
               </tr>

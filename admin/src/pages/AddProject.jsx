@@ -12,6 +12,7 @@ const AddProject = () => {
     location: "",
     description: "",
     status: "",
+    videoLink:''
   });
 
   const [featureInput, setFeatureInput] = useState("");
@@ -20,6 +21,8 @@ const AddProject = () => {
   const [galleryImages, setGalleryImages] = useState([]);
   const galleryInputRef = useRef(null);
   const layoutImagInputRef = useRef(null);
+  const browcherPdfInputRef = useRef(null);
+  const [browcherPdf, setBrowcherPdf] = useState(null);
 
   const [layouts, setLayouts] = useState([
     {
@@ -34,14 +37,6 @@ const AddProject = () => {
 
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
-
-  const slugify = (text) =>
-    text
-      .toString()
-      .toLowerCase()
-      .trim()
-      .replace(/\s+/g, "-")
-      .replace(/[^a-z0-9-]/g, "");
 
   const addFeature = () => {
     const tag = featureInput.trim();
@@ -62,6 +57,11 @@ const AddProject = () => {
   };
   const onLayoutButtonClick = () => {
     layoutImagInputRef.current?.click();
+  };
+
+  const HandleBrowcherChange = (e) => {
+    const file = e.target.files?.[0];
+    setBrowcherPdf(file);
   };
 
   const handleGalleryChange = (e) => {
@@ -131,6 +131,10 @@ const AddProject = () => {
     e.target.value = null;
   };
 
+  const onBrowcherButtonClick = () => {
+    browcherPdfInputRef.current?.click();
+  };
+
   useEffect(() => {
     return () => {
       galleryImages.forEach((g) => URL.revokeObjectURL(g.preview));
@@ -157,8 +161,10 @@ const AddProject = () => {
       fd.append("description", form.description);
       fd.append("slug", slugify(form.name));
       fd.append("features", JSON.stringify(features));
+      fd.append("browcherPdf", browcherPdf);
+      fd.append("videoLink", form.videoLink);
 
-      galleryImages.forEach((g) => fd.append("gallery", g.file));
+      galleryImages.forEach((g) => fd.append("galleryImages", g.file));
 
       fd.append(
         "layouts",
@@ -251,6 +257,21 @@ const AddProject = () => {
               </div>
               <div>
                 <label className="block tex-sm text-white mb-1 maven-pro">
+                  videoLink
+                </label>
+                <input
+                  type="text"
+                  value={form.videoLink}
+                  required
+                  placeholder="videoLink"
+                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, videoLink: e.target.value }))
+                  }
+                />
+              </div>
+              <div>
+                <label className="block tex-sm text-white mb-1 maven-pro">
                   Status
                 </label>
 
@@ -332,6 +353,27 @@ const AddProject = () => {
                     </button>
                   </div>
                 ))}
+              </div>
+            </div>
+
+            <div className="mt-2 flex flex-wrap gap-2">
+              Project Browcher
+              <span>{browcherPdf && browcherPdf.name}</span>
+              <div className="flex ">
+                <input
+                  type="file"
+                  ref={browcherPdfInputRef}
+                  accept="pdf/*"
+                  className="hidden"
+                  onChange={HandleBrowcherChange}
+                />
+                <button
+                  type="button"
+                  className="px-4 py-2 bg-green-600 text-white rounded"
+                  onClick={onBrowcherButtonClick}
+                >
+                  Add Browcher Pdf
+                </button>
               </div>
             </div>
 
@@ -420,14 +462,18 @@ const AddProject = () => {
                         >
                           Title
                         </label>
-                        <input
+                        <select
+                          name="status"
                           value={l.title}
+                          className="w-full rounded border bg-gray-200 maven-pro px-3 py-2"
                           onChange={(e) =>
                             handleLayoutChange(l.id, "title", e.target.value)
                           }
-                          className="w-full rounded border bg-gray-200 maven-pro px-3 py-2"
-                          placeholder="2 BHK"
-                        />
+                        >
+                          <option value="1 BHK">1 BHK</option>
+                          <option value="2 BHK">2 BHK</option>
+                          <option value="3 BHK">3 BHK</option>
+                        </select>
                       </div>
 
                       <div>

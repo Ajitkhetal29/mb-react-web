@@ -1,51 +1,52 @@
 import projectModel from "../models/project.js";
 
 const createProject = async (req, res) => {
-  const baseUrl = `${req.protocol}://${req.get("host")}`;
-
   try {
-    const { name, builder, location, description, features, status } = req.body;
 
-    const galleryPaths =
-      req.files?.gallery?.map((file) => ({
-        filename: file.filename,
-        path: `${baseUrl}/${file.path}`,
-      })) || [];
+    const { name, builder, location, description, features, status, videoLink } = req.body;
 
-    const layoutImages = req.files?.layoutImages || [];
+    const galleryPaths = (req.files.galleryImages || []).map((file) => ({
+      filename: file.originalname.replace(/\s+/g, "_"),
+      path: file.path,
+    }));
+
+
+    const pdfPath = req.files?.browcherPdf?.[0]?.path || "";
+    const pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
 
     const layoutMeta = JSON.parse(req.body.layouts || "[]");
 
+    const layoutImages = req.files?.layoutImages || [];
+
     const layouts = layoutMeta.map((meta, i) => ({
       ...meta,
-      image: `${baseUrl}/${layoutImages[i]?.path}` || "",
+      image: layoutImages[i]?.path || "",
     }));
 
     const project = new projectModel({
       name,
-      builder: builder,
+      builder,
       location,
       description,
       features: features ? JSON.parse(features) : [],
       status,
+      videoLink,
       galleryImages: galleryPaths,
       layouts,
+      browcherPdf: pdfPathWithExt,
     });
 
     await project.save();
 
-    console.log(project);
-
-    res
-      .status(201)
-      .json({ success: true, message: "Project Created", project });
+    res.status(201).json({ success: true, message: "Project Created", project });
   } catch (err) {
-    console.error(err);
-    res
-      .status(500)
-      .json({ success: false, message: "Failed to create project" });
+    console.error(err.message);
+    console.log('create project failed');
+
+    res.status(500).json({ success: false, message: "Failed to create project" });
   }
 };
+
 
 const getAllProjects = async (req, res) => {
   try {
@@ -63,57 +64,91 @@ const getAllProjects = async (req, res) => {
 };
 
 const updateProject = async (req, res) => {
-  const baseUrl = `${req.protocol}://${req.get("host")}`;
-
   try {
-    const { id, name, builder, location, description, features, status } =
-      req.body;
+    const {
+      id,
+      name,
+      builder,
+      location,
+      description,
+      videoLink,
+      features,
+      status,
+      pdfFile,
+      galleryImages: galleryImagesStr = "[]",
+      layouts: layoutsStr = "[]",
+      newLayouts: newLayoutsStr = "[]",
+    } = req.body;
 
-    const newLayoutsMeta = JSON.parse(req.body.newLayouts || "[]");
-    const layoutsMeta = JSON.parse(req.body.layouts || "[]");
-    const galleryImages = req.files?.galleryImages || [];
+    const existingGalleryImages = JSON.parse(galleryImagesStr);
+    const existingLayouts = JSON.parse(layoutsStr);
+    const newLayoutsMeta = JSON.parse(newLayoutsStr);
+
+    const galleryNewImages = req.files?.galleryNewImages || [];
     const newlayoutImages = req.files?.newlayoutImages || [];
 
-    const galleryPaths = req.files.galleryNewImages?.map((file) => ({
-      filename: file.filename,
-      path: `${baseUrl}/${file.path}`,
+    const newGalleryPaths = galleryNewImages.map((file) => ({
+      filename: file.originalname.replace(/\s+/g, "_"),
+      path: file.path,
     }));
+
+    const pdfPath = req.files?.browcherPdf?.[0]?.path || "";
+    const pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
+
 
     const newLayouts = newLayoutsMeta.map((meta, i) => ({
       ...meta,
-      image: `${baseUrl}/${newlayoutImages[i]?.path}` || "",
+      image: newlayoutImages[i]?.path || "",
     }));
 
-const updatedGalleryImages = [...galleryImages, ...(galleryPaths || [])];
+    const updatedGalleryImages = [...existingGalleryImages, ...newGalleryPaths];
 
-    const layouts = [...layoutsMeta, ...newLayoutsMeta];
+    const updatedLayouts = [...existingLayouts, ...newLayouts];
 
-    const newProject ={
+
+    let parsedFeatures = [];
+    try {
+      parsedFeatures = features ? JSON.parse(features) : [];
+    } catch {
+      parsedFeatures = [];
+    }
+
+    const updatedFields = {
       name,
       builder,
       location,
       description,
       status,
-      features :features ? JSON.parse(features) : [] ,
+      videoLink,
+      features: parsedFeatures,
       galleryImages: updatedGalleryImages,
-      layouts,
+      layouts: updatedLayouts,
+      browcherPdf: pdfPathWithExt,
     };
 
-    const updatedProject = await projectModel.findByIdAndUpdate(
-      id,
-      newProject,
-      { new: true }
-    );
+    const updatedProject = await projectModel.findByIdAndUpdate(id, updatedFields, {
+      new: true,
+    });
 
-    console.log(updatedGalleryImages);
-    
-    res
-      .status(201)
-      .json({ success: true, message: "Project Updated", updatedProject });
-
+    res.status(200).json({ success: true, message: "Project updated", updatedProject });
   } catch (error) {
-    console.log(error);
+    console.error("Update project error:", error);
+    res.status(500).json({ success: false, message: "Failed to update project" });
   }
 };
 
-export { createProject, getAllProjects, updateProject };
+const deleteProject = async (req, res) => {
+  try {
+    const { id } = req.body;
+
+    await projectModel.findByIdAndDelete(id);
+
+    res.status(200).json({ success: true, message: "Project deleted" });
+
+  } catch (error) {
+    console.error("Delete project error:", error);
+    res.status(500).json({ success: false, message: "Failed to delete project" });
+  }
+}
+
+export { createProject, updateProject, getAllProjects, deleteProject };

@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppConetxt } from "../context/context";
-import {  useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import axios from "axios";
 
 const UpdateProject = () => {
-  const { allProjects, backendUrl, naviate } = useContext(AppConetxt);
+  const { allProjects, backendUrl, navigate } = useContext(AppConetxt);
   const { id } = useParams();
 
   const inputFeatureRef = useRef();
@@ -17,16 +17,18 @@ const UpdateProject = () => {
     location: "",
     description: "",
     status: "",
+    videoLink: "",
   });
 
   const [features, setFeatures] = useState([]);
-  const [galleryImages, setGalleryImages] = useState([]); // existing gallery images (from DB)
-  const [newGalleryImages, setNewGalleryImages] = useState([]); // newly added gallery images (File objects)
+  const [galleryImages, setGalleryImages] = useState([]);
+  const [newGalleryImages, setNewGalleryImages] = useState([]);
+  const [browcherPdf, setBrowcherPdf] = useState(null);
+  const browcherPdfInputRef = useRef(null);
 
-  const [layouts, setLayouts] = useState([]); // existing layouts (from DB)
-  const [newLayouts, setNewLayouts] = useState([]); // newly added layouts (including existing layouts with changed image)
+  const [layouts, setLayouts] = useState([]);
+  const [newLayouts, setNewLayouts] = useState([]);
 
-  // Load project data on mount or when allProjects change
   useEffect(() => {
     const found = allProjects.find((p) => p._id === id);
     if (found) {
@@ -37,6 +39,7 @@ const UpdateProject = () => {
         location: found.location || "",
         description: found.description || "",
         status: found.status || "",
+        videoLink: found.videoLink || "",
       });
 
       setFeatures(found.features || []);
@@ -44,6 +47,7 @@ const UpdateProject = () => {
       setLayouts(found.layouts || []);
       setNewGalleryImages([]);
       setNewLayouts([]);
+      setBrowcherPdf(found.browcherPdf || null);
     }
   }, [id, allProjects]);
 
@@ -86,6 +90,15 @@ const UpdateProject = () => {
     const rem = newGalleryImages.find((g) => g.id === id);
     if (rem?.preview) URL.revokeObjectURL(rem.preview);
     setNewGalleryImages((prev) => prev.filter((img) => img.id !== id));
+  };
+
+  const HandleBrowcherChange = (e) => {
+    const file = e.target.files?.[0];
+    setBrowcherPdf(file);
+  };
+
+  const onBrowcherButtonClick = () => {
+    browcherPdfInputRef.current?.click();
   };
 
   // Layout handlers
@@ -133,7 +146,7 @@ const UpdateProject = () => {
     // Find the layout in existing layouts
     const removedLayout = layouts.find((l) => l._id === id);
     if (!removedLayout) return;
-
+    
     // Remove it from existing layouts
     setLayouts((prev) => prev.filter((l) => l._id !== id));
 
@@ -160,93 +173,81 @@ const UpdateProject = () => {
     );
   };
 
+  const discard = () => {
+    navigate("/allProjects");
+  };
+
   // Submit handler
   const handleSubmitForm = async (e) => {
     try {
       e.preventDefault();
 
-    const fd = new FormData();
-    fd.append("id", id);
-    fd.append("name", form.name);
-    fd.append("builder", form.builder);
-    fd.append("location", form.location);
-    fd.append("description", form.description);
-    fd.append("status", form.status);
-    fd.append("features", JSON.stringify(features));
+      const fd = new FormData();
+      fd.append("id", id);
+      fd.append("name", form.name);
+      fd.append("builder", form.builder);
+      fd.append("location", form.location);
+      fd.append("description", form.description);
+      fd.append("status", form.status);
+      fd.append("features", JSON.stringify(features));
+      fd.append("videoLink", form.videoLink);
+      fd.append("browcherPdf", browcherPdf);
 
-    // Existing gallery images as JSON metadata (e.g. URLs or IDs)
-    fd.append("galleryImages", JSON.stringify(galleryImages));
+      // Existing gallery images as JSON metadata (e.g. URLs or IDs)
+      fd.append("galleryImages", JSON.stringify(galleryImages));
 
-    // New gallery images files
-    newGalleryImages.forEach((img) => {
-      fd.append("galleryNewImages", img.file);
-    });
+      newGalleryImages.forEach((img) => {
+        fd.append("galleryNewImages", img.file);
+      });
 
-    // Existing layouts metadata (without image files)
-    fd.append(
-      "layouts",
-      JSON.stringify(
-        layouts.map(({ _id, title, area, price, image }) => ({
-          _id,
-          title,
-          area,
-          price,
-          image, // usually URL string
-        }))
-      )
-    );
+      fd.append(
+        "layouts",
+        JSON.stringify(
+          layouts.map(({ _id, title, area, price, image }) => ({
+            _id,
+            title,
+            area,
+            price,
+            image, // usually URL string
+          }))
+        )
+      );
 
-    // New layouts metadata (without image files)
-    fd.append(
-      "newLayouts",
-      JSON.stringify(
-        newLayouts.map(({ _id, title, area, price }) => ({
-          _id,
-          title,
-          area,
-          price,
-        }))
-      )
-    );
+      fd.append(
+        "newLayouts",
+        JSON.stringify(
+          newLayouts.map(({ _id, title, area, price }) => ({
+            _id,
+            title,
+            area,
+            price,
+          }))
+        )
+      );
 
-    // Existing layouts images? Usually these are URLs, so no files to send
+      // New layouts images files
+      newLayouts.forEach((layout) => {
+        if (layout.image) {
+          fd.append("newlayoutImages", layout.image);
+        }
+      });
 
-    // New layouts images files
-    newLayouts.forEach((layout) => {
-      if (layout.image instanceof File) {
-        fd.append("newlayoutImages", layout.image);
+      // Log all FormData entries for debug
+      // for (const [key, value] of fd.entries()) {
+      //   console.log(key, value);
+      // }
+      const response = await axios.post(
+        `${backendUrl}/project/updateProject`,
+        fd,
+        {}
+      );
+
+      if (response.data.success) {
+        alert(`project updated`);
       }
-    });
-
-    // Log all FormData entries for debug
-    // for (const [key, value] of fd.entries()) {
-    //   console.log(key, value);
-    // }
-    const response = await axios.post(
-      `${backendUrl}/project/updateProject`,
-      fd,
-      {}
-    );
-
-    if(response.data.success){
-     alert(`project updated`)
-     navigate("/allProjects")
-    }
-
-    alert(`project created`)
-
-
-
-    // if (response.data.success) {
-    //   console.log(response.data.updatedProject);
-    //   alert(`project created`);
-    // }
     } catch (error) {
-            console.error(error);
-
+      console.error(error);
     }
-
-
   };
 
   if (!editableProject) {
@@ -296,6 +297,7 @@ const UpdateProject = () => {
               value={form.location}
             />
           </div>
+
           <div className="flex flex-col">
             <label htmlFor="status">Status</label>
             <select name="status" value={form.status} onChange={handleform}>
@@ -303,6 +305,18 @@ const UpdateProject = () => {
               <option value="Ongoing">Ongoing</option>
               <option value="Completed">Completed</option>
             </select>
+          </div>
+        </div>
+
+        <div className="flex flex-row mt-2">
+          <div className="flex gap-5 w-full flex-col">
+            <label htmlFor="videoLink">Video Link</label>
+            <textarea
+              name="videoLink"
+              onChange={handleform}
+              className="border w-full flex-1"
+              value={form.videoLink}
+            />
           </div>
         </div>
 
@@ -358,6 +372,27 @@ const UpdateProject = () => {
               </button>
             </span>
           ))}
+        </div>
+
+        <div className="mt-2 flex flex-wrap gap-2">
+          Project Browcher
+          <span>{browcherPdf && browcherPdf.name}</span>
+          <div className="flex ">
+            <input
+              type="file"
+              ref={browcherPdfInputRef}
+              accept="pdf/*"
+              className="hidden"
+              onChange={HandleBrowcherChange}
+            />
+            <button
+              type="button"
+              className="px-4 py-2 bg-green-600 text-white rounded"
+              onClick={onBrowcherButtonClick}
+            >
+              Add Browcher Pdf
+            </button>
+          </div>
         </div>
 
         {/* Gallery Images */}
@@ -553,9 +588,7 @@ const UpdateProject = () => {
                   Add Image
                 </button>
                 <img
-                  src={
-                    l.imagePreview 
-                  }
+                  src={l.imagePreview}
                   alt="Layout"
                   className="h-20 w-32 object-cover rounded border"
                 />
@@ -573,7 +606,11 @@ const UpdateProject = () => {
 
         {/* Submit buttons */}
         <div className="flex justify-end gap-x-2 mt-6">
-          <button type="button" className="px-4 py-2 border rounded">
+          <button
+            type="button"
+            onClick={discard}
+            className="px-4 py-2 border rounded"
+          >
             Discard
           </button>
           <button

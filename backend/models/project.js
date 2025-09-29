@@ -22,13 +22,16 @@ const projectSchema = new mongoose.Schema(
             required: true,
         },
         features: [String],
-
         galleryImages: [
             {
                 filename: { type: String, required: true },
                 path: { type: String, required: true },
             },
         ],
+
+        browcherPdf: { type: String, required: false },
+
+        videoLink: { type: String, required: true },
 
         layouts: [
             {
