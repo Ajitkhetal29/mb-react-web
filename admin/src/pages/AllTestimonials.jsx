@@ -1,64 +1,57 @@
-import React from "react";
-import { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppConetxt } from "../context/context";
-import { useEffect } from "react";
 
 const AllTestimonials = () => {
   const { allTestimonials, deleteTestimonial, getAllTestimonials, navigate } =
     useContext(AppConetxt);
 
   useEffect(() => {
-    console.log("allblogs:", allTestimonials);
     getAllTestimonials();
   }, []);
 
   if (!allTestimonials) {
     return (
-      <div className="p-4 text-center text-gray-500 dark:text-gray-300">
+      <div className="p-6 text-center text-gray-400 dark:text-gray-300">
         Loading Testimonials...
       </div>
     );
   }
 
   return (
-    <div className="p-4">
+    <div className="p-6 min-h-screen bg-gray-900">
       {/* Header Action */}
-      <div className="flex justify-end mb-4">
+      <div className="flex justify-end mb-6">
         <button
           type="button"
           onClick={() => navigate("/addTestimonial")}
           className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition-colors"
         >
-          + Add Testimonail
+          + Add Testimonial
         </button>
       </div>
 
-      {allTestimonials && allTestimonials.length > 0 ? (
-        <div className="overflow-x-auto shadow-lg rounded-lg">
-          <table className="w-full text-sm text-left text-gray-700 dark:text-gray-300">
-            <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700">
+      {allTestimonials.length > 0 ? (
+        <div className="overflow-x-auto shadow-2xl rounded-2xl bg-gray-800 border border-gray-700">
+          <table className="w-full text-sm text-left text-gray-200">
+            <thead className="text-xs uppercase bg-gray-700 text-gray-300">
               <tr>
-                <th className="px-6 py-3">Mame</th>
+                <th className="px-6 py-3">Name</th>
                 <th className="px-6 py-3">Message</th>
-                <th className="px-6 py-3">Poition</th>
+                <th className="px-6 py-3">Position</th>
                 <th className="px-6 py-3">Company</th>
                 <th className="px-6 py-3">Action</th>
               </tr>
             </thead>
-
             <tbody>
               {allTestimonials.map((test) => (
                 <tr
                   key={test._id}
-                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition"
+                  className="border-b border-gray-700 hover:bg-gray-700 transition"
                 >
-                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white">
-                    {test.name}
-                  </td>
+                  <td className="px-6 py-4 font-semibold">{test.name}</td>
                   <td className="px-6 py-4">{test.message}</td>
                   <td className="px-6 py-4">{test.position}</td>
                   <td className="px-6 py-4">{test.company}</td>
-
                   <td className="px-6 py-4 flex flex-wrap gap-2">
                     <button
                       type="button"
@@ -74,8 +67,8 @@ const AllTestimonials = () => {
           </table>
         </div>
       ) : (
-        <div className="p-6 text-center text-gray-500 dark:text-gray-300 border rounded-lg shadow-sm">
-          No Testimonial Found
+        <div className="p-6 text-center text-gray-400 border border-gray-700 rounded-lg shadow-lg mt-6">
+          No Testimonials Found
         </div>
       )}
     </div>

@@ -49,7 +49,7 @@ const AppConetxtProvider = (props) => {
   // logout
   const logout = async () => {
     localStorage.removeItem("token");
-    toast.warning("Project Delered", { autoClose: 2000 });
+    toast.warning("Logout Succesfull", { autoClose: 2000 });
 
     setToken("");
     navigate("/");

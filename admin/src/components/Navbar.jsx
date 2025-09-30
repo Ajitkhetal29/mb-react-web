@@ -2,6 +2,14 @@ import { useState, useEffect, useContext } from "react";
 import { AppConetxt } from "../context/context";
 import { NavLink } from "react-router-dom";
 
+// --- Improvement: Extracted NavLink classes for better readability ---
+const navLinkClasses = "block md:inline-block py-2 md:py-0 transition-colors duration-300 hover:text-yellow-300";
+const activeNavLinkClasses = "text-yellow-300";
+const inactiveNavLinkClasses = "text-white";
+
+const getNavLinkClass = ({ isActive }) => 
+  `${navLinkClasses} ${isActive ? activeNavLinkClasses : inactiveNavLinkClasses}`;
+
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -16,11 +24,31 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // --- Improvement: Close mobile menu when resizing to desktop view ---
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMobileOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const navLinks = [
+    { to: "/dashboard", text: "Dashboard" },
+    { to: "/allProjects", text: "Projects" },
+    { to: "/allBlogs", text: "Blogs" },
+    { to: "/allTestimonials", text: "Testimonials" },
+    { to: "/allFaq", text: "FAQ" },
+  ];
+
   return (
     <header
       id="siteHeader"
-      className={`z-50 w-full bg-black transition-colors duration-300 ${
-        scrolled ? "fixed top-0 left-0" : ""
+      
+      className={` top-0 left-0 z-50 w-full transition-colors duration-300 ${
+        scrolled || mobileOpen ? "fixed bg-black" : "bg-black/80 backdrop-blur-sm"
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
@@ -31,142 +59,67 @@ const Navbar = () => {
           <img
             src="/img/logo/logo.png"
             alt="logo"
-            className="h-10 w-auto max-w-[150px]"
+            className="h-10 w-auto" // Removed max-w, as w-auto should suffice
           />
         </NavLink>
 
-        <ul className="hidden md:flex space-x-8 text-white font-medium relative">
-          <li>
-            <NavLink
-              to="/dashboard"
-              className={({ isActive }) =>
-                isActive ? "text-yellow-200" : "text-white"
-              }
-            >
-              Dashboard
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/allProjects"
-              className={({ isActive }) =>
-                isActive ? "text-yellow-200" : "text-white"
-              }
-            >
-              Projects
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/allBlogs"
-              className={({ isActive }) =>
-                isActive ? "text-yellow-200" : "text-white"
-              }
-            >
-              Blogs
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/allTestimonials"
-              className={({ isActive }) =>
-                isActive ? "text-yellow-200" : "text-white"
-              }
-            >
-              Testimonials
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/allFaq"
-              className={({ isActive }) =>
-                isActive ? "text-yellow-200" : "text-white"
-              }
-            >
-              FAQ
-            </NavLink>
-          </li>
+        {/* --- Desktop Navigation --- */}
+        <ul className="hidden md:flex items-center space-x-8 font-medium">
+          {navLinks.map((link) => (
+            <li key={link.to}>
+              <NavLink to={link.to} className={getNavLinkClass}>
+                {link.text}
+              </NavLink>
+            </li>
+          ))}
         </ul>
 
+        {/* --- Improvement: Logout button hidden on mobile, better styling --- */}
         <button
           onClick={logout}
-          className="bg-red-500 text-white px-2 rounded cursor-pointer border border-black"
+          className="hidden md:inline-block bg-red-600 text-white px-4 py-2 rounded-md font-semibold cursor-pointer transition-colors duration-300 hover:bg-red-700"
         >
           Logout
         </button>
 
+        {/* --- Improvement: Hamburger/Close Icon --- */}
         <button
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-white text-3xl"
+          className="md:hidden text-white text-3xl z-50"
           aria-label="Toggle menu"
         >
-          &#9776;
+          {mobileOpen ? <>&#x2715;</> : <>&#9776;</>}
         </button>
       </nav>
 
-      {mobileOpen && (
-        <div className="md:hidden text-white text-center shadow px-4 pb-4 overflow-x-hidden">
-          <NavLink
-            to="/dashboard"
-            className={({ isActive }) =>
-              `block py-2 sm:border-b ${
-                isActive ? "text-yellow-200" : "text-white"
-              }`
-            }
-            onClick={() => setMobileOpen(false)}
+      {/* --- Improvement: Animated Mobile Menu --- */}
+      <div
+        className={`md:hidden text-center shadow-lg transition-all duration-300 ease-in-out overflow-hidden ${
+          mobileOpen ? "max-h-screen" : "max-h-0"
+        }`}
+      >
+        <div className="px-4 pb-4 flex flex-col space-y-2">
+          {navLinks.map((link) => (
+            <NavLink
+              key={link.to}
+              to={link.to}
+              className={getNavLinkClass}
+              onClick={() => setMobileOpen(false)}
+            >
+              {link.text}
+            </NavLink>
+          ))}
+          <button
+            onClick={() => {
+              logout();
+              setMobileOpen(false);
+            }}
+            className="w-full bg-red-600 text-white px-4 py-2 mt-2 rounded-md font-semibold cursor-pointer"
           >
-            Dashboard
-          </NavLink>
-          <NavLink
-            to="/allProjects"
-            className={({ isActive }) =>
-              `block py-2 sm:border-b ${
-                isActive ? "text-yellow-200" : "text-white"
-              }`
-            }
-            onClick={() => setMobileOpen(false)}
-          >
-            Projects
-          </NavLink>
-          <NavLink
-            to="/allBlogs"
-            className={({ isActive }) =>
-              `block py-2 sm:border-b ${
-                isActive ? "text-yellow-200" : "text-white"
-              }`
-            }
-            onClick={() => setMobileOpen(false)}
-          >
-            Blogs
-          </NavLink>
-          <NavLink
-            to="/allTestimonials"
-            className={({ isActive }) =>
-              `block py-2 sm:border-b ${
-                isActive ? "text-yellow-200" : "text-white"
-              }`
-            }
-            onClick={() => setMobileOpen(false)}
-          >
-            Testimonials
-          </NavLink>
-          <NavLink
-            to="/allFaq"
-            className={({ isActive }) =>
-              `block py-2 sm:border-b ${
-                isActive ? "text-yellow-200" : "text-white"
-              }`
-            }
-            onClick={() => setMobileOpen(false)}
-          >
-            FAQ
-          </NavLink>
+            Logout
+          </button>
         </div>
-      )}
+      </div>
     </header>
   );
 };
