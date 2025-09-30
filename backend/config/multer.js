@@ -23,7 +23,10 @@ const storage = new CloudinaryStorage({
     } else if (file.fieldname === "browcherPdf" || file.fieldname === "newBrowcherPdf") {
       folder = "projects/browcher";
       resource_type = "raw";
+    } else if (file.fieldname === "blogImage") {
+      folder = "blogs";
     }
+
 
     return {
       folder,

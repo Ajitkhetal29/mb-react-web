@@ -1,120 +1,124 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { AppConetxt } from "../context/context";
-import { useEffect } from "react";
 
 const AllProjects = () => {
-  const { allProjects, navigate ,deleteProject} = useContext(AppConetxt);
+  const { allProjects, navigate, deleteProject } = useContext(AppConetxt);
 
-  useEffect(() => { 
-
+  useEffect(() => {
     console.log("allProjects:", allProjects);
-
   }, [allProjects]);
 
-
+  if(!allProjects) {
+    return <div className="p-4 text-center text-gray-500 dark:text-gray-300">Loading Projects...</div>;
+  }
 
   return (
-    <div className="relative overflow-x-auto shadow-md sm:rounded-lg">
-      <div className="flex w-full item-end justify-end p-4">
-        <button className="bg-green-200 rounded px-4 py-2 cursor-pointer border border-black" type="button" onClick={()=>navigate('/addProject')} >+ Add Project</button>
+    <div className="p-4">
+      {/* Header Action */}
+      <div className="flex justify-end mb-4">
+        <button
+          type="button"
+          onClick={() => navigate("/addProject")}
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition-colors"
+        >
+          + Add Project
+        </button>
       </div>
-      {allProjects && allProjects.length > 0 ? (
-        <table className="min-w-full text-sm text-left text-gray-600 dark:text-gray-300">
-          <thead className="text-xs uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-300">
-            <tr>
-              <th scope="col" className="px-6 py-3">
-                Project Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Builder Name
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Location
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Status
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Description
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Features
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Gallery Images
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Layouts
-              </th>
-              <th scope="col" className="px-6 py-3">
-                Actions
-              </th>
-            </tr>
-          </thead>
 
-          <tbody>
-            {allProjects.map((project) => (
-              <tr
-                key={project._id || project.name}
-                className="bg-white border-b border-gray-200 dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors"
-              >
-                <th
-                  scope="row"
-                  className="px-6 py-4 font-semibold text-gray-900 whitespace-nowrap dark:text-white"
+      {allProjects && allProjects.length > 0 ? (
+        <div className="overflow-x-auto shadow-lg rounded-lg">
+          <table className="w-full text-sm text-left text-gray-700 dark:text-gray-300">
+            <thead className="text-xs text-white uppercase bg-gray-800 dark:bg-gray-700 ">
+              <tr>
+                <th className="px-6 py-3 boder border-r border-gray-600">Sr. No</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Project Name</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Builder</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Location</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Status</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Description</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Features</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Gallery</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Layouts</th>
+                <th className="px-6 py-3 boder border-r border-gray-600">Actions</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {allProjects.map((project, i) => (
+                <tr
+                  key={project._id || project.name}
+                  className="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition"
                 >
-                  {project.name}
-                </th>
-                <td className="px-6 py-4">{project.builder}</td>
-                <td className="px-6 py-4">{project.location}</td>
-                <td className="px-6 py-4">{project.status}</td>
-                <td className="px-6 py-4">{project.description}</td>
-                <td className="px-6 py-4">{project.features}</td>
-                <td className="px-6 py-4 space-x-1">
-                  {project.galleryImages?.map((img, idx) => (
+                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white border-r border-gray-600">
+                    {i+1}
+                  </td>
+                  <td className="px-6 py-4 font-semibold text-gray-900 dark:text-white border-r border-gray-600">
+                    {project.name}
+                  </td>
+                  <td className="px-6 py-4 border-r border-gray-600">{project.builder}</td>
+                  <td className="px-6 py-4 border-r border-gray-600">{project.location}</td>
+                  <td className="px-6 py-4 border-r border-gray-600">
                     <span
-                      key={idx}
-                      className="inline-block px-2 py-1 mb-1 text-xs bg-blue-100 text-blue-700 rounded"
+                      className={`px-2 py-1 text-xs rounded font-medium  ${
+                        project.status === "ongoing"
+                          ? "bg-yellow-100 text-yellow-700"
+                          : project.status === "completed"
+                          ? "bg-green-100 text-green-700"
+                          : "bg-gray-100 text-gray-600"
+                      }`}
                     >
-                      <div>
-                        {/* <img src={img.path} alt="img" /> */}
+                      {project.status}
+                    </span>
+                  </td>
+                  <td className="px-6 py-4 border-r border-gray-600">{project.description}</td>
+                  <td className="px-6 py-4 border-r border-gray-600">{project.features}</td>
+                  <td className="px-6 py-4 space-y-1 border-r border-gray-600">
+                    {project.galleryImages?.map((img, idx) => (
+                      <div
+                        key={idx}
+                        className="text-xs bg-blue-100  text-blue-700 px-2 py-1 rounded inline-block"
+                      >
                         {img.filename}
                       </div>
-                    </span>
-                  ))}
-                </td>
-                <td className="px-6 py-4 space-x-1">
-                  {project.layouts?.map((layout, idx) => (
-                    <span
-                      key={idx}
-                      className="inline-block px-2 py-1 mb-1 text-xs bg-green-100 text-green-700 rounded"
+                    ))}
+                  </td>
+                  <td className="px-6 py-4 space-y-1 border-r border-gray-600">
+                    {project.layouts?.map((layout, idx) => (
+                      <div
+                        key={idx}
+                        className="text-xs bg-green-100 text-green-700 px-2 py-1 rounded inline-block"
+                      >
+                        {layout.title}
+                      </div>
+                    ))}
+                  </td>
+                  <td className="px-6 py-4 flex flex-wrap gap-2 border-r border-gray-600">
+                    <button
+                      onClick={() => navigate(`/updateProject/${project._id}`)}
+                      className="px-3 py-1 text-xs bg-yellow-500 hover:bg-yellow-600 text-white rounded-lg shadow transition"
                     >
-                      {/* <img src={layout.image} alt="img" /> */}
-                      {layout.title}
-                    </span>
-                  ))}
-                </td>
-                <td className="px-6 py-4 space-x-2">
-                  <button
-                    onClick={() => navigate(`/updateProject/${project._id}`)}
-                    className="px-3 py-1 text-xs cursor-pointer text-white bg-yellow-600 rounded hover:bg-emerald-700"
-                  >
-                    Update
-                  </button>
-                  <button type="button" onClick={()=>deleteProject(project._id)} className="px-3 py-1 text-xs cursor-pointer text-white bg-red-600 rounded hover:bg-emerald-700">
-                    Delete
-                  </button>
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+                      Update
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => deleteProject(project._id)}
+                      className="px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded-lg shadow transition"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       ) : (
-        <div className="p-6 text-center text-gray-500 dark:text-gray-300">
-          No Projects
+        <div className="p-6 text-center text-gray-500 dark:text-gray-300 border rounded-lg shadow-sm">
+          No Projects Found
         </div>
       )}
     </div>
   );
 };
 
-export default AllProjects;
+export default AllProjects; 

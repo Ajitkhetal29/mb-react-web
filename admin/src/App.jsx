@@ -7,11 +7,19 @@ import AddProject from "./pages/addProject";
 import Navbar from "./components/Navbar";
 import AllProjects from "./pages/AllProjects";
 import UpdateProject from "./pages/UpdateProject";
+import { ToastContainer } from 'react-toastify'
+import AddBlog from "./pages/AddBlog";
+import AllBlogs from "./pages/AllBlogs";
+import AllTestimonials from "./pages/AllTestimonials";
+import AddTestimonail from "./pages/AddTestimonail";
+import AllFaq from "./pages/AllFaq";
+
 
 const App = () => {
   return (
     <>
       <div className="flex flex-col min-h-screen">
+        <ToastContainer/>
           <Navbar></Navbar>
           <Routes>
             <Route path="/" element={<Login />} />
@@ -19,6 +27,11 @@ const App = () => {
             <Route path="/addProject" element={<AddProject />} />
             <Route path="/allProjects" element={<AllProjects />} />
             <Route path="/updateProject/:id" element={<UpdateProject />} />
+            <Route path="/allBlogs" element={<AllBlogs />} />
+            <Route path="/addBlog" element={<AddBlog />} />
+            <Route path="/allTestimonials" element={<AllTestimonials />} />
+            <Route path="/addTestimonial" element={<AddTestimonail />} />
+            <Route path="/allFaq" element={<AllFaq />} />
           </Routes>
       </div>
     </>

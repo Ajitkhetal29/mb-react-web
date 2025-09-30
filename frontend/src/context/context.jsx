@@ -1,8 +1,67 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import axios from "axios";
 
 export const AppConetxt = createContext();
 
 const AppConetxtProvider = (props) => {
+  const [allProjects, setAllProjects] = useState([]);
+  const [allBlogs, setAllblogs] = useState([]);
+  const [allTestimonials, setAllTestimonials] = useState([]);
+  const [allFaq, setAllFaq] = useState([]);
+
+  const backendUrl = import.meta.env.VITE_BACKEND_URL;
+
+  // fetch projects from backend
+
+  // fetch all projects
+  const getAllProjects = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/project/allProjects`);
+      if (response.data.success) {
+        setAllProjects(response.data.allProjects);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  // fetch all blogs
+  const getAllBlogs = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/blog/allBlogs`);
+      if (response.data.success) {
+        setAllblogs(response.data.allblogs);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  
+  // get FAQ
+  const getAllFaq = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/faq/allFaqs`);
+      if (response.data.success) {
+        setAllFaq(response.data.allFaqs);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getAllProjects();
+    getAllBlogs();
+    getAllFaq();
+  }, []);
+
   // new project
   const newLaunchProjects = [
     {
@@ -94,7 +153,7 @@ const AppConetxtProvider = (props) => {
     },
   ];
 
-  const faq = [ 
+  const faq = [
     {
       que: "How do I schedule a property viewing?",
       ans: "You can request a showing directly on the property’s listing page or contact us via phone or email. We’ll confirm a convenient date and time and guide you through the viewing process.",

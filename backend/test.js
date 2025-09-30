@@ -1,47 +1,9 @@
-import express from "express";
-import cors from "cors";
-import connectDb from "./config/db.js";
-import adminRouter from "./routes/admin.js";
-import projectRouter from "./routes/project.js";
-import path from 'path'
-import blogRouter from "./routes/blog.js";
-import testimonialRouter from "./routes/testimonial.js";
-import faqRouter from "./routes/faq.js";
-
-
-
-const app = express();
-app.use(cors());
-app.use(express.json());
-
-app.use('/uploads', express.static(path.join(process.cwd(), "uploads")))
-
-connectDb();
-
-app.use('/api/admin', adminRouter)
-app.use('/api/project', projectRouter)
-app.use('/api/blog', blogRouter)
-app.use('/api/testimonial', testimonialRouter)
-app.use('/api/faq', faqRouter)
-
-
-
-app.listen(3000, () => {
-    console.log('Server is running ');
-
-})
-
-
-// const createAdmin = async () => {
-//     await adminModel.insertOne({
-//         "username": "admin",
-//         "password": "123456789"  
-//     })
-// }
-
-// createAdmin();
+import projectModel from "./models/project.js";
 
 const addprojects = async () => {
+
+    console.log("started");
+    
 
     await projectModel.insertMany([
         {
@@ -279,8 +241,13 @@ const addprojects = async () => {
     ]
 
     )
+
+
+    console.log('done');
+    
 }
 
 
-// addprojects();
+addprojects();
+
 

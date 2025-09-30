@@ -11,12 +11,14 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.13",
+    "axios": "^1.12.2",
     "emailjs-com": "^3.2.0",
     "i18next": "^25.5.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
     "react-i18next": "^15.7.3",
     "react-router-dom": "^7.9.1",
+    "react-toastify": "^11.0.5",
     "tailwindcss": "^4.1.13"
   },
   "devDependencies": {

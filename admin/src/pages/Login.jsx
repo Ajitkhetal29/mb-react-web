@@ -4,6 +4,7 @@ import axios from "axios";
 import { useContext } from "react";
 import { AppConetxt } from "../context/context";
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const { backendUrl, token, navigate, setToken } = useContext(AppConetxt);
@@ -28,6 +29,7 @@ const Login = () => {
         localStorage.setItem("token", response.data.token);
         setToken(response.data.token);
         navigate("/dashboard");
+        toast.success("Logged In Successfully", { autoClose: 2000 });
         console.log("logged in");
       } else {
         alert(response.data.message);

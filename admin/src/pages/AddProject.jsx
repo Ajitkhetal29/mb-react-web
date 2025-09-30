@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppConetxt } from "../context/context";
-import Navbar from "../components/Navbar";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddProject = () => {
-  const { backendUrl } = useContext(AppConetxt);
+  const { backendUrl, navigate } = useContext(AppConetxt);
 
   const [form, setForm] = useState({
     name: "",
@@ -12,7 +12,7 @@ const AddProject = () => {
     location: "",
     description: "",
     status: "",
-    videoLink:''
+    videoLink: "",
   });
 
   const [featureInput, setFeatureInput] = useState("");
@@ -36,34 +36,20 @@ const AddProject = () => {
   ]);
 
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(null);
 
+  // --- Feature Handlers ---
   const addFeature = () => {
     const tag = featureInput.trim();
     if (!tag) return;
-    if (!features.includes(tag)) {
-      setFeatures((prev) => [...prev, tag]);
-    }
-
+    if (!features.includes(tag)) setFeatures((prev) => [...prev, tag]);
     setFeatureInput("");
   };
 
-  const removeFeature = (tag) => {
+  const removeFeature = (tag) =>
     setFeatures((prev) => prev.filter((f) => f !== tag));
-  };
 
-  const onGalleryButtonClick = () => {
-    galleryInputRef.current?.click();
-  };
-  const onLayoutButtonClick = () => {
-    layoutImagInputRef.current?.click();
-  };
-
-  const HandleBrowcherChange = (e) => {
-    const file = e.target.files?.[0];
-    setBrowcherPdf(file);
-  };
-
+  // --- Gallery Handlers ---
+  const onGalleryButtonClick = () => galleryInputRef.current?.click();
   const handleGalleryChange = (e) => {
     const files = Array.from(e.target.files || []);
     if (!files.length) return;
@@ -74,18 +60,15 @@ const AddProject = () => {
     }));
     setGalleryImages((prev) => [...prev, ...newFiles]);
   };
-
-  const removeGalleryImage = (id) => {
+  const removeGalleryImage = (id) =>
     setGalleryImages((prev) => {
       const rem = prev.find((x) => x.id === id);
-      if (rem) {
-        URL.revokeObjectURL(rem.preview);
-      }
+      if (rem) URL.revokeObjectURL(rem.preview);
       return prev.filter((x) => x.id !== id);
     });
-  };
 
-  const addLayout = () => {
+  // --- Layout Handlers ---
+  const addLayout = () =>
     setLayouts((prev) => [
       ...prev,
       {
@@ -97,44 +80,40 @@ const AddProject = () => {
         imagePreview: null,
       },
     ]);
-  };
 
-  const removeLayout = (id) => {
+  const removeLayout = (id) =>
     setLayouts((prev) => {
       const rem = prev.find((x) => x.id === id);
-      if (rem?.imagePreview) {
-        URL.revokeObjectURL(rem.imagePreview);
-      }
+      if (rem?.imagePreview) URL.revokeObjectURL(rem.imagePreview);
       return prev.filter((x) => x.id !== id);
     });
-  };
 
-  const handleLayoutChange = (id, field, value) => {
+  const handleLayoutChange = (id, field, value) =>
     setLayouts((prev) =>
       prev.map((l) => (l.id === id ? { ...l, [field]: value } : l))
     );
-  };
 
   const handleLayoutImage = (id, e) => {
     const file = e.target.files?.[0];
     setLayouts((prev) =>
-      prev.map((l) => {
-        if (l.id !== id) return l;
-        if (l.imagePreview) URL.revokeObjectURL(l.imagePreview);
-        return {
-          ...l,
-          imageFile: file || null,
-          imagePreview: file ? URL.createObjectURL(file) : null,
-        };
-      })
+      prev.map((l) =>
+        l.id === id
+          ? {
+              ...l,
+              imageFile: file || null,
+              imagePreview: file ? URL.createObjectURL(file) : null,
+            }
+          : l
+      )
     );
     e.target.value = null;
   };
 
-  const onBrowcherButtonClick = () => {
-    browcherPdfInputRef.current?.click();
-  };
+  // --- Browcher PDF ---
+  const onBrowcherButtonClick = () => browcherPdfInputRef.current?.click();
+  const HandleBrowcherChange = (e) => setBrowcherPdf(e.target.files?.[0]);
 
+  // --- Cleanup ---
   useEffect(() => {
     return () => {
       galleryImages.forEach((g) => URL.revokeObjectURL(g.preview));
@@ -144,40 +123,29 @@ const AddProject = () => {
     };
   }, []);
 
+  // --- Submit Handler ---
   const handleSubmitForm = async (e) => {
     e.preventDefault();
-    if (!form.name.trim()) {
-      return alert("name is required");
-    }
+    if (!form.name.trim()) return alert("Name is required");
 
     setSubmitting(true);
 
     try {
       const fd = new FormData();
-      fd.append("name", form.name);
-      fd.append("builder", form.builder);
-      fd.append("location", form.location);
-      fd.append("status", form.status);
-      fd.append("description", form.description);
-      fd.append("slug", slugify(form.name));
+      Object.entries(form).forEach(([key, value]) => fd.append(key, value));
       fd.append("features", JSON.stringify(features));
-      fd.append("browcherPdf", browcherPdf);
-      fd.append("videoLink", form.videoLink);
+      if (browcherPdf) fd.append("browcherPdf", browcherPdf);
 
       galleryImages.forEach((g) => fd.append("galleryImages", g.file));
-
       fd.append(
         "layouts",
         JSON.stringify(
-          layouts.map((l) => ({
-            title: l.title,
-            area: l.area,
-            price: l.price,
-          }))
+          layouts.map(({ title, area, price }) => ({ title, area, price }))
         )
       );
-
-      layouts.forEach((l) => fd.append("layoutImages", l.imageFile));
+      layouts.forEach(
+        (l) => l.imageFile && fd.append("layoutImages", l.imageFile)
+      );
 
       const response = await axios.post(
         `${backendUrl}/project/addProject`,
@@ -186,393 +154,355 @@ const AddProject = () => {
       );
 
       if (response.data.success) {
-        console.log(response.data.project);
-
-        alert(`project created`);
+        toast.success("Project Added Successfully", { autoClose: 2000 });
+        navigate("/allprojects");
       }
-
-      setSubmitting(false);
     } catch (error) {
       console.error(error);
+      toast.error("Error saving project");
+    } finally {
+      setSubmitting(false);
     }
   };
 
   return (
-    <>
-      <div className="flex w-full flex-col items-center justify-center pb-5 ">
-        <div className="w-full ">
-          <h1 className="text-2xl text-white text-center oswald_span mb-4">
-            Add New Project
-          </h1>
-        </div>
-        <div className="flex flex-col md:w-1/2 border px-2 py-3 rounded bg-gray-900">
-          <form onSubmit={handleSubmitForm} action="" className="space-y-2 ">
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
-              <div>
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  Project Name
-                </label>
-                <input
-                  type="text"
-                  value={form.name}
-                  required
-                  placeholder="e.g Skyline Estate"
-                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, name: e.target.value }))
-                  }
-                />
-              </div>
+    <div className="relative min-h-screen p-5 flex items-center justify-center px-4 overflow-hidden">
+      <div className="relative bg-black backdrop-blur-md border border-gray-700 rounded-2xl shadow-2xl p-6 max-w-4xl w-full">
+    <h1 className="text-3xl font-extrabold text-white text-center mb-8 tracking-wide select-none">
+      Add New Project
+    </h1>
+    <form onSubmit={handleSubmitForm} className="space-y-8 text-white">
+      {/* --- Basic Info --- */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {[
+          {
+            label: "Project Name",
+            key: "name",
+            placeholder: "e.g Skyline Estate",
+          },
+          {
+            label: "Builder Name",
+            key: "builder",
+            placeholder: "Builder Name",
+          },
+          { label: "Location", key: "location", placeholder: "Location" },
+          {
+            label: "Video Link",
+            key: "videoLink",
+            placeholder: "https://...",
+          },
+        ].map(({ label, key, placeholder }) => (
+          <div key={key}>
+            <label htmlFor={key} className="block text-sm font-semibold mb-2 cursor-pointer">
+              {label}
+            </label>
+            <input
+              id={key}
+              type="text"
+              value={form[key]}
+              required
+              placeholder={placeholder}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, [key]: e.target.value }))
+              }
+              className="w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 placeholder-gray-500 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            />
+          </div>
+        ))}
 
-              <div>
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  Builder Name
-                </label>
-                <input
-                  type="text"
-                  value={form.builder}
-                  required
-                  placeholder="Builder Name"
-                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, builder: e.target.value }))
-                  }
-                />
-              </div>
-
-              <div>
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  Location
-                </label>
-                <input
-                  type="text"
-                  value={form.location}
-                  required
-                  placeholder="Location"
-                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, location: e.target.value }))
-                  }
-                />
-              </div>
-              <div>
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  videoLink
-                </label>
-                <input
-                  type="text"
-                  value={form.videoLink}
-                  required
-                  placeholder="videoLink"
-                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, videoLink: e.target.value }))
-                  }
-                />
-              </div>
-              <div>
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  Status
-                </label>
-
-                <select
-                  name="status"
-                  id=""
-                  onChange={(e) =>
-                    setForm((prev) => ({ ...prev, status: e.target.value }))
-                  }
-                  value={form.status}
-                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                >
-                  <option value="upcoming">Upcoming</option>
-                  <option value="ongoing">Ongoing</option>
-                  <option value="completed">Completed</option>
-                </select>
-              </div>
-            </div>
-
-            <div>
-              <label className="block tex-sm text-white mb-1 maven-pro">
-                Description
-              </label>
-              <textarea
-                value={form.description}
-                required
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, description: e.target.value }))
-                }
-                className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                placeholder="Brief description"
-              />
-            </div>
-
-            <div>
-              <label className="block tex-sm text-white mb-1 maven-pro">
-                Features
-              </label>
-              <div className="flex gap-2">
-                <input
-                  value={featureInput}
-                  onChange={(e) => setFeatureInput(e.target.value)}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter") {
-                      e.preventDefault();
-                      addFeature();
-                    }
-                    if (e.key === ",") {
-                      e.preventDefault();
-                      addFeature();
-                    }
-                  }}
-                  placeholder="Type a feature and press Enter"
-                  className="w-full rounded border bg-gray-200 border-gray-300 px-3 py-2"
-                />
-                <button
-                  type="button"
-                  onClick={addFeature}
-                  className="px-4 py-2 bg-indigo-600 text-white rounded"
-                >
-                  Add
-                </button>
-              </div>
-
-              <div className="mt-2 flex flex-wrap gap-2">
-                {features.map((f) => (
-                  <div
-                    key={f}
-                    className="bg-gray-100 px-3 py-1  rounded flex items-center gap-2"
-                  >
-                    <span className="text-sm">{f}</span>
-                    <button
-                      type="button"
-                      onClick={() => removeFeature(f)}
-                      aria-label={`Remove ${f}`}
-                      className="text-xs text-red-800"
-                    >
-                      ✕
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-2 flex flex-wrap gap-2">
-              Project Browcher
-              <span>{browcherPdf && browcherPdf.name}</span>
-              <div className="flex ">
-                <input
-                  type="file"
-                  ref={browcherPdfInputRef}
-                  accept="pdf/*"
-                  className="hidden"
-                  onChange={HandleBrowcherChange}
-                />
-                <button
-                  type="button"
-                  className="px-4 py-2 bg-green-600 text-white rounded"
-                  onClick={onBrowcherButtonClick}
-                >
-                  Add Browcher Pdf
-                </button>
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  Gallery Images
-                </label>
-              </div>
-
-              <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                <div className="flex-1">
-                  <p className="text-sm text-white">
-                    Click add to select images. You can add more later.
-                  </p>
-                </div>
-                <div className="flex ">
-                  <input
-                    type="file"
-                    ref={galleryInputRef}
-                    accept="images/*"
-                    multiple
-                    className="hidden"
-                    onChange={handleGalleryChange}
-                  />
-                  <button
-                    type="button"
-                    className="px-4 py-2 bg-green-600 text-white rounded"
-                    onClick={onGalleryButtonClick}
-                  >
-                    Add Images
-                  </button>
-                </div>
-              </div>
-
-              <div className="mt-4 grid grid-cols-3 sm:grid-cols-4 md:grid-cols-6 gap-3">
-                {galleryImages.map((g) => (
-                  <div
-                    className="relative border rounded overflow-hidden bg-gray-200"
-                    key={g.id}
-                  >
-                    <img
-                      src={g.preview}
-                      alt={g.file.name}
-                      className="w-50 h-25 object-fill "
-                    />
-                    <span className="p-1 text-xs">{g.file.name}</span>
-                    <button
-                      className="absolute top-1 right-1 bg-white/80 rounded-full  text-red-600"
-                      onClick={() => {
-                        removeGalleryImage(g.id);
-                      }}
-                    >
-                      x
-                    </button>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              <div className="flex items-center justify-between">
-                <label className="block tex-sm text-white mb-1 maven-pro">
-                  Layout
-                </label>
-                <button
-                  type="button"
-                  onClick={addLayout}
-                  className="px-3 py-1 bg-blue-600 text-white rounded"
-                >
-                  Add Layout
-                </button>
-              </div>
-
-              <div className="mt-4 space-y-4">
-                {layouts.map((l, idx) => (
-                  <div
-                    key={l.id}
-                    className=" flex flex-col  border rounded p-3 "
-                  >
-                    <div className="w-full grid grid-cols-1 md:grid-cols-2 space-x-5 space-y-2">
-                      <div>
-                        <label
-                          htmlFor=""
-                          className="block text-sm text-white maven-pro font-medium mb-1"
-                        >
-                          Title
-                        </label>
-                        <select
-                          name="status"
-                          value={l.title}
-                          className="w-full rounded border bg-gray-200 maven-pro px-3 py-2"
-                          onChange={(e) =>
-                            handleLayoutChange(l.id, "title", e.target.value)
-                          }
-                        >
-                          <option value="1 BHK">1 BHK</option>
-                          <option value="2 BHK">2 BHK</option>
-                          <option value="3 BHK">3 BHK</option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-sm text-white font-medium mb-1">
-                          Area (sq ft)
-                        </label>
-                        <input
-                          type="number"
-                          value={l.area}
-                          onChange={(e) =>
-                            handleLayoutChange(l.id, "area", e.target.value)
-                          }
-                          className="w-full rounded border bg-gray-200 px-3 py-2"
-                        />
-                      </div>
-
-                      <div>
-                        <label className="block text-sm text-white font-medium mb-1">
-                          Price (Lacs)
-                        </label>
-                        <input
-                          type="number"
-                          value={l.price}
-                          onChange={(e) =>
-                            handleLayoutChange(l.id, "price", e.target.value)
-                          }
-                          className="w-full rounded border bg-gray-200 px-3 py-2"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="w-full flex mt-2">
-                      <div className="w-full flex items-center ">
-                        <p className=" w-full flex flex-1 text-white">
-                          Add Layout Image{" "}
-                        </p>
-                        <input
-                          type="file"
-                          accept="image/*"
-                          ref={layoutImagInputRef}
-                          onChange={(e) => handleLayoutImage(l.id, e)}
-                          className="hidden "
-                        />
-                        <button
-                          type="button"
-                          className="px-4 py-2 bg-green-600 text-white rounded"
-                          onClick={onLayoutButtonClick}
-                        >
-                          Add Image
-                        </button>
-                      </div>
-                    </div>
-                    <div className="flex w-full flex-row">
-                      {l.imagePreview ? (
-                        <div className=" mt-2 border rounded overflow-hidden bg-gray-200">
-                          <img
-                            src={l.imagePreview}
-                            alt={l.title}
-                            className="w-25 h-25 object-fill"
-                          />
-                          <div className="p-2 text-sm flex items-center justify-between">
-                            <span className="truncate">
-                              {l.imageFile?.name}
-                            </span>
-                          </div>
-                        </div>
-                      ) : (
-                        <div className="w-full text-sm text-gray-500 mt-2">
-                          No layout image selected
-                        </div>
-                      )}
-                    </div>
-                    <div className="flex justify-center mt-2">
-                      <button
-                        type="button"
-                        onClick={() => removeLayout(l.id)}
-                        className="px-3 py-1 bg-red-600 text-white rounded"
-                      >
-                        Remove Layout
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="flex justify-end">
-              <button
-                type="submit"
-                disabled={submitting}
-                className="px-6 py-2 bg-indigo-600 text-white rounded disabled:opacity-60"
-              >
-                {submitting ? "Saving..." : "Save Project"}
-              </button>
-            </div>
-          </form>
+        {/* Status */}
+        <div>
+          <label htmlFor="status" className="block text-sm font-semibold mb-2 cursor-pointer">
+            Status
+          </label>
+          <select
+            id="status"
+            value={form.status}
+            onChange={(e) =>
+              setForm((prev) => ({ ...prev, status: e.target.value }))
+            }
+            className="w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          >
+            <option value="" disabled className="text-gray-500">
+              Select Status
+            </option>
+            <option value="upcoming">Upcoming</option>
+            <option value="ongoing">Ongoing</option>
+            <option value="completed">Completed</option>
+          </select>
         </div>
       </div>
-    </>
+
+      {/* --- Description --- */}
+      <div>
+        <label htmlFor="description" className="block text-sm font-semibold mb-2 cursor-pointer">
+          Description
+        </label>
+        <textarea
+          id="description"
+          value={form.description}
+          onChange={(e) =>
+            setForm((prev) => ({ ...prev, description: e.target.value }))
+          }
+          placeholder="Brief description"
+          className="w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          rows={4}
+        />
+      </div>
+
+      {/* --- Features --- */}
+      <div>
+        <label htmlFor="featureInput" className="block text-sm font-semibold mb-2 cursor-pointer">
+          Features
+        </label>
+        <div className="flex gap-3">
+          <input
+            id="featureInput"
+            value={featureInput}
+            onChange={(e) => setFeatureInput(e.target.value)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === ",") {
+                e.preventDefault();
+                addFeature();
+              }
+            }}
+            placeholder="Type a feature and press Enter"
+            className="flex-grow rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+          />
+          <button
+            type="button"
+            onClick={addFeature}
+            className="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-semibold shadow-md transition focus:outline-none focus:ring-2 focus:ring-indigo-400"
+          >
+            Add
+          </button>
+        </div>
+
+        <div className="mt-3 flex flex-wrap gap-2">
+          {features.map((f) => (
+            <div
+              key={f}
+              className="bg-indigo-600 bg-opacity-80 px-4 py-1 rounded-full flex items-center gap-2 text-sm select-none"
+            >
+              <span>{f}</span>
+              <button
+                type="button"
+                onClick={() => removeFeature(f)}
+                className="text-red-400 hover:text-red-600 font-bold"
+                aria-label={`Remove feature ${f}`}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- Brochure --- */}
+      <div>
+        <label className="block text-sm font-semibold mb-2 cursor-pointer">
+          Project Brochure (PDF)
+        </label>
+        <div className="flex items-center gap-4">
+          <input
+            type="file"
+            ref={browcherPdfInputRef}
+            accept="application/pdf"
+            className="hidden"
+            onChange={HandleBrowcherChange}
+          />
+          <button
+            type="button"
+            onClick={onBrowcherButtonClick}
+            className="px-5 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-semibold shadow-md transition focus:outline-none focus:ring-2 focus:ring-green-400"
+          >
+            Upload PDF
+          </button>
+          {browcherPdf && (
+            <span className="text-sm truncate max-w-xs" title={browcherPdf.name}>
+              {browcherPdf.name}
+            </span>
+          )}
+        </div>
+      </div>
+
+      {/* --- Gallery --- */}
+      <div>
+        <div className="flex justify-between items-center mb-2">
+          <label className="block text-sm font-semibold cursor-pointer">
+            Gallery Images
+          </label>
+          <button
+            type="button"
+            onClick={onGalleryButtonClick}
+            className="px-5 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-semibold shadow-md transition focus:outline-none focus:ring-2 focus:ring-green-400"
+          >
+            Add Images
+          </button>
+        </div>
+
+        <input
+          type="file"
+          ref={galleryInputRef}
+          accept="image/*"
+          multiple
+          className="hidden"
+          onChange={handleGalleryChange}
+        />
+
+        <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+          {galleryImages.map((g) => (
+            <div
+              key={g.id}
+              className="relative border border-gray-700 rounded-lg overflow-hidden bg-gray-800"
+            >
+              <img
+                src={g.preview}
+                alt={g.file.name}
+                className="w-full h-24 object-cover"
+                loading="lazy"
+              />
+              <button
+                type="button"
+                className="absolute top-1 right-1 bg-black/75 rounded-full p-1 text-red-500 hover:text-red-700 transition"
+                onClick={() => removeGalleryImage(g.id)}
+                aria-label={`Remove image ${g.file.name}`}
+              >
+                ✕
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- Layouts --- */}
+      <div>
+        <div className="flex justify-between items-center mb-4">
+          <label className="block text-sm font-semibold cursor-pointer">
+            Layouts
+          </label>
+          <button
+            type="button"
+            onClick={addLayout}
+            className="px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg text-white font-semibold shadow-md transition focus:outline-none focus:ring-2 focus:ring-blue-400"
+          >
+            Add Layout
+          </button>
+        </div>
+
+        <div className="space-y-6">
+          {layouts.map((l) => (
+            <div
+              key={l.id}
+              className="border border-gray-700 rounded-lg p-6 bg-gray-900"
+            >
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+                <div>
+                  <label htmlFor={`layout-title-${l.id}`} className="block text-sm font-semibold mb-1 cursor-pointer">
+                    Title
+                  </label>
+                  <select
+                    id={`layout-title-${l.id}`}
+                    value={l.title}
+                    onChange={(e) =>
+                      handleLayoutChange(l.id, "title", e.target.value)
+                    }
+                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                  >
+                    <option value="">Select</option>
+                    <option value="1 BHK">1 BHK</option>
+                    <option value="2 BHK">2 BHK</option>
+                    <option value="3 BHK">3 BHK</option>
+                  </select>
+                </div>
+                <div>
+                  <label htmlFor={`layout-area-${l.id}`} className="block text-sm font-semibold mb-1 cursor-pointer">
+                    Area (sq ft)
+                  </label>
+                  <input
+                    id={`layout-area-${l.id}`}
+                    type="number"
+                    value={l.area}
+                    onChange={(e) =>
+                      handleLayoutChange(l.id, "area", e.target.value)
+                    }
+                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                  />
+                </div>
+                <div>
+                  <label htmlFor={`layout-price-${l.id}`} className="block text-sm font-semibold mb-1 cursor-pointer">
+                    Price (Lacs)
+                  </label>
+                  <input
+                    id={`layout-price-${l.id}`}
+                    type="number"
+                    value={l.price}
+                    onChange={(e) =>
+                      handleLayoutChange(l.id, "price", e.target.value)
+                    }
+                    className="w-full rounded-lg border border-gray-600 bg-gray-800 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+                  />
+                </div>
+              </div>
+
+              <div className="flex items-center gap-4 mb-4">
+                <input
+                  type="file"
+                  accept="image/*"
+                  ref={layoutImagInputRef}
+                  className="hidden"
+                  onChange={(e) => handleLayoutImage(l.id, e)}
+                />
+                <button
+                  type="button"
+                  onClick={() => layoutImagInputRef.current?.click()}
+                  className="px-5 py-2 bg-green-600 hover:bg-green-700 rounded-lg text-white font-semibold shadow-md transition focus:outline-none focus:ring-2 focus:ring-green-400"
+                >
+                  Add Image
+                </button>
+              </div>
+
+              {l.imagePreview && (
+                <div className="mb-4">
+                  <img
+                    src={l.imagePreview}
+                    alt={l.title || "Layout Image"}
+                    className="w-40 h-40 object-cover rounded-lg border border-gray-600"
+                    loading="lazy"
+                  />
+                  {l.imageFile?.name && (
+                    <p className="mt-2 text-sm truncate" title={l.imageFile.name}>
+                      {l.imageFile.name}
+                    </p>
+                  )}
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={() => removeLayout(l.id)}
+                className="px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg text-white font-semibold shadow-md transition focus:outline-none focus:ring-2 focus:ring-red-400"
+              >
+                Remove Layout
+              </button>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* --- Submit --- */}
+      <div className="flex justify-end mt-8">
+        <button
+          type="submit"
+          disabled={submitting}
+          className="px-8 py-3 bg-indigo-600 hover:bg-indigo-700 rounded-lg text-white font-extrabold tracking-wide shadow-lg transition disabled:opacity-50 disabled:cursor-not-allowed focus:outline-none focus:ring-4 focus:ring-indigo-400"
+        >
+          {submitting ? "Saving..." : "Save Project"}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
   );
 };
 

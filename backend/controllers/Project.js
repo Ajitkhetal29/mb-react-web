@@ -2,16 +2,22 @@ import projectModel from "../models/project.js";
 
 const createProject = async (req, res) => {
   try {
-
-    const { name, builder, location, description, features, status, videoLink } = req.body;
+    const {
+      name,
+      builder,
+      location,
+      description,
+      features,
+      status,
+      videoLink,
+    } = req.body;
 
     const galleryPaths = (req.files.galleryImages || []).map((file) => ({
       filename: file.originalname.replace(/\s+/g, "_"),
       path: file.path,
     }));
 
-
-    const pdfPath = req.files?.browcherPdf?.[0]?.path || "";
+    const pdfFile = req.files?.browcherPdf?.[0]?.path || "";
     const pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
 
     const layoutMeta = JSON.parse(req.body.layouts || "[]");
@@ -38,19 +44,22 @@ const createProject = async (req, res) => {
 
     await project.save();
 
-    res.status(201).json({ success: true, message: "Project Created", project });
+    res
+      .status(201)
+      .json({ success: true, message: "New Project Added", project });
   } catch (err) {
     console.error(err.message);
-    console.log('create project failed');
+    console.log("create project failed");
 
-    res.status(500).json({ success: false, message: "Failed to create project" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to create project" });
   }
 };
 
-
 const getAllProjects = async (req, res) => {
   try {
-    const allProjects = await projectModel.find();
+    const allProjects = await projectModel.find().sort({ createdAt: -1 });
 
     res
       .status(201)
@@ -74,11 +83,14 @@ const updateProject = async (req, res) => {
       videoLink,
       features,
       status,
-      pdfFile,
+      pdfChanged,
       galleryImages: galleryImagesStr = "[]",
       layouts: layoutsStr = "[]",
       newLayouts: newLayoutsStr = "[]",
     } = req.body;
+
+    const existingProject = await projectModel.findById(id);
+    console.log(existingProject);
 
     const existingGalleryImages = JSON.parse(galleryImagesStr);
     const existingLayouts = JSON.parse(layoutsStr);
@@ -87,14 +99,22 @@ const updateProject = async (req, res) => {
     const galleryNewImages = req.files?.galleryNewImages || [];
     const newlayoutImages = req.files?.newlayoutImages || [];
 
+    let pdfFile;
+    let pdfPathWithExt = "";
+
+    if (pdfChanged === "true") {
+      pdfFile = req.files?.browcherPdf?.[0];
+      pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
+      console.log("New PDF uploaded.");
+    } else {
+      pdfPathWithExt = existingProject.browcherPdf;
+      console.log("Retaining existing PDF.");
+    }
+
     const newGalleryPaths = galleryNewImages.map((file) => ({
       filename: file.originalname.replace(/\s+/g, "_"),
       path: file.path,
     }));
-
-    const pdfPath = req.files?.browcherPdf?.[0]?.path || "";
-    const pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
-
 
     const newLayouts = newLayoutsMeta.map((meta, i) => ({
       ...meta,
@@ -104,7 +124,6 @@ const updateProject = async (req, res) => {
     const updatedGalleryImages = [...existingGalleryImages, ...newGalleryPaths];
 
     const updatedLayouts = [...existingLayouts, ...newLayouts];
-
 
     let parsedFeatures = [];
     try {
@@ -126,14 +145,22 @@ const updateProject = async (req, res) => {
       browcherPdf: pdfPathWithExt,
     };
 
-    const updatedProject = await projectModel.findByIdAndUpdate(id, updatedFields, {
-      new: true,
-    });
+    const updatedProject = await projectModel.findByIdAndUpdate(
+      id,
+      updatedFields,
+      {
+        new: true,
+      }
+    );
 
-    res.status(200).json({ success: true, message: "Project updated", updatedProject });
+    res
+      .status(200)
+      .json({ success: true, message: "Project updated", updatedProject });
   } catch (error) {
     console.error("Update project error:", error);
-    res.status(500).json({ success: false, message: "Failed to update project" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to update project" });
   }
 };
 
@@ -144,11 +171,12 @@ const deleteProject = async (req, res) => {
     await projectModel.findByIdAndDelete(id);
 
     res.status(200).json({ success: true, message: "Project deleted" });
-
   } catch (error) {
     console.error("Delete project error:", error);
-    res.status(500).json({ success: false, message: "Failed to delete project" });
+    res
+      .status(500)
+      .json({ success: false, message: "Failed to delete project" });
   }
-}
+};
 
 export { createProject, updateProject, getAllProjects, deleteProject };

@@ -24,7 +24,10 @@ const Navbar = () => {
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-4 py-4">
-        <NavLink to="/dashboard" className="text-2xl font-bold text-white flex items-center">
+        <NavLink
+          to="/dashboard"
+          className="text-2xl font-bold text-white flex items-center"
+        >
           <img
             src="/img/logo/logo.png"
             alt="logo"
@@ -57,7 +60,7 @@ const Navbar = () => {
 
           <li>
             <NavLink
-              to="/blogs"
+              to="/allBlogs"
               className={({ isActive }) =>
                 isActive ? "text-yellow-200" : "text-white"
               }
@@ -68,12 +71,23 @@ const Navbar = () => {
 
           <li>
             <NavLink
-              to="/testimonials"
+              to="/allTestimonials"
               className={({ isActive }) =>
                 isActive ? "text-yellow-200" : "text-white"
               }
             >
               Testimonials
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/allFaq"
+              className={({ isActive }) =>
+                isActive ? "text-yellow-200" : "text-white"
+              }
+            >
+              FAQ
             </NavLink>
           </li>
         </ul>
@@ -99,7 +113,9 @@ const Navbar = () => {
           <NavLink
             to="/dashboard"
             className={({ isActive }) =>
-              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+              `block py-2 sm:border-b ${
+                isActive ? "text-yellow-200" : "text-white"
+              }`
             }
             onClick={() => setMobileOpen(false)}
           >
@@ -108,29 +124,46 @@ const Navbar = () => {
           <NavLink
             to="/allProjects"
             className={({ isActive }) =>
-              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+              `block py-2 sm:border-b ${
+                isActive ? "text-yellow-200" : "text-white"
+              }`
             }
             onClick={() => setMobileOpen(false)}
           >
             Projects
           </NavLink>
           <NavLink
-            to="/blogs"
+            to="/allBlogs"
             className={({ isActive }) =>
-              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+              `block py-2 sm:border-b ${
+                isActive ? "text-yellow-200" : "text-white"
+              }`
             }
             onClick={() => setMobileOpen(false)}
           >
             Blogs
           </NavLink>
           <NavLink
-            to="/testimonials"
+            to="/allTestimonials"
             className={({ isActive }) =>
-              `block py-2 sm:border-b ${isActive ? "text-yellow-200" : "text-white"}`
+              `block py-2 sm:border-b ${
+                isActive ? "text-yellow-200" : "text-white"
+              }`
             }
             onClick={() => setMobileOpen(false)}
           >
             Testimonials
+          </NavLink>
+          <NavLink
+            to="/allFaq"
+            className={({ isActive }) =>
+              `block py-2 sm:border-b ${
+                isActive ? "text-yellow-200" : "text-white"
+              }`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            FAQ
           </NavLink>
         </div>
       )}
