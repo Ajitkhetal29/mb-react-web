@@ -53,18 +53,16 @@ const AddBlog = () => {
   };
 
   return (
-    <div className="relative min-h-screen flex items-center justify-center px-4 py-10 bg-gradient-to-br from-gray-900 via-black to-gray-800 overflow-hidden">
-      <div className="relative bg-black/70 backdrop-blur-lg border border-gray-700 rounded-2xl shadow-2xl p-8 max-w-3xl w-full">
-        <h2 className="text-3xl font-semibold text-center text-white mb-6">
+    <div className="min-h-screen p-5 flex items-center justify-center bg-gray-900">
+      <div className="bg-black backdrop-blur-md border border-gray-700 rounded-2xl shadow-2xl p-6 max-w-5xl w-full space-y-6">
+        <h1 className="text-3xl font-extrabold text-center text-white">
           Add New Blog
-        </h2>
+        </h1>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Title */}
           <div>
-            <label className="block text-sm font-medium text-white mb-1">
-              Title
-            </label>
+            <label className="block text-sm  mb-2 text-white">Title</label>
             <input
               type="text"
               name="title"
@@ -72,13 +70,13 @@ const AddBlog = () => {
               onChange={handleFormChange}
               required
               placeholder="Enter blog title"
-              className="w-full rounded-lg border border-gray-300 bg-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           {/* Content */}
           <div>
-            <label className="block text-sm font-medium text-white mb-1">
+            <label className="block text-sm text-white mb-1">
               Content
             </label>
             <textarea
@@ -88,13 +86,13 @@ const AddBlog = () => {
               required
               placeholder="Write your blog content..."
               rows={5}
-              className="w-full rounded-lg border border-gray-300 bg-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
           {/* Writer */}
           <div>
-            <label className="block text-sm font-medium text-white mb-1">
+            <label className="block text-sm  text-white mb-1">
               Writer
             </label>
             <input
@@ -104,7 +102,7 @@ const AddBlog = () => {
               onChange={handleFormChange}
               required
               placeholder="Author name"
-              className="w-full rounded-lg border border-gray-300 bg-gray-200 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
             />
           </div>
 
@@ -118,10 +116,10 @@ const AddBlog = () => {
               name="image"
               accept="image/*"
               onChange={handleFileChange}
-              className="w-full text-sm rounded-lg border border-gray-300 bg-gray-200 px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-sm file:font-medium file:bg-indigo-600 file:text-white hover:file:bg-indigo-700"
+              className="w-full text-sm rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 file:mr-4 file:py-2 file:px-4 file:rounded-sm file:border-0 file:text-sm file:font-medium file:bg-white file:text-black hover:file:bg-black hover:file:text-white"
             />
             {blogImage && (
-              <p className="mt-2 text-sm text-gray-200">
+              <p className="mt-2 text-sm text-white">
                 Selected: {blogImage.name}
               </p>
             )}
@@ -131,7 +129,7 @@ const AddBlog = () => {
           <div className="flex justify-end">
             <button
               type="submit"
-              className="px-6 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg font-medium shadow transition-colors"
+                      className="px-5 py-2 bg-yellow-200  border rounded-md text-black shadow-md hover:bg-black hover:text-white hover:border-white transition"
             >
               Create Blog
             </button>

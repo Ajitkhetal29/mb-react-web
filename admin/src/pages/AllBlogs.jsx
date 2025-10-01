@@ -2,12 +2,12 @@ import React, { useContext, useEffect } from "react";
 import { AppConetxt } from "../context/context";
 
 const AllBlogs = () => {
-  const { allBlogs, deleteBlog, navigate, getAllBlogs } = useContext(AppConetxt);
+  const { allBlogs, deleteBlog, navigate, getAllBlogs } =
+    useContext(AppConetxt);
 
   useEffect(() => {
     console.log("allblogs:", allBlogs);
-    getAllBlogs()
-
+    getAllBlogs();
   }, []);
 
   if (!allBlogs) {
@@ -19,71 +19,82 @@ const AllBlogs = () => {
   }
 
   return (
-   <div className="p-4 bg-white dark:bg-gray-900 rounded-lg shadow-lg">
-  {/* Header Action */}
-  <div className="flex justify-end mb-3">
-    <button
-      type="button"
-      onClick={() => navigate("/addBlog")}
-      className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded-lg text-sm font-semibold shadow-md transition-colors focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-1"
-    >
-      + Add Blog
-    </button>
-  </div>
+    <main className="bg-neutral-950 min-h-screen text-white">
+      <div className="w-full max-w-7xl mx-auto px-4 py-10 pt-10 sm:px-6 lg:px-8">
+        {/* --- Page Header --- */}
+        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
+          <div>
+            <h1 className="text-3xl md:text-4xl font-extrabold text-white">
+              All Blogs
+            </h1>
+            <p className="mt-1 text-lg text-gray-400">
+              Manage, update, or delete existing blogs.
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={() => navigate("/addBlog")}
+            className="bg-yellow-400 hover:bg-yellow-500 text-black px-5 py-2.5 rounded-lg font-bold shadow-lg transition-colors duration-300 whitespace-nowrap"
+          >
+            + Add New Blog
+          </button>
+        </div>
 
-  {allBlogs && allBlogs.length > 0 ? (
-    <div className="overflow-x-auto rounded-lg shadow-inner border border-gray-200 dark:border-gray-700">
-      <table className="w-full text-sm text-left text-gray-700 dark:text-gray-300">
-        <thead className="text-xs uppercase bg-gray-900 text-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 select-none">
-          <tr>
-            <th className="px-6 py-3 border-r border-gray-00 dark:border-gray-600">Blog Title</th>
-            <th className="px-6 py-3 border-r border-gray-300 dark:border-gray-600">Date</th>
-            <th className="px-6 py-3 border-r border-gray-300 dark:border-gray-600 max-w-sm">Content</th>
-            <th className="px-6 py-3 border-r border-gray-300 dark:border-gray-600">Writer</th>
-            <th className="px-6 py-3 border-r border-gray-300 dark:border-gray-600">Action</th>
-          </tr>
-        </thead>
+        {allBlogs && allBlogs.length > 0 ? (
+          <div className="overflow-x-auto shadow-2xl rounded-lg bg-neutral-900 border border-neutral-800">
+            <table className="w-full text-sm text-left text-gray-300">
+              <thead className="text-xs text-gray-400 uppercase bg-neutral-800">
+                <tr>
+                  <th className="px-6 py-4">Sr.</th>
+                  <th className="px-6 py-4">Blog Title</th>
+                  <th className="px-6 py-4">Date</th>
+                  <th className="px-6 py-4">Writer</th>
+                  <th className="px-6 py-4 text-right">Action</th>
+                </tr>
+              </thead>
 
-        <tbody>
-          {allBlogs.map((blog) => (
-            <tr
-              key={blog._id}
-              className="bg-white dark:bg-gray-800 border-r border-blac dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 transition"
-            >
-              <td className="px-6 py-3 font-semibold text-gray-900 dark:text-white border-r border-black max-w-xs truncate" title={blog.title}>
-                {blog.title}
-              </td>
-              <td className="px-6 py-3 whitespace-nowrap border-r border-black">
-                {new Date(blog.date).toLocaleDateString()}
-              </td>
-              <td className="px-6 py-3 max-w-md truncate border-r border-black" title={blog.content}>
-                {blog.content}
-              </td>
-              <td className="px-6 py-3 whitespace-nowrap border-r border-black">
-                {blog.writer}
-              </td>
+              <tbody>
+                {allBlogs.map((blog, i) => (
+                  <tr
+                    key={blog._id}
+                    className="border-b border-neutral-800 hover:bg-neutral-800/50 transition-colors duration-200"
+                  >
+                    <td className="px-6 py-4 font-medium text-white">
+                      {i + 1}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-white whitespace-nowrap">
+                      {blog.title}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-white whitespace-nowrap">
+                      {new Date(blog.date). toLocaleDateString()}
+                    </td>
+                    <td className="px-6 py-4 font-medium text-white whitespace-nowrap">
+                      {`${blog.writer}  `}
+                    </td>
 
-              <td className="px-6 py-3 flex flex-wrap gap-2 border-r border-black">
-                <button
-                  type="button"
-                  onClick={() => deleteBlog(blog._id)}
-                  className="px-3 py-1 text-xs bg-red-600 hover:bg-red-700 text-white rounded-lg shadow transition focus:outline-none focus:ring-2 focus:ring-red-400"
-                  aria-label={`Delete blog titled ${blog.title}`}
-                >
-                  Delete
-                </button>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  ) : (
-    <div className="p-8 text-center text-gray-600 dark:text-gray-400 border border-gray-300 dark:border-gray-700 rounded-lg shadow-sm font-semibold select-none">
-      No Blogs Found
-    </div>
-  )}
-</div>
+                    <td className="px-6 py-4 text-right">
+                      <div className="flex justify-end items-center gap-3">
+                        <button
+                          type="button"
+                          onClick={() => deleteBlog(blog._id)}
+                          className="px-4 py-1.5 text-xs bg-red-600 hover:bg-red-700 text-white rounded-md font-semibold shadow transition-colors"
+                        >
+                          Delete
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        ) : (
+          <div className="p-8 text-center text-gray-500 bg-neutral-900 border border-neutral-800 rounded-lg shadow-lg">
+            No Projects Found. Get started by adding a new one!
+          </div>
+        )}
+      </div>
+    </main>
   );
 };
 

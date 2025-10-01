@@ -42,8 +42,8 @@ const About = () => {
   };
 
   return (
-    <section className="relative px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('img/backgrounds/about-banner.png')] bg-cover bg-center md:bg-cover bg-fixed">
-      <div className="absolute inset-0 bg-black/20"></div>
+    <section className="relative px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('https://framerusercontent.com/images/4207UCMpGfd1yz62fn7VkACtag.jpg?scale-down-to=1024')] bg-cover bg-center md:bg-cover bg-fixed">
+      <div className="absolute inset-0 bg-black/50 w-full"></div>
       <div className="relative z-10 w-full max-w-7xl px md:px-5 lg:px-5 mx-auto transition-opacity opacity-100">
         <div className="w-full  justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
           <div className="w-full rounded-xl flex-col p-5 bg-[#ffc03d] justify-center lg:items-start items-center gap-10 inline-flex">
@@ -89,11 +89,11 @@ const About = () => {
           </div>
 
           {/* Counters */}
-          <section className="py-8 px-4 sm:py-12 sm:px-6 lg:px-12">
+          <section className="py- px-4 sm:py-12 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 text-left">
-                <div className="p-4 sm:p-6 rounded-xl bg-white border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2">
-                  <h4 className="text-gray-900 flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
+                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                  <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
                       className="counter"
@@ -103,13 +103,13 @@ const About = () => {
                     </span>
                     <span>+</span>
                   </h4>
-                  <p className="text-gray-500 text-sm sm:text-base">
+                  <p className="text-gray-200 maven-pro text-center text-sm sm:text-base">
                     {t("about.Crores of Property Transacted")}
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-6 rounded-xl bg-white border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2">
-                  <h4 className="text-gray-900 flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
+                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                  <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
                       className="counter"
@@ -119,13 +119,13 @@ const About = () => {
                     </span>
                     <span>M</span>
                   </h4>
-                  <p className="text-gray-500 text-sm sm:text-base">
+                  <p className="text-gray-200  text-center text-sm sm:text-base">
                     {t("about.Over 1 Million SQ. FT of Property Sold")}
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-6 rounded-xl bg-white border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2">
-                  <h4 className="text-gray-900 flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
+                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                  <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
                       className="counter"
@@ -135,13 +135,13 @@ const About = () => {
                     </span>
                     <span>+</span>
                   </h4>
-                  <p className="text-gray-500 text-sm sm:text-base">
+                  <p className="text-gray-200 maven-pro text-center text-sm sm:text-base">
                     {t("about.Developer Brand Partnership")}
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-6 rounded-xl bg-white border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2">
-                  <h4 className="text-gray-900 flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
+                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                  <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
                       className="counter"
@@ -151,7 +151,7 @@ const About = () => {
                     </span>
                     <span>+</span>
                   </h4>
-                  <p className="text-gray-500 text-sm sm:text-base">
+                  <p className="text-gray-200 maven-pro text-center text-sm sm:text-base">
                     {t('about.Colleagues & counting more daily')}
                   </p>
                 </div>

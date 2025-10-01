@@ -1,12 +1,26 @@
 import { useEffect, useRef, useState } from "react";
 
+const galleryItems = [
+  { src: "img/gallery/1.jpeg", title: "Modern Kitchen" },
+  { src: "img/gallery/2.jpg", title: "Spacious Living Room" },
+  { src: "img/gallery/3.jpg", title: "Cozy Bedroom" },
+  { src: "img/gallery/4.jpg", title: "Elegant Dining Area" },
+  { src: "img/gallery/5.jpg", title: "Luxurious Bathroom" },
+  { src: "img/gallery/6.jpeg", title: "Outdoor Patio" },
+  { src: "img/gallery/7.jpeg", title: "Home Office" },
+  { src: "img/gallery/8.jpeg", title: "Modern Kitchen 2" },
+  { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
+];
+
 export default function Gallery() {
   const [imgBoxOpen, setImgBoxOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState("");
-  const parentSection = useRef([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const parentSection = useRef(null);
 
-  const openImgBox = (src) => {
+  const openImgBox = (src, index) => {
     setSelectedImg(src);
+    setCurrentIndex(index);
     setImgBoxOpen(true);
   };
 
@@ -14,6 +28,21 @@ export default function Gallery() {
     setSelectedImg("");
     setImgBoxOpen(false);
   };
+
+  const prevImage = () => {
+    const newIndex =
+      currentIndex > 0 ? currentIndex - 1 : galleryItems.length - 1;
+    setCurrentIndex(newIndex);
+    setSelectedImg(galleryItems[newIndex].src);
+  };
+
+  const nextImage = () => {
+    const newIndex =
+      currentIndex < galleryItems.length - 1 ? currentIndex + 1 : 0;
+    setCurrentIndex(newIndex);
+    setSelectedImg(galleryItems[newIndex].src);
+  };
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -26,179 +55,88 @@ export default function Gallery() {
       },
       { threshold: 0.3 }
     );
-    const elements = parentSection.current.querySelectorAll(
-      ".fade-img-left, .fade-img-right"
-    );
-    elements.forEach((el) => observer.observe(el));
+    if (parentSection.current) {
+      const elements = parentSection.current.querySelectorAll(
+        ".fade-img-left, .fade-img-right"
+      );
+      elements.forEach((el) => observer.observe(el));
+    }
     return () => observer.disconnect();
   }, []);
 
   return (
     <div
       ref={parentSection}
-      className="relative  flex flex-col px-5 py-10 md:px-20 container mx-auto"
+      className="relative flex flex-col px-5 py-10 md:px-20 container mx-auto"
     >
-      <div className="flex items-center justify-center w-full mb-10">
-        <div className="flex-grow max-w-40 border-t border-black" />
-        <h2 className="mx-4 text-2xl font-bold uppercase text-black oswald_span">
+      <div className="flex items-center justify-center w-full mb-12">
+        <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
+        <h2 className="mx-6 text-3xl font-extrabold uppercase text-gray-900 oswald_span tracking-widest">
           Gallery
         </h2>
-        <div className="flex-grow max-w-40 border-t border-black" />
+        <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
       </div>
 
-      <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
-        <div className="fade-img-left  hover:-translate-y-12 hover:rotate-6 ">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer "
-            src="https://images.unsplash.com/photo-1499696010180-025ef6e1a8f9?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-right hover:-translate-y-12 hover:-translate-y-12 ">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://images.unsplash.com/photo-1432462770865-65b70566d673?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-left hover:-translate-y-12 hover:-rotate-6" >
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer "
-            src="https://images.unsplash.com/photo-1497436072909-60f360e1d4b1?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2560&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-right hover:-translate-y-12 hover:rotate-6">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://images.unsplash.com/photo-1493246507139-91e8fad9978e?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2940&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-left hover:-translate-y-12 ">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://images.unsplash.com/photo-1518623489648-a173ef7824f3?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2762&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-right hover:-translate-y-12 hover:-rotate-6">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://images.unsplash.com/photo-1682407186023-12c70a4a35e0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2832&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-left hover:-translate-y-12 hover:-rotate-6">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://demos.creative-tim.com/material-kit-pro/assets/img/examples/blog5.jpg"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-right hover:-translate-y-12 ">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://material-taillwind-pro-ct-tailwind-team.vercel.app/img/content2.jpg"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
-        <div className="fade-img-left hover:-translate-y-12 hover:-rotate-6">
-          <img
-            class="object-cover object-center w-full h-40 max-w-full rounded-lg cursor-pointer"
-            src="https://images.unsplash.com/photo-1620064916958-605375619af8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1493&q=80"
-            alt="gallery-photo"
-            onClick={(e) => openImgBox(e.target.src)}
-          />
-        </div>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">
+        {galleryItems.map((item, index) => {
+          const fadeClass =
+            index % 2 === 0 ? "fade-img-left" : "fade-img-right";
+          return (
+            <div
+              key={index}
+              className={`${fadeClass}card relative rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:z-10 hover:shadow-2xl`}
+              onClick={() => openImgBox(item.src, index)}
+            >
+              <img
+                src={item.src}
+                alt={item.title}
+                className="object-cover object-center w-full h-56 rounded-lg"
+              />
+              <div className="absolute inset-0 bg-black/80 bg-opacity-50  opacity-0   hover:opacity-100 transition-opacity transform sacle-y-0 hover:scale-y-100 duration-500 flex items-center justify-center">
+                <span className="text-white  text-md maven-pro px-3 text-center">
+                  {item.title}
+                </span>
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {imgBoxOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
           <button
-            className="absolute top-5 right-5 text-white text-4xl font-bold cursor-pointer"
+            className="absolute left-5 top-1/2 transform -translate-y-1/2 text-yellow-600 text-4xl cursor-pointer"
+            onClick={prevImage}
+            aria-label="Previous image"
+          >
+            &#8592;
+          </button>
+          <div className="flex flex-col items-center">
+            <img
+              src={selectedImg}
+              alt="Enlarged view"
+              className="max-w-full max-h-[80vh] rounded-lg shadow-2xl"
+            />
+            <p className="text-white text-md maven-pro mt-4 italic">
+              {galleryItems[currentIndex].title}
+            </p>
+          </div>
+          <button
+            className="absolute right-5 top-1/2 transform -translate-y-1/2 text-yellow-600 text-4xl cursor-pointer"
+            onClick={nextImage}
+            aria-label="Next image"
+          >
+            &#8594;
+          </button>
+          <button
+            className="absolute top-5 right-5 text-yellow-500 hover:rotate-y-60 text-5xl font-bold cursor-pointer"
             onClick={closeImgBox}
             aria-label="Close modal"
           >
             &times;
           </button>
-          <img
-            src={selectedImg}
-            alt="Enlarged view"
-            className="max-w-full max-h-[90vh] rounded-lg"
-          />
         </div>
       )}
     </div>
-    // <section class=" overflow-hidden">
-    //   <div class="max-w-screen-xl 2xl:max-w-screen-3xl px-8 md:px-12 mx-auto py-12 lg:py-24 space-y-24 h-svh flex flex-col justify-center">
-    //     <div class="flex flex-col sm:flex-row mx-auto">
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1620064916958-605375619af8?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1493&q=80"
-    //           class="rounded-xl  hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1487180144351-b8472da7d491?q=80&amp;w=2672&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D "
-    //           class="rounded-xl  hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1586996292898-71f4036c4e07?q=80&amp;w=2670&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //           class="rounded-xl  rotate-6 hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1522775417749-29284fb89f43?q=80&amp;w=2574&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //           class="rounded-xl  -rotate-12 hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1522775417749-29284fb89f43?q=80&amp;w=2574&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //           class="rounded-xl  -rotate-12 hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1522775417749-29284fb89f43?q=80&amp;w=2574&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //           class="rounded-xl  -rotate-12 hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1522775417749-29284fb89f43?q=80&amp;w=2574&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //           class="rounded-xl  -rotate-12 hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //       <a href="#_">
-    //         <img
-    //           src="https://images.unsplash.com/photo-1522775417749-29284fb89f43?q=80&amp;w=2574&amp;auto=format&amp;fit=crop&amp;ixlib=rb-4.0.3&amp;ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-    //           class="rounded-xl  -rotate-12 hover:rotate-0 duration-500 hover:-translate-y-12 h-full w-full object-cover hover:scale-150 transform origin-bottom"
-    //           alt="#_"
-    //         />
-    //       </a>
-    //     </div>
-    //   </div>
-    // </section>
   );
 }

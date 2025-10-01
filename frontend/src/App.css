@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gilda+Display&family=Maven+Pro:wght@400..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
 
 /* animation for header caraousel */
 @keyframes slow-zoom {
@@ -55,6 +56,13 @@
   font-weight: 400;
   font-style: normal;
 }
+
+.italiana-regular {
+  font-family: "Italiana", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
 
 /* fonts */
 
@@ -152,3 +160,4 @@
 .fade-img-right.show {
   animation: slideInFromRight 0.9s ease-out forwards;
 }
+

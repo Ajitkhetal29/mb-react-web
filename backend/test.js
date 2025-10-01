@@ -248,6 +248,6 @@ const addprojects = async () => {
 }
 
 
-addprojects();
+export default addprojects();
 
 

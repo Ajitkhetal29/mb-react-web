@@ -1,85 +1,84 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 
-
-
 const Carousel = () => {
   const [current, setCurrent] = useState(0);
   const [typeText, setTypeText] = useState("");
   const { t } = useTranslation();
 
-
   const slidesData = [
-  {
-    type: "video",
-    src: "/img/carousel/ssvid.net--Home-Banner-Mobile-mp4_1080x1080.mp4",
-  },
-  {
-    type: "image",
-    src: "/img/carousel/Airica.jpg",
-    content: (
-      <div className="ml-6 md:ml-16 p-4 rounded-lg">
-        <div class="absolute inset-y-0 left-0 flex flex-cols items-center z-30">
-          <div class="ml-6 md:ml-16 p-4 rounded-lg">
-            <span class="block text-white text-6xl md:text-8xl font-bold mb-2">
-              {t("header.Top Notch")}
-            </span>
-            <span class="block text-white text-6xl font-bold md:text-8xl mb-4">
-            {t("header.Living Space")}
-            </span>
-            <button class="px-6 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-700 transition">
-              {t("header.Explore Properties")}
-            </button>
+    {
+      type: "video",
+      src: "/img/carousel/ssvid.net--Home-Banner-Mobile-mp4_1080x1080.mp4",
+    },
+    {
+      type: "image",
+      src: "/img/carousel/Airica.jpg",
+      content: (
+        <div className="ml-6 md:ml-16 p-4 rounded-lg">
+          <div class="absolute inset-y-0 left-0 flex flex-cols items-center z-30">
+            <div class="ml-6 md:ml-16 p-4 rounded-lg">
+              <span class="block text-white text-6xl md:text-8xl font-bold mb-2">
+                {t("header.Top Notch")}
+              </span>
+              <span class="block text-white text-6xl font-bold md:text-8xl mb-4">
+                {t("header.Living Space")}
+              </span>
+              <button class="px-6 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-700 transition">
+                {t("header.Explore Properties")}
+              </button>
+            </div>
           </div>
         </div>
-      </div>
-    ),
-  },
-  {
-    type: "image",
-    src: "/img/carousel/North Park Night View.jpg",
-    content: (
-      <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-        <div className="ml-6 md:ml-16 p-4 rounded-lg text-center">
-          <span className="block text-white text-xl md:text-4xl font-bold mb-2">
-            {t("header.50+ Brand Partners")}
-          </span>
-          <span className="block text-white text-xl md:text-xl">
-            {t("header.Mira bhayandar Projects prides to work with 50+ established developers")}
-          </span>
+      ),
+    },
+    {
+      type: "image",
+      src: "/img/carousel/North Park Night View.jpg",
+      content: (
+        <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
+          <div className="ml-6 md:ml-16 p-4 rounded-lg text-center">
+            <span className="block text-white text-xl md:text-4xl font-bold mb-2">
+              {t("header.50+ Brand Partners")}
+            </span>
+            <span className="block text-white text-xl md:text-xl">
+              {t(
+                "header.Mira bhayandar Projects prides to work with 50+ established developers"
+              )}
+            </span>
+          </div>
         </div>
-      </div>
-    ),
-  },
-  {
-    type: "image",
-    src: "/img/carousel/Codename-LIT.jpg",
-    content: (
-      <div className="ml-6 md:ml-16 p-4 rounded-lg">
-        <span className="block text-white text-4xl md:text-6xl font-bold mb-2">
-          {t("Discover Your")}
-        </span>
-        <span className="block text-white text-4xl md:text-6xl mb-2">
-         {t("Flexible Living")}
-        </span>
-        <span className="block text-white text-4xl md:text-6xl mb-4">
-          House
-        </span>
-        <button className="px-6 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-700 transition">
-          Explore Properties
-        </button>
-      </div>
-    ),
-  },
-  {
-    type: "image",
-    src: "/img/carousel/Ambrosia.jpg",
-  },
-  {
-    type: "image",
-    src: "/img/carousel/Veris.jpg",
-  },
-];
+      ),
+    },
+    {
+      type: "image",
+      src: "/img/carousel/Codename-LIT.jpg",
+      content: (
+        <div className="ml-6 md:ml-16 p-4 rounded-lg">
+          <span className="block text-white text-4xl md:text-6xl font-bold mb-2">
+            {t("Discover Your")}
+          </span>
+          <span className="block text-white text-4xl md:text-6xl mb-2">
+            {t("Flexible Living")}
+          </span>
+          <span className="block text-white text-4xl md:text-6xl mb-4">
+            House
+          </span>
+          <button className="px-6 py-2 bg-yellow-400 text-black font-semibold rounded hover:bg-yellow-700 transition">
+            Explore Properties
+          </button>
+        </div>
+      ),
+    },
+    {
+      type: "image",
+      src: "/img/carousel/Ambrosia.jpg",
+    },
+    {
+      type: "image",
+      src: "/img/carousel/Veris.jpg",
+    },
+  ];
 
   useEffect(() => {
     const interval = setInterval(() => {

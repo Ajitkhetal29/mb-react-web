@@ -16,7 +16,6 @@ import Contact from "../components/Contact";
 const Home = () => {
   return (
     <div>
-      <Navbar />
       <HeroCarousel />  
       <About />
       <Brands />

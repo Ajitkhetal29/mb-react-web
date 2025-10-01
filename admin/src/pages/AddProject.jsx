@@ -4,7 +4,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const AddProject = () => {
-  const { backendUrl, navigate,  } = useContext(AppConetxt);
+  const { backendUrl, navigate } = useContext(AppConetxt);
 
   const [form, setForm] = useState({
     name: "",
@@ -24,7 +24,14 @@ const AddProject = () => {
   const [browcherPdf, setBrowcherPdf] = useState(null);
 
   const [layouts, setLayouts] = useState([
-    { id: Date.now(), title: "", area: "", price: "", imageFile: null, imagePreview: null },
+    {
+      id: Date.now(),
+      title: "",
+      area: "",
+      price: "",
+      imageFile: null,
+      imagePreview: null,
+    },
   ]);
 
   const [submitting, setSubmitting] = useState(false);
@@ -36,7 +43,8 @@ const AddProject = () => {
     if (!features.includes(tag)) setFeatures((prev) => [...prev, tag]);
     setFeatureInput("");
   };
-  const removeFeature = (tag) => setFeatures((prev) => prev.filter((f) => f !== tag));
+  const removeFeature = (tag) =>
+    setFeatures((prev) => prev.filter((f) => f !== tag));
 
   // Gallery handlers
   const onGalleryButtonClick = () => galleryInputRef.current?.click();
@@ -61,7 +69,14 @@ const AddProject = () => {
   const addLayout = () =>
     setLayouts((prev) => [
       ...prev,
-      { id: Date.now(), title: "", area: "", price: "", imageFile: null, imagePreview: null },
+      {
+        id: Date.now(),
+        title: "",
+        area: "",
+        price: "",
+        imageFile: null,
+        imagePreview: null,
+      },
     ]);
   const removeLayout = (id) =>
     setLayouts((prev) => {
@@ -70,13 +85,19 @@ const AddProject = () => {
       return prev.filter((x) => x.id !== id);
     });
   const handleLayoutChange = (id, field, value) =>
-    setLayouts((prev) => prev.map((l) => (l.id === id ? { ...l, [field]: value } : l)));
+    setLayouts((prev) =>
+      prev.map((l) => (l.id === id ? { ...l, [field]: value } : l))
+    );
   const handleLayoutImage = (id, e) => {
     const file = e.target.files?.[0];
     setLayouts((prev) =>
       prev.map((l) =>
         l.id === id
-          ? { ...l, imageFile: file || null, imagePreview: file ? URL.createObjectURL(file) : null }
+          ? {
+              ...l,
+              imageFile: file || null,
+              imagePreview: file ? URL.createObjectURL(file) : null,
+            }
           : l
       )
     );
@@ -91,7 +112,9 @@ const AddProject = () => {
   useEffect(() => {
     return () => {
       galleryImages.forEach((g) => URL.revokeObjectURL(g.preview));
-      layouts.forEach((l) => l.imagePreview && URL.revokeObjectURL(l.imagePreview));
+      layouts.forEach(
+        (l) => l.imagePreview && URL.revokeObjectURL(l.imagePreview)
+      );
     };
   }, []);
 
@@ -109,11 +132,19 @@ const AddProject = () => {
       galleryImages.forEach((g) => fd.append("galleryImages", g.file));
       fd.append(
         "layouts",
-        JSON.stringify(layouts.map(({ title, area, price }) => ({ title, area, price })))
+        JSON.stringify(
+          layouts.map(({ title, area, price }) => ({ title, area, price }))
+        )
       );
-      layouts.forEach((l) => l.imageFile && fd.append("layoutImages", l.imageFile));
+      layouts.forEach(
+        (l) => l.imageFile && fd.append("layoutImages", l.imageFile)
+      );
 
-      const response = await axios.post(`${backendUrl}/project/addProject`, fd, {});
+      const response = await axios.post(
+        `${backendUrl}/project/addProject`,
+        fd,
+        {}
+      );
       if (response.data.success) {
         toast.success("Project Added Successfully", { autoClose: 2000 });
         navigate("/allprojects");
@@ -127,24 +158,39 @@ const AddProject = () => {
   };
 
   return (
-    <div className="relative min-h-screen p-6 flex items-center justify-center bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      <div className="relative bg-white/5 backdrop-blur-lg border border-white/10 rounded-2xl shadow-2xl p-8 max-w-5xl w-full">
+    <div className="min-h-screen p-5 flex items-center justify-center bg-gray-900">
+      <div className="bg-black backdrop-blur-md border border-gray-700 rounded-2xl shadow-2xl p-6 max-w-5xl w-full space-y-6">
         {/* Heading */}
-        <h1 className="text-4xl font-bold text-center mb-10 tracking-wider text-amber-400 drop-shadow-lg">
+        <h1 className="text-3xl font-extrabold text-center text-white">
           🏡 Add New Project
         </h1>
 
         <form onSubmit={handleSubmitForm} className="space-y-8 text-white">
           {/* --- Basic Info --- */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {[
-              { label: "Project Name", key: "name", placeholder: "e.g Skyline Estate" },
-              { label: "Builder Name", key: "builder", placeholder: "Builder Name" },
+              {
+                label: "Project Name",
+                key: "name",
+                placeholder: "e.g Skyline Estate",
+              },
+              {
+                label: "Builder Name",
+                key: "builder",
+                placeholder: "Builder Name",
+              },
               { label: "Location", key: "location", placeholder: "Location" },
-              { label: "Video Link", key: "videoLink", placeholder: "https://..." },
+              {
+                label: "Video Link",
+                key: "videoLink",
+                placeholder: "https://...",
+              },
             ].map(({ label, key, placeholder }) => (
               <div key={key}>
-                <label htmlFor={key} className="block text-sm font-semibold mb-2 text-amber-300">
+                <label
+                  htmlFor={key}
+                  className="block text-sm font-semibold mb-2 text-white"
+                >
                   {label}
                 </label>
                 <input
@@ -153,22 +199,29 @@ const AddProject = () => {
                   value={form[key]}
                   required
                   placeholder={placeholder}
-                  onChange={(e) => setForm((prev) => ({ ...prev, [key]: e.target.value }))}
-                  className="w-full rounded-xl border border-gray-600 bg-gray-800/70 px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
+                  onChange={(e) =>
+                    setForm((prev) => ({ ...prev, [key]: e.target.value }))
+                  }
+                  className="w-full  border border-gray-200  rounded-md  bg-gray-800 p-2 text-white placeholder-gray-400 text-white focus:ring-2 focus:ring-indigo-500 transition"
                 />
               </div>
             ))}
 
             {/* Status */}
             <div>
-              <label htmlFor="status" className="block text-sm font-semibold mb-2 text-amber-300">
+              <label
+                htmlFor="status"
+                className="block text-sm  mb-2 text-white"
+              >
                 Status
               </label>
               <select
                 id="status"
                 value={form.status}
-                onChange={(e) => setForm((prev) => ({ ...prev, status: e.target.value }))}
-                className="w-full rounded-xl border border-gray-600 bg-gray-800/70 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, status: e.target.value }))
+                }
+                className="p-2 border focus:ring-2 border-gray-200  rounded-md bg-gray-800  text-white focus:ring-2 focus:ring-indigo-500"
               >
                 <option value="" disabled className="text-gray-500">
                   Select Status
@@ -182,22 +235,27 @@ const AddProject = () => {
 
           {/* Description */}
           <div>
-            <label htmlFor="description" className="block text-sm font-semibold mb-2 text-amber-300">
+            <label
+              htmlFor="description"
+              className="block text-sm  mb-2 text-white"
+            >
               Description
             </label>
             <textarea
               id="description"
               value={form.description}
-              onChange={(e) => setForm((prev) => ({ ...prev, description: e.target.value }))}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, description: e.target.value }))
+              }
               placeholder="Brief description"
-              className="w-full rounded-xl border border-gray-600 bg-gray-800/70 px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
+              className="w-full rounded-md border border-gray-200 bg-gray-800 p-2 text-white focus:ring-2 focus:ring-indigo-500 min-h-[80px]  transition"
               rows={4}
             />
           </div>
 
           {/* Features */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-amber-300">Features</label>
+            <label className="block text-sm  mb-2 text-white">Features</label>
             <div className="flex gap-3">
               <input
                 value={featureInput}
@@ -209,12 +267,12 @@ const AddProject = () => {
                   }
                 }}
                 placeholder="Type a feature and press Enter"
-                className="flex-grow rounded-xl border border-gray-600 bg-gray-800/70 px-4 py-2 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
+                className="flex-grow p-2 rounded-xl  bg-gray-800 border border-black-200 text-white focus:ring-2 focus:ring-indigo-500 transition"
               />
               <button
                 type="button"
                 onClick={addFeature}
-                className="px-5 py-2 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-orange-500 hover:to-amber-400 rounded-xl text-black font-semibold shadow-md transition"
+                className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
               >
                 Add
               </button>
@@ -223,13 +281,13 @@ const AddProject = () => {
               {features.map((f) => (
                 <div
                   key={f}
-                  className="bg-gradient-to-r from-amber-400/20 to-orange-400/20 text-amber-300 px-4 py-1 rounded-full flex items-center gap-2 text-sm shadow-sm"
+                  className=" bg-white text-black px-2 py-1 rounded-md flex items-center gap-2 text-sm shadow-sm"
                 >
                   <span>{f}</span>
                   <button
                     type="button"
                     onClick={() => removeFeature(f)}
-                    className="text-red-400 hover:text-red-600 font-bold"
+                    className="text-red-400 hover:text-red-600 "
                   >
                     ✕
                   </button>
@@ -240,7 +298,7 @@ const AddProject = () => {
 
           {/* Brochure */}
           <div>
-            <label className="block text-sm font-semibold mb-2 text-amber-300">
+            <label className="block text-sm text-white mb-2">
               Project Brochure (PDF)
             </label>
             <div className="flex items-center gap-4">
@@ -254,12 +312,15 @@ const AddProject = () => {
               <button
                 type="button"
                 onClick={onBrowcherButtonClick}
-                className="px-5 py-2 bg-gradient-to-r from-green-400 to-emerald-500 hover:from-emerald-500 hover:to-green-400 rounded-xl text-black font-semibold shadow-md transition"
+                className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
               >
                 Upload PDF
               </button>
               {browcherPdf && (
-                <span className="text-sm truncate max-w-xs text-gray-300" title={browcherPdf.name}>
+                <span
+                  className="text-sm truncate max-w-xs text-white "
+                  title={browcherPdf.name}
+                >
                   {browcherPdf.name}
                 </span>
               )}
@@ -269,11 +330,11 @@ const AddProject = () => {
           {/* Gallery */}
           <div>
             <div className="flex justify-between items-center mb-2">
-              <label className="block text-sm font-semibold text-amber-300">Gallery Images</label>
+              <label className="block text-sm text-white">Gallery Images</label>
               <button
                 type="button"
                 onClick={onGalleryButtonClick}
-                className="px-5 py-2 bg-gradient-to-r from-green-400 to-emerald-500 hover:from-emerald-500 hover:to-green-400 rounded-xl text-black font-semibold shadow-md transition"
+                className="px-5 py-2  bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
               >
                 Add Images
               </button>
@@ -292,7 +353,11 @@ const AddProject = () => {
                   key={g.id}
                   className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
                 >
-                  <img src={g.preview} alt={g.file.name} className="w-full h-24 object-cover" />
+                  <img
+                    src={g.preview}
+                    alt={g.file.name}
+                    className="w-full h-24 object-cover"
+                  />
                   <button
                     type="button"
                     className="absolute top-1 right-1 bg-black/70 rounded-full p-1 text-red-400 hover:text-red-600 transition"
@@ -308,11 +373,11 @@ const AddProject = () => {
           {/* Layouts */}
           <div>
             <div className="flex justify-between items-center mb-4">
-              <label className="block text-sm font-semibold text-amber-300">Layouts</label>
+              <label className="block text-sm text-white">Layouts</label>
               <button
                 type="button"
                 onClick={addLayout}
-                className="px-4 py-2 bg-gradient-to-r from-blue-400 to-indigo-500 hover:from-indigo-500 hover:to-blue-400 rounded-xl text-black font-semibold shadow-md transition"
+                className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
               >
                 Add Layout
               </button>
@@ -325,12 +390,14 @@ const AddProject = () => {
                 >
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
                     <div>
-                      <label className="block text-sm font-semibold mb-1 text-amber-300">
+                      <label className="block text-sm  mb-1 text-white">
                         Title
                       </label>
                       <select
                         value={l.title}
-                        onChange={(e) => handleLayoutChange(l.id, "title", e.target.value)}
+                        onChange={(e) =>
+                          handleLayoutChange(l.id, "title", e.target.value)
+                        }
                         className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                       >
                         <option value="">Select</option>
@@ -340,24 +407,28 @@ const AddProject = () => {
                       </select>
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold mb-1 text-amber-300">
+                      <label className="block text-sm  mb-1 text-white">
                         Area (sq ft)
                       </label>
                       <input
                         type="number"
                         value={l.area}
-                        onChange={(e) => handleLayoutChange(l.id, "area", e.target.value)}
+                        onChange={(e) =>
+                          handleLayoutChange(l.id, "area", e.target.value)
+                        }
                         className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                       />
                     </div>
                     <div>
-                      <label className="block text-sm font-semibold mb-1 text-amber-300">
+                      <label className="block text-sm  mb-1 text-white">
                         Price (Lacs)
                       </label>
                       <input
                         type="number"
                         value={l.price}
-                        onChange={(e) => handleLayoutChange(l.id, "price", e.target.value)}
+                        onChange={(e) =>
+                          handleLayoutChange(l.id, "price", e.target.value)
+                        }
                         className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
                       />
                     </div>
@@ -374,7 +445,7 @@ const AddProject = () => {
                     <button
                       type="button"
                       onClick={() => layoutImagInputRef.current?.click()}
-                      className="px-5 py-2 bg-gradient-to-r from-green-400 to-emerald-500 hover:from-emerald-500 hover:to-green-400 rounded-xl text-black font-semibold shadow-md transition"
+                      className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
                     >
                       Add Image
                     </button>
@@ -388,7 +459,9 @@ const AddProject = () => {
                         className="w-40 h-40 object-cover rounded-xl border border-gray-600"
                       />
                       {l.imageFile?.name && (
-                        <p className="mt-2 text-sm truncate text-gray-300">{l.imageFile.name}</p>
+                        <p className="mt-2 text-sm truncate text-gray-300">
+                          {l.imageFile.name}
+                        </p>
                       )}
                     </div>
                   )}
@@ -396,9 +469,9 @@ const AddProject = () => {
                   <button
                     type="button"
                     onClick={() => removeLayout(l.id)}
-                    className="px-4 py-2 bg-gradient-to-r from-red-500 to-rose-600 hover:from-rose-600 hover:to-red-500 rounded-xl text-white font-semibold shadow-md transition"
+                    className="px-5 py-2 bg-red-500  border rounded-md text-black shadow-md hover:bg-black hover:text-white hover:border-white transition"
                   >
-                    Remove Layout
+                    Remove
                   </button>
                 </div>
               ))}
@@ -410,9 +483,9 @@ const AddProject = () => {
             <button
               type="submit"
               disabled={submitting}
-              className="px-8 py-3 bg-gradient-to-r from-amber-400 to-orange-500 hover:from-orange-500 hover:to-amber-400 rounded-xl text-black font-extrabold tracking-wide shadow-lg hover:shadow-amber-500/40 transition disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-5 py-2 bg-yellow-200  border rounded-md text-black shadow-md hover:bg-black hover:text-white hover:border-white transition"
             >
-              {submitting ? "Saving..." : "Save Project"}
+              {submitting ? "Saving..." : "Add Project"}
             </button>
           </div>
         </form>

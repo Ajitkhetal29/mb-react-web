@@ -21,7 +21,6 @@ const AddTestimonail = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
 
     try {
       const response = await axios.post(
@@ -37,79 +36,89 @@ const AddTestimonail = () => {
         console.log(response.data.message);
       }
     } catch (error) {
-      console.log(error);
+      console.log(error); 
     }
   };
 
   return (
-    <div>
-      <h2>Add Testimonial</h2>
-      <form onSubmit={handleSubmit} className="space-y-4">
-        <div>
-          <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
-            {" "}
-            client Name
-          </label>
-          <input
-            type="text"
-            name="name"
-            value={form.name}
-            onChange={handleFormChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
-            {" "}
-            Message
-          </label>
-          <textarea
-            name="message"
-            value={form.message}
-            onChange={handleFormChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          />
-        </div>
-        <div>
-          <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
-            {" "}
-            Position
-          </label>
-          <input
-            type="text"
-            name="position"
-            value={form.position}
-            onChange={handleFormChange}
-            required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          />
-        </div>
+    <div className="min-h-screen p-5 pb-15 flex items-center justify-center bg-gray-900">
+      <div className="bg-black backdrop-blur-md border border-gray-700 rounded-2xl shadow-2xl p-6 max-w-5xl w-full space-y-6">
+        <h1 className="text-3xl font-extrabold text-center text-white">
+          Add New Testimonial
+        </h1>
 
-        <div>
-          <label className="block mb-1 font-medium text-gray-700 dark:text-gray-300">
-            {" "}
-            compnay Name
-          </label>
-          <input
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label className="block text-sm  mb-2 text-white">
+              {" "}
+              Client Name
+            </label>
+            <input
+              type="text"
+              name="name"
+              value={form.name}
+              onChange={handleFormChange}
+              required
+              placeholder="Enter Client Name"
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          {/* Content */}
+          <div>
+            <label className="block text-sm text-white mb-1">Message</label>
+            <textarea
+              name="message"
+              value={form.message}
+              onChange={handleFormChange}
+              required
+              placeholder="Write your blog content..."
+              rows={5}
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+          {/* Writer */}
+          <div>
+            <label className="block text-sm  text-white mb-1">Position</label>
+            <input
+              type="text"
+              name="position"
+              value={form.position}
+              onChange={handleFormChange}
+              required
+              placeholder="Author name"
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
+
+         <div>
+            <label className="block text-sm  text-white mb-1">compnay Name</label>
+            <input
             type="text"
             name="company"
             value={form.company}
             onChange={handleFormChange}
             required
-            className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white"
-          />
-        </div>
+              placeholder="Author name"
+              className="w-full text-white rounded-lg border border-gray-300 bg-gray-800 px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-500"
+            />
+          </div>
 
-        <button
-          type="submit"
-          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm font-medium shadow transition-colors"
-        >
-          Add Testimonial
-        </button>
-      </form>
+          {/* Submit */}
+          <div className="flex justify-end">
+            <button
+              type="submit"
+              className="px-5 py-2 bg-yellow-200  border rounded-md text-black shadow-md hover:bg-black hover:text-white hover:border-white transition"
+            >
+              Create Blog
+            </button>
+          </div>
+        </form>
+      </div>
     </div>
+
+   
   );
 };
 

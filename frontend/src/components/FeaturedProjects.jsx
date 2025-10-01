@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { AppConetxt } from "../context/context";
 
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
 
 const FeaturedProjects = () => {
   const { newLaunchProjects } = useContext(AppConetxt);
 
   const parentSection = useRef([]);
 
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
-
     if (newLaunchProjects && parentSection.current) {
       const observer = new IntersectionObserver(
         (entries, obs) => {
@@ -38,11 +37,11 @@ const FeaturedProjects = () => {
         <div className="mx-auto px-4 py-10 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
           <div className="flex justify-left items-center sm:justify-evenly xs:gap-1 px-6">
             <h2 className="text-xl md:text-2xl flex-1 text-center text-black mb-2 uppercase oswald_span text-bold">
-              {t('featuredProject.Featured Projects')}
+              {t("featuredProject.Featured Projects")}
             </h2>
             <button className="sm:w-fit group md:px-3.5 py-2 border hover:bg-black transition-all duration-700 ease-in-out justify-center items-center flex">
               <span className="px-1.5 uppercase text-black hover:text-white text-sm font-medium leading-6">
-                {t('featuredProject.Explore all properties')}
+                {t("featuredProject.Explore all properties")}
               </span>
               <svg
                 className="group-hover:translate-x-0.5 transition-all duration-700 ease-in-out"
@@ -73,28 +72,30 @@ const FeaturedProjects = () => {
                 <a
                   href="#"
                   key={project.name}
-                  className="group hover:border bg-white hover:border-gray-200 rounded p-5"
+                  className="group rounded-xl hover:border hover:-translate-y-2 bg-white  hover:bg-black rounded p-5 transition tarnsition-smooth duration-600"
                 >
                   <img
                     src={project.img}
                     alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                    className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-75 lg:h-75 rounded-lg bg-gray-200  group-hover:overlay-20 overflow-hidden xl:aspect-7/8"
+                    className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-40 lg:h-60 rounded-lg bg-gray-200  group-hover:overlay-20 overflow-hidden xl:aspect-7/8"
                   />
                   <p className="mt-3 text-xs text-orange-700 flex items-center">
                     <span>
                       <img
-                        className="h-5"
+                        className="h-4"
                         src="img/icons/location.png"
                         alt=""
                       />
                     </span>
-                    <span>{t(`featuredProject.${project.location}`)}</span>
+                    <span className="group-hover:text-white">
+                      {t(`featuredProject.${project.location}`)}
+                    </span>
                   </p>
-                  <h2 className="mt-2 px-1 text-md font-medium maven-pro text-gray-900">
+                  <h2 className="mt-2 px-1 text-md group-hover:text-white font-medium maven-pro text-gray-900 group-">
                     {t(`featuredProject.${project.name}`)}
                   </h2>
-                  <div className="flex mt-2 item-center justify-between">
-                    <span className="flex px-1 mt-1 w-fit items-center border">
+                  <div className="flex mt-2  item-center justify-between">
+                    <span className="flex  px-1 mt-1 w-fit items-center border">
                       <svg
                         width="1em"
                         height="1em"
@@ -109,7 +110,9 @@ const FeaturedProjects = () => {
                           fill="#63BBEB"
                         ></path>
                       </svg>
-                      <span className="text-xs text-gray-700">{t('featuredProject.NEW LAUNCH')}</span>
+                      <span className="text-xs group-hover:text-white text-gray-700">
+                        {t("featuredProject.NEW LAUNCH")}
+                      </span>
                     </span>
                     <img
                       className="h-5 border rounded-full border-gray-300"
@@ -124,7 +127,7 @@ const FeaturedProjects = () => {
           <div className="mt-10 flex justify-center items-center sm:justify-evenly xs:gap-1 px-6">
             <button className=" group md:px-3.5 py-2 border hover:bg-black transition-all duration-700 ease-in-out justify-center items-center flex">
               <span className="px-1.5 uppercase text-black hover:text-white text-sm font-medium leading-6">
-                {t('featuredProject.Explore all properties')}
+                {t("featuredProject.Explore all properties")}
               </span>
             </button>
           </div>

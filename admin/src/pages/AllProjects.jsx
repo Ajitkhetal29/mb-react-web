@@ -20,7 +20,7 @@ const AllProjects = () => {
 
   return (
     <main className="bg-neutral-950 min-h-screen text-white">
-      <div className="w-full max-w-7xl mx-auto px-4 py-10 pt-28 sm:px-6 lg:px-8">
+      <div className="w-full max-w-7xl mx-auto px-4 py-10 pt-10 sm:px-6 lg:px-8">
         {/* --- Page Header --- */}
         <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-8 gap-4">
           <div>
