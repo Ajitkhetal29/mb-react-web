@@ -84,7 +84,7 @@ export default function Gallery() {
           return (
             <div
               key={index}
-              className={`${fadeClass}card relative rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:z-10 hover:shadow-2xl`}
+              className={`${fadeClass} card group relative rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:z-10 hover:shadow-2xl`}
               onClick={() => openImgBox(item.src, index)}
             >
               <img
@@ -92,8 +92,8 @@ export default function Gallery() {
                 alt={item.title}
                 className="object-cover object-center w-full h-56 rounded-lg"
               />
-              <div className="absolute inset-0 bg-black/80 bg-opacity-50  opacity-0   hover:opacity-100 transition-opacity transform sacle-y-0 hover:scale-y-100 duration-500 flex items-center justify-center">
-                <span className="text-white  text-md maven-pro px-3 text-center">
+              <div className="absolute inset-0 bg-black/80 bg-opacity-50  opacity-0   hover:opacity-100 transition-opacity  duration-500 flex items-center justify-center">
+                <span className="text-white translate-y-full group-hover:translate-y-0 transition-transform duration-500  text-md maven-pro px-3 text-center ">
                   {item.title}
                 </span>
               </div>

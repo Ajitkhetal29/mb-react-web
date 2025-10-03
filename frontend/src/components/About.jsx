@@ -43,7 +43,7 @@ const About = () => {
 
   return (
     <section className="relative px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('https://framerusercontent.com/images/4207UCMpGfd1yz62fn7VkACtag.jpg?scale-down-to=1024')] bg-cover bg-center md:bg-cover bg-fixed">
-      <div className="absolute inset-0 bg-black/50 w-full"></div>
+      <div className="absolute inset-0 bg-black/60 w-full"></div>
       <div className="relative z-10 w-full max-w-7xl px md:px-5 lg:px-5 mx-auto transition-opacity opacity-100">
         <div className="w-full  justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
           <div className="w-full rounded-xl flex-col p-5 bg-[#ffc03d] justify-center lg:items-start items-center gap-10 inline-flex">
@@ -65,12 +65,11 @@ const About = () => {
                 </div>
               </div>
             </div>
-            <button className="sm:w-fit w-full group px-3.5 py-2 bg-black hover:bg-white rounded-lg shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] transition-all duration-700 ease-in-out justify-center items-center flex">
-              <span className="px-1.5 text-white hover:text-black text-sm font-medium leading-6 group-hover:-translate-x-0.5 transition-all duration-700 ease-in-out">
+            <button className="sm:w-fit w-full border border-black group px-3.5 py-2 bg-white hover:bg-white rounded-sm shadow-[0px_1px_2px_0px_rgba(16,_24,_40,_0.05)] transition-all duration-700 ease-in-out justify-center items-center flex">
+              <span className="px-1.5 leading-6 group-hover:-translate-x-0.5 transition-all duration-700 ease-in-out">
                 {t("about.Read More")}
               </span>
               <svg
-                className="group-hover:translate-x-0.5 transition-all duration-700 ease-in-out"
                 xmlns="http://www.w3.org/2000/svg"
                 width="18"
                 height="18"
@@ -92,7 +91,7 @@ const About = () => {
           <section className="py- px-4 sm:py-12 sm:px-6 lg:px-8">
             <div className="max-w-5xl mx-auto">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 lg:gap-8 text-left">
-                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                <div className="p-4 sm:p-6 rounded-xl bg-black/50  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
                   <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
@@ -108,7 +107,7 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                <div className="p-4 sm:p-6 rounded-xl bg-black/50 border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
                   <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
@@ -124,7 +123,7 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                <div className="p-4 sm:p-6 rounded-xl bg-black/50 border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
                   <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}
@@ -140,7 +139,7 @@ const About = () => {
                   </p>
                 </div>
 
-                <div className="p-4 sm:p-6 rounded-xl  border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
+                <div className="p-4 sm:p-6 rounded-xl bg-black/50 border border-gray-200 hover:border-gray-400 transition duration-300 flex flex-col gap-2 items-center">
                   <h4 className="text-white maven-pro flex items-baseline gap-1 text-2xl sm:text-3xl font-bold">
                     <span
                       ref={addCounterRef}

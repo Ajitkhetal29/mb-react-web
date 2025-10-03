@@ -143,7 +143,14 @@ const Navbar = () => {
           mobileOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        <nav className="flex flex-col mt-20 space-y-6 px-6 text-white font-semibold select-none">
+        <nav className="relatuve flex flex-col mt-20 space-y-6 px-6 text-white font-semibold select-none">
+          <span
+            className="absolute top-5 cursor-pointer right-5 text-2xl"
+            onClick={() => setMobileOpen(false)}
+          >
+            {" "}
+            X
+          </span>
           <a
             href="#"
             className="py-2 border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
@@ -189,7 +196,7 @@ const Navbar = () => {
       {/* Mobile menu backdrop */}
       {mobileOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-40 z-40"
+          className="fixed inset-0 bg-black/50 bg-opacity-40 z-40"
           onClick={() => setMobileOpen(false)}
           aria-hidden="true"
         />

@@ -22,7 +22,7 @@ const Brands = () => {
   }, []);
 
   return (
-    <section id="partnersSection" class="py-12 h-70 w-full px-4">
+    <section id="partnersSection" class="py-12 h-70 w-full px-4 bg-none">
       <div
         ref={textRef}
         id="partnersText"

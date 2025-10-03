@@ -7,7 +7,7 @@ const Testimonials = () => {
   useEffect(() => { }, [CustReviews]);
 
   return (
-    <div className="relative items-center [85rem] bg-[url('img/backgrounds/testimonal-bg.jpeg')] bg-cover px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div className="relative items-center [85rem] bg-[url('img/backgrounds/testimonal-bg.jpeg')] bg-cover bg-fixed px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
       <div className="absolute inset-0 bg-black/50"></div>
 
       <div className="flex z-10 relative items-center justify-center w-full mb-10">
@@ -23,7 +23,7 @@ const Testimonials = () => {
           CustReviews.slice(0, 3).map((review) => (
             <div class="flex flex-col bg-white/80 border border-gray-200 shadow-2xs rounded-tr-[50px] rounded-bl-[50px]">
               <div className="flex-auto p-4 md:p-6">
-                <p className="mt-3 sm:mt-6 text-base text-black md:text-xl dark:text-white">
+                <p className="mt-3 sm:mt-6 text-base text-black md:text-xl ">
                   <em>{review.text}</em>
                 </p>
               </div>
@@ -32,7 +32,7 @@ const Testimonials = () => {
                 <h3 className="text-sm font-semibold text-black sm:text-base">
                   {review.name}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-neutral-500">
+                <p className="text-sm text-gray-500 ">
                   {review.position}
                 </p>
               </div>

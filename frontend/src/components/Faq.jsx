@@ -26,7 +26,7 @@ const FaqCarousel = () => {
     "https://napa.wpresidence.net/wp-content/uploads/2014/05/4.1-1024x623.webp",
   ];
   return (
-    <section className="py-16  bg-gray-50 w-full flex-col justify-center items-center ">
+    <section className="py-16  bg-gray-100 w-full flex-col justify-center items-center ">
       <div class="flex mb-5 w-full flex-row items-center gap-2 justify-center">
         <div class="flex-grow max-w-40 border-t border-black"></div>
         <h2 class="text-2xl text-black mb-2 oswald_span uppercase text-bold">
@@ -79,7 +79,7 @@ const FaqCarousel = () => {
         {/* FAQ */}
         <div className="lg:w-1/2 w-full flex flex-col gap-4">
           {faq &&
-            faq.map((item, idx) => (
+            faq.slice(0,4).map((item, idx) => (
               <div
                 key={idx}
                 y

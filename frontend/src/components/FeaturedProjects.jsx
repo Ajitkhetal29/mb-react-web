@@ -33,7 +33,7 @@ const FeaturedProjects = () => {
 
   return (
     <>
-      <div className="bg-gray-50">
+      <div className="bg-gray-100">
         <div className="mx-auto px-4 py-10 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
           <div className="flex justify-left items-center sm:justify-evenly xs:gap-1 px-6">
             <h2 className="text-xl md:text-2xl flex-1 text-center text-black mb-2 uppercase oswald_span text-bold">
@@ -65,19 +65,19 @@ const FeaturedProjects = () => {
           <div
             ref={parentSection}
             id=""
-            className="grid grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 md:grid-cols-4"
+            className="grid mt-1 grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 md:grid-cols-4"
           >
             {newLaunchProjects &&
               newLaunchProjects.map((project) => (
                 <a
                   href="#"
                   key={project.name}
-                  className="group rounded-xl hover:border hover:-translate-y-2 bg-white  hover:bg-black rounded p-5 transition tarnsition-smooth duration-600"
+                  className="group rounded-xl hover:border hover:-translate-y-6 bg-white  hover:bg-black rounded p-5 transition tarnsition-smooth duration-600"
                 >
                   <img
                     src={project.img}
                     alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                    className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-40 lg:h-60 rounded-lg bg-gray-200  group-hover:overlay-20 overflow-hidden xl:aspect-7/8"
+                    className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-40 lg:h-60 rounded-lg bg-gray-200  roup-hover:overlay-20  overflow-hidden xl:aspect-7/8"
                   />
                   <p className="mt-3 text-xs text-orange-700 flex items-center">
                     <span>
