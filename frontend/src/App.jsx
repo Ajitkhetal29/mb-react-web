@@ -8,6 +8,7 @@
   import Home from './pages/Home'
 import Project from './components/Project'
 import Navbar from './components/Navbar'
+import AllProjects from './components/AllProjects'
 
   function App() {
     const [count, setCount] = useState(0)
@@ -19,7 +20,8 @@ import Navbar from './components/Navbar'
           <div>
             <Routes>
               <Route path='/' element={<Home/>} /> 
-              <Route path='/projets' element={<Project/>} /> 
+              <Route path='/projects' element={<Project/>} /> 
+              <Route path='/allProjects' element={<AllProjects/>} /> 
             </Routes>
           </div>
 

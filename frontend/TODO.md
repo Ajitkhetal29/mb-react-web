@@ -1,0 +1,3 @@
+- [x] Update the left content div in About section to be w-full on small screens and w-1/2 on md+
+- [x] Adjust gap in the main flex container for better spacing: gap-4 sm:gap-8 md:gap-16
+- [ ] Test responsiveness by running the app
