@@ -59,58 +59,13 @@ const Navbar = () => {
             </a>
           </li>
 
-          {/* Projects Dropdown Mega Menu */}
-          <li className="group relative">
-            <button
-              className="flex items-center space-x-1 hover:text-yellow-400 transition-colors duration-300 focus:outline-none focus:text-yellow-400"
-              aria-haspopup="true"
-              aria-expanded="false"
+          <li>
+            <a
+              href="#"
+              className="hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400"
             >
-              <span className="maven-pro">{t("nav.Projects")}</span>
-              <svg
-                className="w-4  h-4 transform transition-transform duration-300 group-hover:-rotate-180"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                aria-hidden="true"
-              >
-                <path d="M6 9l6 6 6-6" />
-              </svg>
-            </button>
-
-            <div
-              className="absolute left-1/2 top-full origin-top -translate-x-1/2 w-[90vw] max-w-6xl bg-gray-900/95 shadow-2xl rounded-lg p-8 mt-3 opacity-0 scale-y-0 group-hover:opacity-100 group-hover:scale-y-100 group-hover:pointer-events-auto transition-all duration-300 ease-in-out max-h-[calc(100vh-80px)] overflow-y-auto z-50"
-              role="menu"
-              aria-label="Projects submenu"
-            >
-              {[1, 2, 3].map((section) => (
-                <div
-                  key={section}
-                  className="grid grid-cols-4 gap-6 mb-6 last:mb-0"
-                >
-                  {[...Array(4)].map((_, idx) => (
-                    <a
-                      key={idx}
-                      href="#"
-                      className="block group text-center focus:outline-none focus:ring-2 focus:ring-yellow-400 rounded"
-                      role="menuitem"
-                    >
-                      <img
-                        src="/img/pages/home-2.jpg"
-                        alt={`Project ${idx + 1}`}
-                        className="rounded-lg mb-2 w-full h-28 object-cover group-hover:brightness-110 transition"
-                      />
-                      <p className="text-sm text-white group-hover:text-yellow-400 truncate">
-                        {`Luxury Duplex ${idx + 1}`}
-                      </p>
-                    </a>
-                  ))}
-                </div>
-              ))}
-            </div>
+              {t("nav.Projects")}
+            </a>
           </li>
 
           <li>

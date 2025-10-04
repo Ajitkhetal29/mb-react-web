@@ -34,7 +34,7 @@ const FeaturedProjects = () => {
   return (
     <>
       <div className="bg-gray-100">
-        <div className="mx-auto px-4 py-10 sm:px-6 sm:py-10 lg:max-w-7xl lg:px-8">
+        <div className="mx-auto px-10 py-10 sm:px-15 sm:py-10 lg:max-w-7xl lg:px-8">
           <div className="flex justify-left items-center sm:justify-evenly xs:gap-1 px-6">
             <h2 className="text-xl md:text-2xl flex-1 text-center text-black mb-2 uppercase oswald_span text-bold">
               {t("featuredProject.Featured Projects")}

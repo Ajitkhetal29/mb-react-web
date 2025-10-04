@@ -42,26 +42,23 @@ const About = () => {
   };
 
   return (
-    <section className="relative px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('https://framerusercontent.com/images/4207UCMpGfd1yz62fn7VkACtag.jpg?scale-down-to=1024')] bg-cover bg-center md:bg-cover bg-fixed">
+    <section className="relative px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('img/carousel/5.png')] bg-cover bg-center md:bg-cover bg-fixed">
       <div className="absolute inset-0 bg-black/60 w-full"></div>
       <div className="relative z-10 w-full max-w-7xl px md:px-5 lg:px-5 mx-auto transition-opacity opacity-100">
         <div className="w-full  justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
-          <div className="w-full rounded-xl flex-col p-5 bg-[#ffc03d] justify-center lg:items-start items-center gap-10 inline-flex">
+          <div className="w-full rounded-xl flex-col p-5 justify-center lg:items-start items-center gap-10 inline-flex">
             <div className="w-full flex-col justify-center items-start gap-4 md:gap-8 flex">
               <div className="flex-col justify-start lg:items-start items-center gap-3 flex">
-                <h6 className="text-bold text-2xl md:text-4xl text-center md:text-left font-bold leading-relaxed oswald_span">
+                <h6 className="text-bold text-white text-4xl md:text-6xl text-center md:text-left font-bold leading-relaxed font-bold  italiana-regular">
                   {t("about.Build Your Dream..")}
                 </h6>
                 <div className="w-full flex-col justify-start lg:items-start items-center gap-5 flex">
-                  <h2 className="text-black text-2xl oswald_span font-manrope leading-normal text-start text-center">
+                  <h2 className="text-yellow-200 text-2xl md:text-4xl maven-pro  text-start text-center">
                     {t(
                       "about.Engage with us for end to end property solutions."
                     )}
                   </h2>
-                  <p className="text-gray text-base font-normal leading-relaxed lg:text-start text-start">
-                    {t("about.Our achievement story is a testament to teamwork and perseverance. Together, we've overcome challenges, celebrated victories, and created a narrative of progress and success."
-                    )}
-                  </p>
+                  
                 </div>
               </div>
             </div>
@@ -151,7 +148,7 @@ const About = () => {
                     <span>+</span>
                   </h4>
                   <p className="text-gray-200 maven-pro text-center text-sm sm:text-base">
-                    {t('about.Colleagues & counting more daily')}
+                    {t("about.Colleagues & counting more daily")}
                   </p>
                 </div>
               </div>

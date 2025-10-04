@@ -1,15 +1,18 @@
-import React, { useEffect, useRef, useState } from "react";
-import Gallery from "./Gallery";
-import Footer from "./Footer";
-import Contact from "./Contact";
-import emailjs from "emailjs-com";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { AppConetxt } from "../context/context";
+import { useTranslation } from "react-i18next";
+import Footer from "../components/Footer";
+import SimpleCarousel from "../components/Carousel";
 
-const Project = () => {
-  const [showFeatures, setShowFeatures] = useState(false);
-  const [layoutIndex, setLayoutIndex] = useState(0);
-  const [imgBoxOpen, setImgBoxOpen] = useState(false);
+const AllProjects = () => {
+  const { newLaunchProjects } = useContext(AppConetxt);
+  const { t } = useTranslation();
+  const [filterText, setFilterText] = useState("all");
+  const [filteredProject, setFilteredProject] = useState([
+    ...newLaunchProjects,
+  ]);
+
   const [mailSent, setMailsent] = useState(false);
-
   const [showContactForm, setShowContactForm] = useState(false);
   const formRef = useRef(null);
   const contactFormRef = useRef(null);
@@ -84,14 +87,6 @@ const Project = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  const openImgBox = (src, index) => {
-    setImgBoxOpen(true);
-  };
-
-  const closeImgBox = () => {
-    setImgBoxOpen(false);
-  };
-
   const handleDownload = async () => {
     if (mailSent) {
       const link = document.createElement("a");
@@ -115,88 +110,50 @@ const Project = () => {
     }
   };
 
-  const Description = `Welcome to Anandam in Bhayandar West, premium and luxury residences that don't restrict you in any manner. Homes that are more convenient as compared to conventionally designed residences and admirably fulfill the demands of fine living.
+  const handleFilter = (e) => {
+    setFilterText(e.target.value);
+    if (filterText === "all") {
+      setFilteredProject([...newLaunchProjects]);
+    } else {
+      const tempProjects = newLaunchProjects.filter(
+        (project) => project.location === filterText
+      );
 
-Make yourself at home in this premium 2BHKs, replete with the most modern amenities one could wish for. Located in Bhayandar West amongst life's conveniences, Anandam lets everyone experience fine living in a spacious environment.
-
-MahaRERA No - : P51700017515 / P51700017941
-
-G + 24 Storey tower
-
-2 BHK & Jodi Options`;
-
-  const layouts = [
-    {
-      title: "1 BHK",
-      area: "1500",
-      price: "58,00,00",
-      img: "img/layouts/anandam/1.png",
-    },
-    {
-      title: "2 BHK",
-      area: "2500",
-      price: "58,00,00",
-      img: "img/layouts/anandam/2.png",
-    },
-    {
-      title: "3 BHK",
-      area: "3000",
-      price: "58,00,00",
-      img: "img/layouts/anandam/3.png",
-    },
-  ];
-
-  const Features = [
-    "Gymnasium",
-    "Senior Citizen Corner",
-    "Kids Play Area",
-    "Steam Room",
-    "Swimming Pool",
-    "CCTV for Security",
-    "Clubhouse with AV",
-    "Fire Fighting System",
-    "Meditation Room",
-    "Adequate Parking Spaces",
-  ];
+      setFilteredProject([...tempProjects]);
+    }
+    console.log("filtered Project", filteredProject);
+  };
 
   return (
     <>
-      {/* Header Section  */}
-      <section
-        className="relative w-full h-[90vh] sm:h-[80vh] md:h-[70vh] flex items-center justify-center bg-fixed bg-center bg-cover"
-        style={{
-          backgroundImage:
-            "url('https://framerusercontent.com/images/4207UCMpGfd1yz62fn7VkACtag.jpg?scale-down-to=1024')",
-        }}
-      >
-        {/* Overlay with subtle gradient and dark tint */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-10"></div>
+      {/* header */}
+      <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('img/backgrounds/blog-bg.jpeg')]">
+        <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70 z-10"></div>
 
-        {/* Content Container */}
-        <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 md:px-12 max-w-3xl mx-auto">
-          <img
-            src="img/logo/anandam logo.png"
-            alt="Anandam Logo"
-            className="h-24 w-24 md:h-32 md:w-32 mb-6 drop-shadow-lg"
-            loading="lazy"
-          />
-          <h1 className="text-white text-6xl sm:text-7xl md:text-8xl font-extrabold italiana-regular select-none drop-shadow-xl">
-            Anandam
-          </h1>
-          <span className="text-yellow-400 text-2xl sm:text-3xl maven-pro mt-2 tracking-wide drop-shadow-md italic">
-            Mira Road
-          </span>
+        <div className="relative z-20 max-w-7xl w-full px-6 md:px-12 flex flex-col-reverse md:flex-row items-center md:items-stretch justify-center gap-8 md:gap-16 text-center md:text-left">
+          <div className="flex flex-col justify-center items-center md:items-start gap-4 md:gap-6 max-w-xl">
+            <h1 className="text-yellow-200 italiana-regular font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-lg">
+              Explore All The
+            </h1>
+            <h2 className="text-yellow-200 italiana-regular font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-lg">
+              Top Notch Projects
+            </h2>
+            <span className="text-white maven-pro text-xl sm:text-2xl md:text-3xl font-semibold drop-shadow-md italic">
+              Live Your Dream..
+            </span>
+          </div>
 
-          {/* Optional Quote */}
-          <blockquote className="mt-10 text-gray-300 italic text-lg sm:text-xl max-w-xl px-4">
-            &ldquo;Where dreams find a home and life blossoms in every
-            corner.&rdquo;
-          </blockquote>
+          <div className="flex justify-center md:justify-end items-center max-w-sm md:max-w-md lg:max-w-lg rounded-tr-[180px] rounded-bl-[180px] overflow-hidden shadow-2xl border-8 border-yellow-400">
+            <img
+              src="img/backgrounds/all-project.jpg"
+              alt="Top Notch Projects"
+              className="object-cover w-full h-64 sm:h-80 md:h-full transition-transform duration-500 hover:scale-105 rounded-tr-[180px] rounded-bl-[180px]"
+            />
+          </div>
         </div>
       </section>
 
       {/* conatct form */}
-
       <div
         className={`fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-500 ${
           showContactForm ? "opacity-100 visible" : "opacity-0 invisible"
@@ -375,241 +332,113 @@ G + 24 Storey tower
         </div>
       </div>
 
-      {/* About Section */}
-      <section className="w-full   px-6 md:px-16 py-5 min-h-[70vh] flex flex-col">
-        <header className="w-full flex flex-col items-center md:items-start text-center md:text-left mb-6">
-          <span className="text-gray-400 text-xl md:text-2xl maven-pro">
-            ABOUT
+      {/* caraousel */}
+
+      <SimpleCarousel/>
+
+      {/* all projects */}
+      <section className="flex flex-col px-5 md:px-16 py-5">
+        <div className="flex z-10 relative items-center justify-center w-full mb-10">
+          <div className="flex-grow max-w-40 border-t border-black"></div>
+          <h2 className="mx-4 text-2xl font-bold uppercase text-black oswald_span">
+            All Projects
+          </h2>
+          <div className="flex-grow flex-grow max-w-40 border-t border-black"></div>
+        </div>
+
+        <div className="flex flex-row w-full md:justify-end mb-2 gap-3 p-2 items-center">
+          <span className="maven-pro text-orange-600">
+            Filter By Location :{" "}
           </span>
-          <h2 className="mt-1 text-4xl sm:text-5xl md:text-6xl font-bold italiana-regular bg-gradient-to-r from-red-500 to-red-900 bg-clip-text text-transparent">
-            Anandam
-          </h2>
-        </header>
+          <select
+            className="border cursor-pointer maven-pro rounded px-2 py-1"
+            name=""
+            value={filterText}
+            id=""
+            onChange={handleFilter}
+          >
+            <option value="all">All</option>
+            <option value="Mira Road">Mira Road</option>
+            <option value="Bhayandar Wast">Bhayandar East</option>
+            <option value="Bhayandar West">Bhayandar West</option>
+          </select>
+        </div>
 
-        <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 md:gap-16 items-start md:items-center">
-          <div className="flex flex-col w-full lg:w-1/2 max-w-full md:max-w-xl">
-            <div className="inline-flex border-black rounded overflow-hidden w-fit mb-4">
-              <button
-                type="button"
-                aria-pressed={!showFeatures}
-                onClick={() => setShowFeatures(false)}
-                className={`px-4 sm:px-5 py-2 transition-colors duration-200 font-medium text-sm sm:text-base ${
-                  !showFeatures
-                    ? "bg-black text-white"
-                    : "text-black bg-transparent hover:bg-black hover:text-white"
-                }`}
+        <div
+          id=""
+          className="grid mt-1 grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 md:grid-cols-4"
+        >
+          {newLaunchProjects &&
+            filteredProject.map((project) => (
+              <a
+                href="#"
+                key={project.name}
+                className="group rounded-xl hover:border hover:-translate-y-6 bg-white  hover:bg-black rounded p-5 transition tarnsition-smooth duration-600"
               >
-                Description
-              </button>
-              <button
-                type="button"
-                aria-pressed={showFeatures}
-                onClick={() => setShowFeatures(true)}
-                className={`px-4 sm:px-5 py-2 transition-colors duration-200 font-medium text-sm sm:text-base ${
-                  showFeatures
-                    ? "bg-black text-white"
-                    : "text-black bg-transparent hover:bg-black hover:text-white"
-                }`}
-              >
-                Features
-              </button>
-            </div>
-
-            <div className="border border-gray-300 border-orange-600 rounded p-4 min-h-[40vh]  lg:min-h-[60vh] overflow-auto text-gray-700 text-sm sm:text-base whitespace-pre-wrap">
-              {showFeatures ? (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 list-none">
-                  {Features.map((feature, index) => (
-                    <li
-                      key={index}
-                      className="flex items-center space-x-2 text-gray-700 text-sm sm:text-base"
+                <img
+                  src={project.img}
+                  alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
+                  className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-40 lg:h-60 rounded-lg bg-gray-200  roup-hover:overlay-20  overflow-hidden xl:aspect-7/8"
+                />
+                <p className="mt-3 text-xs text-orange-700 flex items-center">
+                  <span>
+                    <img className="h-4" src="img/icons/location.png" alt="" />
+                  </span>
+                  <span className="group-hover:text-white">
+                    {t(`featuredProject.${project.location}`)}
+                  </span>
+                </p>
+                <h2 className="mt-2 px-1 text-md group-hover:text-white font-medium maven-pro text-gray-900 group-">
+                  {t(`featuredProject.${project.name}`)}
+                </h2>
+                <div className="flex mt-2  item-center justify-between">
+                  <span className="flex  px-1 mt-1 w-fit items-center border">
+                    <svg
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
                     >
-                      <img
-                        src="img/check-mark-circle-svgrepo-com.svg"
-                        alt="Check mark"
-                        className="h-5 w-5 flex-shrink-0"
-                        loading="lazy"
-                      />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
-              ) : (
-                <p>{Description}</p>
-              )}
-            </div>
-          </div>
-
-          {/* Video Section */}
-          <div className="border  lg:w-1/2 rounded  overflow-hidden shadow-lg w-full md:max-w-4xl aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[60vh] flex items-center justify-center">
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/-YWwxrt69FI?si=sGgyi0UMu1uJt5E4"
-              title="Anandam Project Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-              className="w-full h-full object-contain"
-            ></iframe>
-          </div>
-        </div>
-      </section>
-
-      {/* layout section */}
-
-      <section className="px-6 md:px-16 py-12 bg-gray-100">
-        {/* Section Title */}
-        <div className="flex items-center justify-center w-full mb-12">
-          <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
-          <h2 className="mx-6 text-3xl font-extrabold uppercase text-gray-900 oswald_span tracking-widest">
-            Layouts
-          </h2>
-          <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
-        </div>
-
-        {/* Layout Grid */}
-        <div className="flex flex-col md:flex-row gap-10 items-start">
-          {/* Image Container */}
-          <div className="flex-1 bg-black/85 rounded-xl shadow-lg p-4 flex justify-center items-center">
-            <img
-              src={layouts[layoutIndex].img}
-              alt={layouts[layoutIndex].title}
-              onClick={openImgBox}
-              className="w-full cursor-pointer h-[350px] md:h-[400px] object-contain rounded-lg"
-            />
-          </div>
-
-          {/* Right Content */}
-          <div className="flex flex-1 flex-col justify-between h-full">
-            {/* Buttons */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              {layouts.map((l, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setLayoutIndex(idx)}
-                  className={`px-5 cursor-pointer py-1 rounded-md font-sm transition-all duration-300 ${
-                    layoutIndex === idx
-                      ? "bg-black text-white shadow-md"
-                      : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
-                  }`}
-                >
-                  {l.title}
-                </button>
-              ))}
-            </div>
-
-            {imgBoxOpen && (
-              <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
-                <div className="flex flex-col items-center">
+                      <path
+                        fill-rule="evenodd"
+                        clip-rule="evenodd"
+                        d="M1.332 7.999c0-3.68 2.98-6.667 6.66-6.667a6.67 6.67 0 0 1 6.673 6.667 6.67 6.67 0 0 1-6.673 6.666A6.663 6.663 0 0 1 1.332 8Zm6.667 2.3 2.146 1.293a.33.33 0 0 0 .494-.36l-.567-2.447 1.887-1.633a.334.334 0 0 0-.187-.587l-2.493-.213-.974-2.293a.332.332 0 0 0-.613 0l-.973 2.3-2.494.213a.337.337 0 0 0-.193.587l1.887 1.633-.567 2.44a.335.335 0 0 0 .5.36l2.147-1.293Z"
+                        fill="#63BBEB"
+                      ></path>
+                    </svg>
+                    <span className="text-xs group-hover:text-white text-gray-700">
+                      {t("featuredProject.NEW LAUNCH")}
+                    </span>
+                  </span>
                   <img
-                    src={layouts[layoutIndex].img}
-                    alt="Enlarged view"
-                    className="max-w-full max-h-[80vh] rounded-lg shadow-2xl"
+                    className="h-5 border rounded-full border-gray-300"
+                    src="img/icons/arrow.png"
+                    alt=""
                   />
-                  <p className="text-white text-md maven-pro mt-4 italic">
-                    {layouts[layoutIndex].title}
-                  </p>
                 </div>
-
-                <button
-                  className="absolute top-5 right-5 text-yellow-500 hover:rotate-y-60 text-5xl font-bold cursor-pointer"
-                  onClick={closeImgBox}
-                  aria-label="Close modal"
-                >
-                  &times;
-                </button>
-              </div>
-            )}
-
-            {/* Details Box */}
-            <div className="border border-gray-200 rounded-lg p-5 bg-white shadow-md text-gray-700 mb-6">
-              <p className="mb-2 font-semibold">
-                Title:{" "}
-                <span className="font-normal">
-                  {layouts[layoutIndex].title}
-                </span>
-              </p>
-              <p className="mb-2 font-semibold">
-                Area:{" "}
-                <span className="font-normal">
-                  {layouts[layoutIndex].area} sq ft
-                </span>
-              </p>
-              <p className="font-semibold">
-                Price:{" "}
-                <span className="font-normal">
-                  {layouts[layoutIndex].price} Lacs
-                </span>
-              </p>
-            </div>
-
-            {/* Action Buttons */}
-            <div className="flex flex-wrap gap-4">
-              <button
-                onClick={handleDownload}
-                className="inline-block px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 shadow-sm transition"
-              >
-                Download Brochure
-              </button>
-              <button
-                type="button"
-                className="px-6 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700 shadow-sm transition"
-              >
-                Contact Us
-              </button>
-            </div>
-          </div>
+              </a>
+            ))}
         </div>
       </section>
 
-      {/* gallery section */}
-      <Gallery />
-
-      {/* address */}
-
-      <section className="relative px-6 md:px-16 py-12 bg-[url(img/carousel/Codename-LIT.jpg)]  bg-fixed bg-cover">
-        <div className="absolute inset-0 bg-black/70"></div>
-        <div className="flex z-20 flex-col  md:flex-row md:space-x-12 gap-10 max-w-7xl mx-auto">
-          {/* Address Section */}
-          <div className="md:flex-1 relative text-gray-700 ">
-            <div className="flex items-center justify-center w-full mb-12">
-              <div className="flex-1 max-w-40 border-t-2 border-white" />
-              <h2 className="mx-6 text-2xl font-bold uppercase text-white oswald_span tracking-widest">
-                Address
-              </h2>
-              <div className="flex-1 max-w-40 border-t-2 border-white" />
-            </div>
-
-            <div className="flex  h-ful justify-center">
-              <address className="mt-4   italic text-white/80 text-lg leading-relaxed font-semibold">
-                <b>Samruddhi Plaza</b>,<br />
-                Mira Bhayandar Rd,
-                <br /> Medetiya Nagar, Queens Park,
-                <br />
-                Mira Road East, Mumbai, Mira Bhayandar,
-                <br />
-                Maharashtra 401105
-              </address>
-            </div>
-          </div>
-
-          {/* Map Section */}
-          <div className="md:flex-1 relative rounded-lg overflow-hidden shadow-lg border border-black ">
-            <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3765.789997379166!2d72.8604671743071!3d19.291496545173786!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b033ecd6f705%3A0x41e29f1f4e08ba0a!2sDelta%20Yards%20Realty%20Pvt%20Ltd!5e0!3m2!1sen!2sin!4v1759475201473!5m2!1sen!2sin"
-              width="100%"
-              height="350"
-              className="w-full h-[350px] md:h-[400px]"
-              allowFullScreen
-              loading="lazy"
-              title="Samruddhi Plaza Location"
-            ></iframe>
-          </div>
+      {/* video section */}
+      <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('img/carousel/Airica.jpg')] bg-fixed">
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-20 mx-auto flex justify-center items-center w-full">
+          <iframe
+            className="w-full max-w-3xl aspect-video rounded-2xl shadow-2xl border border-white/20"
+            src="https://www.youtube.com/embed/8uVQACW7uh4?autoplay=1&mute=1&loop=1&playlist=8uVQACW7uh4"
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
         </div>
       </section>
 
-      {/* contact */}
+      {/* contact form */}
 
       <section className="px-6 py-8 md:px-16 md:py-12 bg-gray-100 flex justify-center items-center min-h-screen">
         <div className="bg-white rounded-2xl w-full max-w-4xl px-6 py-8 md:px-10 md:py-10 shadow-lg">
@@ -753,9 +582,11 @@ G + 24 Storey tower
         </div>
       </section>
 
+      {/* footer */}
+
       <Footer />
     </>
   );
 };
 
-export default Project;
+export default AllProjects;
