@@ -1,24 +1,50 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useRef } from "react";
 import { AppConetxt } from "../context/context";
 
 const Blog = () => {
   const { blogs } = useContext(AppConetxt);
+  const parentSection = useRef(null);
 
   useEffect(() => {}, [blogs]);
 
+  useEffect(() => {
+    if (parentSection.current) {
+      const observer = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("show");
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.3 }
+      );
+
+      const items = parentSection.current.querySelectorAll(".fade-item");
+
+      items.forEach((item) => observer.observe(item));
+      return () => observer.disconnect();
+    }
+  }, []);
+
   return (
-    <section className="py-10  lg:px-20 sm:py-10 bg-white">
+    <section className="py-10 lg:px-20 sm:py-10 bg-white">
       <div className="absolute inset-y-0 bg-black/50"></div>
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+      <div
+        ref={parentSection}
+        className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
+      >
         <div className="flex z-10 relative items-center justify-center w-full mb-10">
           <div className="flex-grow max-w-30 border-t border-black"></div>
-          <h2 className="mx-4 text-2xl  uppercase text-black oswald_span">
+          <h2 className="mx-4 text-2xl uppercase text-black oswald_span">
             FROM THE BLOG
           </h2>
           <div className="flex-grow flex-grow max-w-30 border-t border-black"></div>
         </div>
 
-        <div className="flex justify-center mb-5 gap-y-5 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
+        <div className="flex fade-item  justify-center mb-5 gap-y-5 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
           {blogs &&
             blogs.slice(0, 3).map((blog) => (
               <div
@@ -59,12 +85,11 @@ const Blog = () => {
             ))}
         </div>
 
-        <a
-          href="#"
-          className="cursor-pointer text-white border border-gray-300 shadow-sm rounded-full py-3.5 px-7 w-52 flex justify-center items-center text-gray-900 font-semibold mx-auto transition-all duration-300  hover:bg-white hover:text-black "
-        >
-          View All
-        </a>
+        <div className="mt-10 flex justify-center">
+          <button className="border cursor-pointer border-black px-6 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+            View All
+          </button>
+        </div>
       </div>
     </section>
   );
