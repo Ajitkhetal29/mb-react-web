@@ -1,17 +1,16 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { AppConetxt } from "../context/context";
-
 import { useTranslation } from "react-i18next";
 
 const FeaturedProjects = () => {
   const { newLaunchProjects } = useContext(AppConetxt);
-
-  const parentSection = useRef([]);
-
+  const parentSection = useRef(null);
+  const btnParent = useRef(null);
   const { t } = useTranslation();
 
   useEffect(() => {
     if (newLaunchProjects && parentSection.current) {
+      const btn = btnParent.current;
       const observer = new IntersectionObserver(
         (entries, obs) => {
           entries.forEach((entry) => {
@@ -19,121 +18,119 @@ const FeaturedProjects = () => {
               entry.target.classList.add("show");
               obs.unobserve(entry.target);
             }
+            if (entry.target === btn) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add("show");
+                obs.unobserve(entry.target);
+              }
+            }
           });
         },
-        { threshold: 0.5 }
+        { threshold: 0.3 }
       );
 
       const items = parentSection.current.querySelectorAll(".fade-item");
 
       items.forEach((item) => observer.observe(item));
+      if (btn) observer.observe(btn);
       return () => observer.disconnect();
     }
   }, [newLaunchProjects]);
 
   return (
-    <>
-      <div className="bg-gray-100">
-        <div className="mx-auto px-10 py-10 sm:px-15 sm:py-10 lg:max-w-7xl lg:px-8">
-          <div className="flex justify-left items-center sm:justify-evenly xs:gap-1 px-6">
-            <h2 className="text-xl md:text-2xl flex-1 text-center text-black mb-2 uppercase oswald_span text-bold">
-              {t("featuredProject.Featured Projects")}
-            </h2>
-            <button className="sm:w-fit group md:px-3.5 py-2 border hover:bg-black transition-all duration-700 ease-in-out justify-center items-center flex">
-              <span className="px-1.5 uppercase text-black hover:text-white text-sm font-medium leading-6">
-                {t("featuredProject.Explore all properties")}
-              </span>
-              <svg
-                className="group-hover:translate-x-0.5 transition-all duration-700 ease-in-out"
-                xmlns="http://www.w3.org/2000/svg"
-                width="18"
-                height="18"
-                viewBox="0 0 18 18"
-                fill="none"
-              >
-                <path
-                  d="M6.75265 4.49658L11.2528 8.99677L6.75 13.4996"
-                  stroke="#4F46E5"
-                  stroke-width="1.6"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </button>
-          </div>
-
-          <div
-            ref={parentSection}
-            id=""
-            className="grid mt-1 grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 md:grid-cols-4"
-          >
-            {newLaunchProjects &&
-              newLaunchProjects.map((project) => (
-                <a
-                  href="#"
-                  key={project.name}
-                  className="group rounded-xl hover:border hover:-translate-y-6 bg-white  hover:bg-black rounded p-5 transition tarnsition-smooth duration-600"
-                >
-                  <img
-                    src={project.img}
-                    alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                    className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-40 lg:h-60 rounded-lg bg-gray-200  roup-hover:overlay-20  overflow-hidden xl:aspect-7/8"
-                  />
-                  <p className="mt-3 text-xs text-orange-700 flex items-center">
-                    <span>
-                      <img
-                        className="h-4"
-                        src="img/icons/location.png"
-                        alt=""
-                      />
-                    </span>
-                    <span className="group-hover:text-white">
-                      {t(`featuredProject.${project.location}`)}
-                    </span>
-                  </p>
-                  <h2 className="mt-2 px-1 text-md group-hover:text-white font-medium maven-pro text-gray-900 group-">
-                    {t(`featuredProject.${project.name}`)}
-                  </h2>
-                  <div className="flex mt-2  item-center justify-between">
-                    <span className="flex  px-1 mt-1 w-fit items-center border">
-                      <svg
-                        width="1em"
-                        height="1em"
-                        viewBox="0 0 16 16"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          fill-rule="evenodd"
-                          clip-rule="evenodd"
-                          d="M1.332 7.999c0-3.68 2.98-6.667 6.66-6.667a6.67 6.67 0 0 1 6.673 6.667 6.67 6.67 0 0 1-6.673 6.666A6.663 6.663 0 0 1 1.332 8Zm6.667 2.3 2.146 1.293a.33.33 0 0 0 .494-.36l-.567-2.447 1.887-1.633a.334.334 0 0 0-.187-.587l-2.493-.213-.974-2.293a.332.332 0 0 0-.613 0l-.973 2.3-2.494.213a.337.337 0 0 0-.193.587l1.887 1.633-.567 2.44a.335.335 0 0 0 .5.36l2.147-1.293Z"
-                          fill="#63BBEB"
-                        ></path>
-                      </svg>
-                      <span className="text-xs group-hover:text-white text-gray-700">
-                        {t("featuredProject.NEW LAUNCH")}
-                      </span>
-                    </span>
-                    <img
-                      className="h-5 border rounded-full border-gray-300"
-                      src="img/icons/arrow.png"
-                      alt=""
-                    />
-                  </div>
-                </a>
-              ))}
-          </div>
-
-          <div className="mt-10 flex justify-center items-center sm:justify-evenly xs:gap-1 px-6">
-            <button className=" group md:px-3.5 py-2 border hover:bg-black transition-all duration-700 ease-in-out justify-center items-center flex">
-              <span className="px-1.5 uppercase text-black hover:text-white text-sm font-medium leading-6">
-                {t("featuredProject.Explore all properties")}
-              </span>
-            </button>
-          </div>
+    <section className="bg-gray-100 py-15 px-6 lg:px-10">
+      {/* Header */}
+      <div className="text-center mb-10">
+        <div className="flex items-center justify-center gap-3">
+          <div className="flex-grow max-w-[80px] border-t border-black"></div>
+          <h2 className="text-2xl md:text-2xl uppercase  oswald_span text-gray-900 ">
+            {t("featuredProject.Featured Projects")}
+          </h2>
+          <div className="flex-grow max-w-[80px] border-t border-black"></div>
+        </div>
+        <div className="w-full mt-2">
+          <span className="maven-pro text-orange-600">
+            " We create spaces that enable Everyday Joys, one community, one
+            family, and one home at a time. "
+          </span>
+        </div>
+        <div className="mt-6 flex justify-end">
+          <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+            {t("featuredProject.Explore all properties")}
+          </button>
         </div>
       </div>
-    </>
+
+      {/* Projects Grid */}
+      <div
+        ref={parentSection}
+        className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-7xl mx-auto"
+      >
+        {newLaunchProjects &&
+          newLaunchProjects.map((project, index) => (
+            <a
+              href="#"
+              key={index}
+              className="group relative bg-white border border-transparent hover:border-black/70 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-3 transition-all duration-500 ease-in-out overflow-hidden fade-item"
+            >
+              <div className="relative overflow-hidden rounded-t-xl">
+                <img
+                  src={project.img}
+                  alt={project.name}
+                  className="object-cover w-full h-56 group-hover:scale-105 transition-transform duration-700"
+                />
+                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500"></div>
+              </div>
+
+              <div className="p-4">
+                <p className="text-xs text-orange-600 flex items-center gap-1">
+                  <img className="h-4" src="img/icons/location.png" alt="" />
+                  <span className="group-hover:text-black">
+                    {t(`featuredProject.${project.location}`)}
+                  </span>
+                </p>
+
+                <h3 className="mt-2 text-lg group-hover:font-medium text-gray-900 group-hover:text-black maven-pro">
+                  {t(`featuredProject.${project.name}`)}
+                </h3>
+
+                <div className="mt-3 flex items-center justify-between">
+                  <span className="flex items-center gap-1 border border-gray-300 px-2 py-0.5 rounded-full text-xs text-gray-700 group-hover:text-blue-500">
+                    <svg
+                      width="1em"
+                      height="1em"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        clipRule="evenodd"
+                        d="M1.332 7.999c0-3.68 2.98-6.667 6.66-6.667a6.67 6.67 0 0 1 6.673 6.667 6.67 6.67 0 0 1-6.673 6.666A6.663 6.663 0 0 1 1.332 8Zm6.667 2.3 2.146 1.293a.33.33 0 0 0 .494-.36l-.567-2.447 1.887-1.633a.334.334 0 0 0-.187-.587l-2.493-.213-.974-2.293a.332.332 0 0 0-.613 0l-.973 2.3-2.494.213a.337.337 0 0 0-.193.587l1.887 1.633-.567 2.44a.335.335 0 0 0 .5.36l2.147-1.293Z"
+                        fill="#63BBEB"
+                      />
+                    </svg>
+                    {t("featuredProject.NEW LAUNCH")}
+                  </span>
+
+                  <img
+                    className="h-5 w-5 border border-gray-400 rounded-full p-1 group-hover:bg-black transition-all"
+                    src="img/icons/arrow.png"
+                    alt=""
+                  />
+                </div>
+              </div>
+            </a>
+          ))}
+      </div>
+
+      {/* Bottom Button */}
+      <div ref={btnParent} className="mt-10 fade-btn flex justify-center">
+        <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+          {t("featuredProject.Explore all properties")}
+        </button>
+      </div>
+    </section>
   );
 };
 

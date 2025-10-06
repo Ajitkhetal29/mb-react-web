@@ -4,42 +4,48 @@ import { AppConetxt } from "../context/context";
 const Testimonials = () => {
   const { CustReviews } = useContext(AppConetxt);
 
-  useEffect(() => { }, [CustReviews]);
+  useEffect(() => {}, [CustReviews]);
 
   return (
-    <div className="relative items-center [85rem] bg-[url('img/backgrounds/testimonal-bg.jpeg')] bg-cover bg-fixed px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
-      <div className="absolute inset-0 bg-black/50"></div>
+    <div
+  className="relative bg-[url('img/backgrounds/testimonal-bg.jpeg')] bg-cover bg-fixed bg-center px-6 py-12 sm:px-8 lg:px-12 lg:py-16 mx-auto max-w-7xl rounded-xl overflow-hidden"
+  aria-label="Customer testimonials section"
+>
+  <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70 pointer-events-none rounded-xl"></div>
 
-      <div className="flex z-10 relative items-center justify-center w-full mb-10">
-        <div className="flex-grow max-w-40 border-t border-white"></div>
-        <h2 className="mx-4 text-2xl font-bold uppercase text-white oswald_span">
-          customers stories
-        </h2>
-        <div className="flex-grow flex-grow max-w-40 border-t border-white"></div>
-      </div>
+  <div className="relative z-10 flex items-center justify-center w-full mb-12">
+    <div className="flex-grow max-w-30 border-t border-white/50 opacity-70"></div>
+    <h2 className="mx-6 text-2xl md:text-2xl uppercase text-white oswald_span tracking-wider">
+      Customers Stories
+    </h2>
+    <div className="flex-grow max-w-30 border-t border-white/50 opacity-70"></div>
+  </div>
 
-      <div class="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {CustReviews &&
-          CustReviews.slice(0, 3).map((review) => (
-            <div class="flex flex-col bg-white/80 border border-gray-200 shadow-2xs rounded-tr-[50px] rounded-bl-[50px]">
-              <div className="flex-auto p-4 md:p-6">
-                <p className="mt-3 sm:mt-6 text-base text-black md:text-xl ">
-                  <em>{review.text}</em>
-                </p>
-              </div>
+  <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+    {CustReviews &&
+      CustReviews.slice(0, 3).map(({ name, position, text }, idx) => (
+        <article
+          key={idx}
+          className="flex flex-col backdrop-blur-md bg-white/20 border border-white/30 rounded-3xl shadow-xl p-6 transition-transform transform hover:scale-105 hover:shadow-2xl cursor-default"
+          role="group"
+          tabIndex={0}
+          aria-label={`Testimonial from ${name}, ${position}`}
+        >
+          <div className="flex-grow border-b py-2">
+            <p className="text-white italic text-base md:text-lg leading-relaxed">
+              “{text}”
+            </p>
+          </div>
 
-              <div className="p-4 rounded-b-xl md:px-6">
-                <h3 className="text-sm font-semibold text-black sm:text-base">
-                  {review.name}
-                </h3>
-                <p className="text-sm text-gray-500 ">
-                  {review.position}
-                </p>
-              </div>
-            </div>
-          ))}
-      </div>
-    </div>
+          <footer className="mt-4">
+            <h3 className="text-lg font-semibold text-white">{name}</h3>
+            <p className="text-white/80 text-sm">{position}</p>
+          </footer>
+        </article>
+      ))}
+  </div>
+</div>
+
   );
 };
 

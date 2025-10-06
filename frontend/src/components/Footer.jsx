@@ -2,9 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col w-full bg-white py-8 px-4 sm:py-12 sm:px-12 md:px-24 lg:py-16 lg:px-24 xl:px-28">
-      {/* Top Row: Logo & Social Icons */}
-      <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 gap-6 md:gap-0">
+    <div className="flex flex-col w-full bg-white py-8 px-4 sm:py-6 sm:px-12 md:px-10 lg:py-10 ">
+      <div className="flex flex-col  md:flex-row items-center justify-between px-4 md:px-10 gap-6 md:gap-0">
         <img
           src="img/logo/logo.png"
           alt="Logo"
@@ -72,7 +71,7 @@ const Footer = () => {
                 href={href}
                 rel="noreferrer"
                 target="_blank"
-                className="text-gray-700 transition hover:opacity-75"
+                className="text-black transition hover:opacity-75 hover:text-orange-500"
                 aria-label={name}
               >
                 <span className="sr-only">{name}</span>
@@ -83,11 +82,10 @@ const Footer = () => {
         </ul>
       </div>
 
-      {/* Disclaimer and Newsletter Section */}
       <div className="mt-10 flex border-b py-5 flex-col lg:flex-row gap-10 lg:gap-0 items-start lg:items-center border-t border-gray-200 pt-10">
         {/* Disclaimer */}
         <div className="lg:w-1/2 px-4 lg:border-r border-gray-300">
-          <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
+          <p className="text-gray-600 text-sm sm:text-sm maven-pro leading-relaxed">
             <b className="text-black text-base sm:text-lg maven-pro">
               Disclaimers:
             </b>{" "}
@@ -104,7 +102,7 @@ const Footer = () => {
 
         {/* Newsletter */}
         <div className="lg:w-1/2 px-4 flex flex-col items-center">
-          <h2 className="text-center lg:text-left text-xl md:text-2xl font-semibold mb-5 oswald_span">
+          <h2 className="text-center lg:text-left text-xl md:text-xl font-semibold mb-5 oswald_span">
             Get the latest news
           </h2>
           <form className="w-full max-w-md">
@@ -129,10 +127,9 @@ const Footer = () => {
         </div>
       </div>
 
-      {/* Copyright */}
 
       <div className="relative flex relative w-full items-center justify-center ">
-        <p className="absolute top-1 lg:top-5 text-sm text-center text-yellow-900">
+        <p className="absolute bottom-1 lg:bottom-5 text-sm text-center text-orange-500">
           &copy; mirabhayandarprojects.com. All rights reserved.
         </p>
 

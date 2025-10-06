@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from "react";
 
 const galleryItems = [
-  { src: "img/gallery/1.jpeg", title: "Modern Kitchen" },
+  { src: "img/gallery/5.jpg", title: "Modern Kitchen" },
   { src: "img/gallery/2.jpg", title: "Spacious Living Room" },
   { src: "img/gallery/3.jpg", title: "Cozy Bedroom" },
   { src: "img/gallery/4.jpg", title: "Elegant Dining Area" },
   { src: "img/gallery/5.jpg", title: "Luxurious Bathroom" },
   { src: "img/gallery/6.jpeg", title: "Outdoor Patio" },
-  { src: "img/gallery/7.jpeg", title: "Home Office" },
+  { src: "img/gallery/3.jpg", title: "Home Office" },
   { src: "img/gallery/8.jpeg", title: "Modern Kitchen 2" },
   { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
 ];
@@ -69,12 +69,20 @@ export default function Gallery() {
       ref={parentSection}
       className="relative flex flex-col px-5 py-10 md:px-20 container mx-auto"
     >
-      <div className="flex items-center justify-center w-full mb-12">
-        <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
-        <h2 className="mx-6 text-3xl font-extrabold uppercase text-gray-900 oswald_span tracking-widest">
+      <div className="flex items-center justify-center w-full mb-3">
+        <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
+        <h2 className="mx-6 text-2xl uppercase text-gray-900 oswald_span ">
           Gallery
         </h2>
-        <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
+        <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
+      </div>
+      <div className="w-full flex justify-center maven-pro text-orange-500 mb-5">
+        <span>
+          {" "}
+          <span>
+           " Experience the art of modern living through our curated gallery "
+          </span>
+        </span>
       </div>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3">

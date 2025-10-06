@@ -1,3 +1,3 @@
-- [x] Update the left content div in About section to be w-full on small screens and w-1/2 on md+
-- [x] Adjust gap in the main flex container for better spacing: gap-4 sm:gap-8 md:gap-16
-- [ ] Test responsiveness by running the app
+- [x] Update the Mission & Vision section in About.jsx with the provided improved JSX code
+- [x] Add minor enhancements: ensure better mobile responsiveness and smooth transitions
+- [ ] Test the changes by running the development server

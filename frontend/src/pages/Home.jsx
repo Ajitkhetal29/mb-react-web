@@ -12,12 +12,16 @@ import Gallery from "../components/Gallery";
 import Faq from "../components/Faq";
 import BackTotopBtn from "../components/BackTotopBtn";
 import Contact from "../components/Contact";
+import Header from "../components/Header";
+import Hero from "../components/Hero";
 
 const Home = () => {
   return (
     <div>
-      <HeroCarousel />  
-      <About />
+      {/* <HeroCarousel />   */}
+      <Header/>
+      {/* <About /> */}
+      <Hero/>
       <Brands />
       <FeaturedProjects />
       <HeroAbout />

@@ -42,8 +42,8 @@ const About = () => {
   };
 
   return (
-    <section className="relative px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('img/carousel/5.png')] bg-cover bg-center md:bg-cover bg-fixed">
-      <div className="absolute inset-0 bg-black/60 w-full"></div>
+    <section className="relative w-full px-10 md:px-20 py-10 xl:mr-0 lg:mr-5 mr-0 bg-[url('img/carousel/5.png')] bg-cover bg-center md:bg-cover bg-fixed">
+      <div className="absolute inset-0 bg-black/30 w-full"></div>
       <div className="relative z-10 w-full max-w-7xl px md:px-5 lg:px-5 mx-auto transition-opacity opacity-100">
         <div className="w-full  justify-start items-center xl:gap-12 gap-10 grid lg:grid-cols-2 grid-cols-1">
           <div className="w-full rounded-xl flex-col p-5 justify-center lg:items-start items-center gap-10 inline-flex">
