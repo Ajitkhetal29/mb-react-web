@@ -40,7 +40,7 @@ const Brands = () => {
           <div className="flex-grow max-w-[80px] border-t border-white"></div>
         </div>
 
-        <p className="text-orange-200 mb-10 text-lg md:text-xl maven-pro">
+        <p className="text-orange-200 italic mb-10 text-lg md:text-xl maven-pro">
           {t("brands.We are pleased to work with our partners.")}
         </p>
 

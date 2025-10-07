@@ -1,40 +1,34 @@
-import { v2 as cloudinary } from "cloudinary";
-import { CloudinaryStorage } from "multer-storage-cloudinary";
-import multer from "multer";
-
-// Configure Cloudinary with your credentials
-cloudinary.config({
-  cloud_name: "dqvg0fkmw",
-  api_key: "649715569554247",
-  api_secret: "C4ySo8q6_H450fyNdvJXG69q3gI",
-});
-
-// Configure multer-storage-cloudinary
-const storage = new CloudinaryStorage({
-  cloudinary: cloudinary,
-  params: async (req, file) => {
-    let folder = "projects/default";
-    let resource_type = "image"; // default
-
-    if (file.fieldname === "galleryImages" || file.fieldname === "galleryNewImages") {
-      folder = "projects/gallery";
-    } else if (file.fieldname === "layoutImages" || file.fieldname === "newlayoutImages") {
-      folder = "projects/layouts";
-    } else if (file.fieldname === "browcherPdf" || file.fieldname === "newBrowcherPdf") {
-      folder = "projects/browcher";
-      resource_type = "raw";
-    } else if (file.fieldname === "blogImage") {
-      folder = "blogs";
+export const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const projectName = req.body.name.replace(/\s+/g, '_');
+    const baseFolder = path.join(__dirname, '..', 'uploads', projectName);
+    if (!fs.existsSync(baseFolder)) {
+      fs.mkdirSync(baseFolder, { recursive: true });
     }
 
+    let subFolder = 'others';
 
-    return {
-      folder,
-      allowed_formats: ["jpg", "jpeg", "png", "webp", "pdf"],
-      resource_type,
-      public_id: file.originalname.replace(/\.[^/.]+$/, ""),
-    };
+    if (file.fieldname === 'logo') subFolder = 'logo';
+    else if (file.fieldname === 'coverImage') subFolder = 'coverImage';
+    else if (file.fieldname === 'caraouselImages') subFolder = 'caraouselImages';
+    else if (file.fieldname === 'galleryImages') subFolder = 'galleryImages';
+    else if (file.fieldname === 'browcherPdf') subFolder = 'browcherPdf';
+    else if (file.fieldname === 'layouts') subFolder = 'layouts';
+
+    const finalFolder = path.join(baseFolder, subFolder);
+    if (!fs.existsSync(finalFolder)) {
+      fs.mkdirSync(finalFolder, { recursive: true });
+    }
+
+    cb(null, finalFolder);
+
   },
-});
+
+  filename: (req, file, cb) => {
+    const filename = file.originalname.replace(/\s+/g, '_');
+    cb(null, Date.now() + '_' + filename);
+  }
+
+})
 
 export const upload = multer({ storage });

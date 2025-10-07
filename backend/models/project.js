@@ -7,6 +7,25 @@ const projectSchema = new mongoose.Schema(
             required: true,
             trim: true,
         },
+        logo: {
+            type: String,
+            required: true,
+        },
+        coverImage: {
+            type: String,
+            required: true,
+        },
+        caraouselImages: [
+            {
+                filename: { type: String, required: true },
+                title: { type: String, required: true },
+                path: { type: String, required: true },
+            }],
+        otherVideos: [{
+            title: { type: String, required: true },
+            videoLink: { type: String, required: true },
+        }],
+
         builder: {
             type: String,
             required: true,
@@ -25,6 +44,7 @@ const projectSchema = new mongoose.Schema(
         galleryImages: [
             {
                 filename: { type: String, required: true },
+                title: { type: String, required: true },
                 path: { type: String, required: true },
             },
         ],

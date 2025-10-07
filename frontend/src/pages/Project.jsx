@@ -1,9 +1,13 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import Gallery from "../components/Gallery";
 import Footer from "../components/Footer";
 import emailjs from "emailjs-com";
+import Carousel from "../components/Carousel";
+import { AppConetxt } from "../context/context";
 
 const Project = () => {
+  const { galleryItems, caraouselImages } = useContext(AppConetxt);
+
   const [showFeatures, setShowFeatures] = useState(false);
   const [layoutIndex, setLayoutIndex] = useState(0);
   const [imgBoxOpen, setImgBoxOpen] = useState(false);
@@ -12,6 +16,7 @@ const Project = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const formRef = useRef(null);
   const contactFormRef = useRef(null);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -161,10 +166,7 @@ G + 24 Storey tower
   return (
     <>
       {/* Header Section  */}
-      <section
-        className="relative w-full h-[90vh] sm:h-[80vh] md:h-[70vh] flex items-center bg-[url('img/carousel/5.png')] justify-center bg-fixed bg-center bg-cover"
-        
-      >
+      <section className="relative w-full h-[90vh] sm:h-[80vh] md:h-[70vh] flex items-center bg-[url('img/carousel/5.png')] justify-center bg-fixed bg-center bg-cover">
         {/* Overlay with subtle gradient and dark tint */}
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-10"></div>
 
@@ -184,10 +186,9 @@ G + 24 Storey tower
           </span>
 
           {/* Optional Quote */}
-          <blockquote className="mt-10 text-gray-300 italic text-lg sm:text-xl max-w-xl px-4">
-            &ldquo;Where dreams find a home and life blossoms in every
-            corner.&rdquo;
-          </blockquote>
+          <span className="mt-10 w-full maven-pro text-orange-200 italic text-lg md:text-xl">
+            " Where dreams find a home and life blossoms in every corner."
+          </span>
         </div>
       </section>
 
@@ -222,6 +223,8 @@ G + 24 Storey tower
               alt="Logo"
             />
           </div>
+
+          {/* conatct us form */}
 
           <h2 className="text-xl sm:text-2xl text-center oswald_span mb-2">
             Contact Us
@@ -417,7 +420,7 @@ G + 24 Storey tower
                   {Features.map((feature, index) => (
                     <li
                       key={index}
-                      className="flex items-center space-x-2 text-gray-700 text-sm sm:text-base"
+                      className="flex items-center maven-pro space-x-2 text-gray-700 text-sm sm:text-base"
                     >
                       <img
                         src="img/check-mark-circle-svgrepo-com.svg"
@@ -430,7 +433,7 @@ G + 24 Storey tower
                   ))}
                 </ul>
               ) : (
-                <p>{Description}</p>
+                <p className="maven-pro">{Description}</p>
               )}
             </div>
           </div>
@@ -451,16 +454,26 @@ G + 24 Storey tower
         </div>
       </section>
 
-      {/* layout section */}
+      {/* caraousel */}
 
-      <section className="px-6 md:px-16 py-12 bg-gray-100">
+      <Carousel caraouselImages={caraouselImages} />
+
+      {/* layout section */}
+      <section className="px-6 md:px-16 py-8 bg-gray-100">
         {/* Section Title */}
-        <div className="flex items-center justify-center w-full mb-12">
-          <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
-          <h2 className="mx-6 text-3xl font-extrabold uppercase text-gray-900 oswald_span tracking-widest">
+        <div className="flex items-center justify-center w-full mb-5">
+          <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
+          <h2 className="mx-6 text-2xl uppercase text-gray-900 oswald_span tracking-wide">
             Layouts
           </h2>
-          <div className="flex-1 max-w-40 border-t-2 border-gray-800" />
+          <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
+        </div>
+
+        <div className="flex w-full z-10 justify-center mb-4 opacity-90">
+          <p className="text-orange-500 italic text-center text-lg md:text-xl maven-pro mb-8">
+            “A home is more than walls and roofs — it’s about thoughtful spaces
+            designed for living, comfort, and connection.”
+          </p>
         </div>
 
         {/* Layout Grid */}
@@ -478,13 +491,13 @@ G + 24 Storey tower
           {/* Right Content */}
           <div className="flex flex-1 flex-col justify-between h-full">
             {/* Buttons */}
-            <div className="flex flex-wrap gap-3 mb-6">
+            <div className="flex  flex-wrap gap-3 mb-6">
               {layouts.map((l, idx) => (
                 <button
                   key={idx}
                   type="button"
                   onClick={() => setLayoutIndex(idx)}
-                  className={`px-5 cursor-pointer py-1 rounded-md font-sm transition-all duration-300 ${
+                  className={`px-5 cursor-pointer maven-pro py-1 rounded-md font-sm transition-all duration-300 ${
                     layoutIndex === idx
                       ? "bg-black text-white shadow-md"
                       : "bg-white text-gray-700 border border-gray-300 hover:bg-gray-100"
@@ -520,19 +533,19 @@ G + 24 Storey tower
 
             {/* Details Box */}
             <div className="border border-gray-200 rounded-lg p-5 bg-white shadow-md text-gray-700 mb-6">
-              <p className="mb-2 font-semibold">
+              <p className="mb-2 maven-pro font-semibold">
                 Title:{" "}
                 <span className="font-normal">
                   {layouts[layoutIndex].title}
                 </span>
               </p>
-              <p className="mb-2 font-semibold">
+              <p className="mb-2 maven-pro font-semibold">
                 Area:{" "}
                 <span className="font-normal">
                   {layouts[layoutIndex].area} sq ft
                 </span>
               </p>
-              <p className="font-semibold">
+              <p className="maven-pro  font-semibold">
                 Price:{" "}
                 <span className="font-normal">
                   {layouts[layoutIndex].price} Lacs
@@ -544,13 +557,13 @@ G + 24 Storey tower
             <div className="flex flex-wrap gap-4">
               <button
                 onClick={handleDownload}
-                className="inline-block px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 shadow-sm transition"
+                className="inline-block cursor-pointer maven-pro px-6 py-2 rounded-md text-white bg-green-600 hover:bg-green-700 shadow-sm transition"
               >
                 Download Brochure
               </button>
               <button
                 type="button"
-                className="px-6 py-2 rounded-md text-white bg-yellow-600 hover:bg-yellow-700 shadow-sm transition"
+                className="px-6 py-2 cursor-pointer maven-pro rounded-md text-white bg-yellow-600 hover:bg-yellow-700 shadow-sm transition"
               >
                 Contact Us
               </button>
@@ -560,7 +573,7 @@ G + 24 Storey tower
       </section>
 
       {/* gallery section */}
-      <Gallery />
+      <Gallery galleryItems={galleryItems} />
 
       {/* address */}
 

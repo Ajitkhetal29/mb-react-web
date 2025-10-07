@@ -1,18 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
-const galleryItems = [
-  { src: "img/gallery/5.jpg", title: "Modern Kitchen" },
-  { src: "img/gallery/2.jpg", title: "Spacious Living Room" },
-  { src: "img/gallery/3.jpg", title: "Cozy Bedroom" },
-  { src: "img/gallery/4.jpg", title: "Elegant Dining Area" },
-  { src: "img/gallery/5.jpg", title: "Luxurious Bathroom" },
-  { src: "img/gallery/6.jpeg", title: "Outdoor Patio" },
-  { src: "img/gallery/3.jpg", title: "Home Office" },
-  { src: "img/gallery/8.jpeg", title: "Modern Kitchen 2" },
-  { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
-];
 
-export default function Gallery() {
+export default function Gallery({galleryItems}) {
   const [imgBoxOpen, setImgBoxOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -76,7 +65,7 @@ export default function Gallery() {
         </h2>
         <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
       </div>
-      <div className="w-full flex justify-center maven-pro text-orange-500 mb-5">
+      <div className="w-full flex justify-center italic text-center text-lg md:text-xl maven-pro text-orange-500 mb-5">
         <span>
           {" "}
           <span>

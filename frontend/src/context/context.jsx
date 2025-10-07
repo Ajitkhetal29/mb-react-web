@@ -41,7 +41,18 @@ const AppConetxtProvider = (props) => {
     }
   };
 
-  
+  const galleryItems = [
+    { src: "img/gallery/5.jpg", title: "Modern Kitchen" },
+    { src: "img/gallery/2.jpg", title: "Spacious Living Room" },
+    { src: "img/gallery/3.jpg", title: "Cozy Bedroom" },
+    { src: "img/gallery/4.jpg", title: "Elegant Dining Area" },
+    { src: "img/gallery/5.jpg", title: "Luxurious Bathroom" },
+    { src: "img/gallery/6.jpeg", title: "Outdoor Patio" },
+    { src: "img/gallery/3.jpg", title: "Home Office" },
+    { src: "img/gallery/8.jpeg", title: "Modern Kitchen 2" },
+    { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
+  ];
+
   // get FAQ
   const getAllFaq = async () => {
     try {
@@ -63,7 +74,7 @@ const AppConetxtProvider = (props) => {
   }, []);
 
   // new project
-  const newLaunchProjects = [
+  const Projects = [
     {
       img: "img/projects/anandam.png",
       location: "BHAYANDAR WEST",
@@ -181,13 +192,23 @@ const AppConetxtProvider = (props) => {
   ];
   const [lang, setLang] = useState("english");
 
+  const caraouselImages = [
+    "img/carousel/1.png",
+    "img/carousel/5.png",
+    "img/carousel/6.png",
+    "img/carousel/7.png",
+    "img/carousel/8.png",
+  ];
+
   const value = {
-    newLaunchProjects,
+    Projects,
     CustReviews,
     blogs,
     faq,
     lang,
     setLang,
+    galleryItems,
+    caraouselImages
   };
 
   return (

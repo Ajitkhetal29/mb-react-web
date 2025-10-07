@@ -2,6 +2,7 @@ import { useState, useEffect, useContext } from "react";
 import { AppConetxt } from "../context/context";
 import LanguageSwitcher from "./LanguageSwitcher";
 import { useTranslation } from "react-i18next";
+import { NavLink } from "react-router-dom";
 
 const Navbar = () => {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -21,60 +22,87 @@ const Navbar = () => {
     <header
       id="siteHeader"
       className={`fixed 0 z-50 top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out ${
-        scrolled
-          ? "bg-gray-900/95 backdrop-blur-md shadow-lg"
-          : "bg-black/20"
+        scrolled ? "bg-black/80  shadow-lg" : "bg-black/20"
       }`}
     >
       <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:py-5">
         {/* Logo */}
-        <a
-          href="#"
-          className="flex  items-center text-2xl font-extrabold text-white"
+        <NavLink
+          to="/"
+          className="flex items-center text-2xl font-extrabold text-white"
         >
           <img
             src="/img/logo/logo.png"
             alt="logo"
             className="h-10 w-auto max-w-[150px] object-contain"
           />
-        </a>
+        </NavLink>
 
         {/* Desktop Menu */}
-        <ul className="hidden md:flex space-x-10 text-white font-semibold select-none relative">
+        <ul className="hidden md:flex space-x-10 text-white  select-none relative">
           <li>
-            <a
-              href="#"
-              className="hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400"
+            <NavLink
+              to="/"
+              className={({ isActive }) =>
+                `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                  isActive ? "text-yellow-400" : "text-white"
+                }`
+              }
             >
               {t("nav.Home")}
-            </a>
+            </NavLink>
           </li>
 
           <li>
-            <a
-              href="#"
-              className="hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400"
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                  isActive ? "text-yellow-400" : "text-white"
+                }`
+              }
             >
               {t("nav.About Us")}
-            </a>
+            </NavLink>
           </li>
 
           <li>
-            <a
-              href="#"
-              className="hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400"
+            <NavLink
+              to="/allProjects"
+              className={({ isActive }) =>
+                `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                  isActive ? "text-yellow-400" : "text-white"
+                }`
+              }
             >
               {t("nav.Projects")}
-            </a>
+            </NavLink>
           </li>
 
           <li>
-            <a
-              href="#"
-              className="hover:text-yellow-400  transition-colors duration-300 focus:outline-none focus:text-yellow-400"
+            <NavLink
+              to="/allBlogs"
+              className={({ isActive }) =>
+                `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                  isActive ? "text-yellow-400" : "text-white"
+                }`
+              }
+            >
+              Blogs
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/allProjects#contact"
+              className={({ isActive }) =>
+                `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                  isActive ? "text-yellow-400" : "text-white"
+                }`
+              }
             >
               {t("nav.Contact")}
-            </a>
+            </NavLink>
           </li>
         </ul>
 
@@ -106,8 +134,8 @@ const Navbar = () => {
             {" "}
             X
           </span>
-          <a
-            href="#"
+          <NavLink
+            to="/"
             className="py-2 border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
             onClick={() => setMobileOpen(false)}
           >
@@ -116,35 +144,62 @@ const Navbar = () => {
               alt="logo"
               className="h-10 w-auto max-w-[150px] object-contain"
             />{" "}
-          </a>
-          <a
-            href="#"
-            className="py-2 border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          </NavLink>
+          <NavLink
+            to="/"
+            className={({ isActive }) =>
+              `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                isActive ? "text-yellow-400" : "text-white"
+              }`
+            }
             onClick={() => setMobileOpen(false)}
           >
             {t("nav.Home")}
-          </a>
-          <a
-            href="#"
-            className="py-2 border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          </NavLink>
+          <NavLink
+            to="/about"
+            className={({ isActive }) =>
+              `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                isActive ? "text-yellow-400" : "text-white"
+              }`
+            }
             onClick={() => setMobileOpen(false)}
           >
             {t("nav.About Us")}
-          </a>
-          <a
-            href="#"
-            className="py-2 border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          </NavLink>
+          <NavLink
+            to="/allProjects"
+            className={({ isActive }) =>
+              `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                isActive ? "text-yellow-400" : "text-white"
+              }`
+            }
             onClick={() => setMobileOpen(false)}
           >
             {t("nav.Projects")}
-          </a>
-          <a
-            href="#"
-            className="py-2 border-b border-gray-700 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          </NavLink>
+          <NavLink
+            to="/allBlogs"
+            className={({ isActive }) =>
+              `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                isActive ? "text-yellow-400" : "text-white"
+              }`
+            }
+            onClick={() => setMobileOpen(false)}
+          >
+            Blogs
+          </NavLink>
+          <NavLink
+            to="/contact"
+            className={({ isActive }) =>
+              `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
+                isActive ? "text-yellow-400" : "text-white"
+              }`
+            }
             onClick={() => setMobileOpen(false)}
           >
             {t("nav.Contact")}
-          </a>
+          </NavLink>
         </nav>
       </div>
 

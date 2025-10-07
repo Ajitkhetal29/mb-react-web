@@ -1,19 +1,13 @@
 import React, { useState, useEffect } from "react";
 
-const images = [
-  "img/carousel/1.png",
-  "img/carousel/5.png",
-  "img/carousel/6.png",
-  "img/carousel/7.png",
-  "img/carousel/8.png",
-];
 
-const SimpleCarousel = () => {
+
+const Carousel = ({caraouselImages}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentIndex((prev) => (prev + 1) % images.length);
+      setCurrentIndex((prev) => (prev + 1) % caraouselImages.length);
     }, 4000);
     return () => clearInterval(interval);
   }, []);
@@ -21,7 +15,7 @@ const SimpleCarousel = () => {
   return (
     <div className="relative px-8 py-5 w-full max-w-6xl mx-auto">
       <div className="relative h-56 md:h-96 overflow-hidden rounded-lg">
-        {images.map((src, index) => (
+        {caraouselImages.map((src, index) => (
           <img
             key={index}
             src={src}
@@ -38,4 +32,4 @@ const SimpleCarousel = () => {
   );
 }
 
-export default SimpleCarousel;
+export default Carousel;

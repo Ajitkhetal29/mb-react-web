@@ -11,6 +11,12 @@ const Hero = () => {
         <div class="flex-grow max-w-40 border-t border-black"></div>
       </div>
 
+      <div className="flex justify-center w-full items-center text-center ">
+        <p className="text-orange-500 mb-10 italic text-lg md:text-xl maven-pro">
+          “Building spaces that inspire trust, comfort, and a better tomorrow.”{" "}
+        </p>
+      </div>
+
       <div className="relative grid grid-cols-1 md:grid-cols-2 gap-2 items-center z-10">
         <div className="flex flex-col justify-center space-y-4 text-left">
           <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold gilda-display-regular leading-tight text-gray-900">

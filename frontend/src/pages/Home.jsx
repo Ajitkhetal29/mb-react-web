@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import Navbar from "../components/Navbar";
 import HeroCarousel from "../components/HeroCarousel";
 import About from "../components/About";
@@ -14,18 +14,21 @@ import BackTotopBtn from "../components/BackTotopBtn";
 import Contact from "../components/Contact";
 import Header from "../components/Header";
 import Hero from "../components/Hero";
+import { AppConetxt } from "../context/context";
 
 const Home = () => {
+
+  const {Projects, galleryItems} = useContext(AppConetxt);
+  
+
   return (
     <div>
-      {/* <HeroCarousel />   */}
       <Header/>
-      {/* <About /> */}
       <Hero/>
       <Brands />
-      <FeaturedProjects />
+      <FeaturedProjects projectBtn={true} projects={Projects.slice(0,8)} />
       <HeroAbout />
-       <Gallery />
+       <Gallery  galleryItems={galleryItems} />
       <Testimonials />
       <Blog />
       <Faq/>

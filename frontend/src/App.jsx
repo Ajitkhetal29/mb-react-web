@@ -10,6 +10,8 @@ import Project from "./pages/Project";
 import Navbar from "./components/Navbar";
 import AllProjects from "./pages/AllProjects";
 import About from "./pages/About";
+import AllBolgs from "./pages/AllBolgs";
+import ScrollToTop from "./pages/ScrollToTop";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -17,6 +19,7 @@ function App() {
   return (
     <>
       <Navbar />
+        <ScrollToTop/>
 
       <div>
         <Routes>
@@ -24,6 +27,7 @@ function App() {
           <Route path="/projects" element={<Project />} />
           <Route path="/allProjects" element={<AllProjects />} />
           <Route path="/about" element={<About />} />
+          <Route path="/allBlogs" element={<AllBolgs />} />
         </Routes>
       </div>
     </>

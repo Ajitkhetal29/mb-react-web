@@ -5,11 +5,13 @@ const About = () => {
   const textRef = useRef(null);
   const imgref = useRef(null);
   const headingRef = useRef(null);
+  const parentReF = useRef(null);
 
   useEffect(() => {
     const target = textRef.current;
     const img = imgref.current;
     const heading = headingRef.current;
+    const parent = parentReF.current;
 
     const observer = new IntersectionObserver(
       (entries, obs) => {
@@ -23,10 +25,14 @@ const About = () => {
             obs.unobserve(img);
           }
           if (entry.target === heading && entry.isIntersecting) {
-            console.log("heading visibnle");
-
             heading.classList.add("mission-anim");
             obs.unobserve(heading);
+          }
+          if (entry.target === parent && entry.isIntersecting) {
+            console.log("parent visible");
+
+            parent.classList.add("show");
+            obs.unobserve(parent);
           }
         });
       },
@@ -36,6 +42,7 @@ const About = () => {
     if (target) observer.observe(target);
     if (img) observer.observe(img);
     if (heading) observer.observe(heading);
+    if (parent) observer.observe(parent);
 
     return () => {
       if (observer) observer.disconnect();
@@ -45,11 +52,25 @@ const About = () => {
   return (
     <>
       {/* header */}
-      <div className="flex relative min-h-[50vh] w-full lg:max-h-[90vh]">
-        <div className="absolute inset-0"></div>
+      <div className="flex relative min-h-[50vh] w-full  max-h-[90vh]">
+        <div className="absolute inset-0 bg-black/30 "></div>
+        <div
+          ref={parentReF}
+          className="absolute  inset-0 z-10 fade-item flex flex-row items-center justify-center text-center px-4"
+        >
+          <div>
+            <h2 className="italiana-regular text-white text-2xl md:text-6xl mb-5">
+              Welcome To Mira-Bhayandar Project Hub
+            </h2>
+            <span className="maven-pro text-orange-200  md:text-2xl md:mt-10">
+              " Your trusted partner in premium real estate across Mira
+              Bhayandar. "
+            </span>
+          </div>
+        </div>
         <video
           src="img/backgrounds/large.mp4"
-          className="w-full object-cover "
+          className="w-full object-cover min-h-[50vh] h-full max-h-[90vh]"
           autoPlay
           loop
           muted
@@ -70,7 +91,7 @@ const About = () => {
 
           <span
             ref={textRef}
-            className="text-lg md:text-xl maven-pro text-orange-500 mb-10"
+            className="text-lg md:text-xl italic maven-pro text-orange-500 mb-10"
           >
             A one stop shop for all real estate services
           </span>
@@ -102,12 +123,9 @@ const About = () => {
             </div>
           </div>
 
-          <div
-            ref={imgref}
-            className="flex justify-center w-full lg:h-[50vh] border"
-          >
+          <div ref={imgref} className="flex justify-center w-full lg:h-[50vh] ">
             <img
-              src="img/backgrounds/about-vector.jpg"
+              src="img/backgrounds/search-home.png"
               alt="Illustration depicting real estate services"
               className="w-full h-full  max-w-md md:max-w-xl rounded-lg  shadow-lg"
               loading="lazy"
@@ -117,29 +135,28 @@ const About = () => {
       </section>
 
       {/* mission & vission */}
-      <section className="relative flex flex-col items-center justify-center w-full px-6 sm:px-10 md:px-16 py-16 lg:py-24 bg-[url('img/carousel/Airica.jpg')] bg-cover bg-center bg-fixed">
-        <div className="absolute inset-0 bg-black/30  z-0"></div>
+      <section className="relative flex flex-col items-center justify-center w-full px-6 sm:px-10 md:px-16 py-8 lg:py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="relative z-10 w-full max-w-6xl flex flex-col gap-5 text-center">
+          <div className="relative z-10 flex items-center justify-center w-full mb-2">
+            <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
+            <h2 className="mx-6 text-2xl md:text-2xl uppercase text-black oswald_span tracking-wider">
+              Mission & Vision
+            </h2>
+            <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
+          </div>
 
-        <div className="relative custom-text-outline z-10 w-full max-w-6xl flex flex-col gap-12 text-center">
-          <h2
-            ref={headingRef}
-            className="text-4xl sm:text-5xl md:text-6xl font-bold gilda-display-regular text-orange-300 drop-shadow-xl"
-          >
-            Mission & Vision
-          </h2>
-
-          <p className="text-gray-100 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto drop-shadow-md maven-pro">
-            Mira Bhayandar Projects has established itself as one of the key
-            players in the Indian real estate industry. Our basic purpose is to
-            provide{" "}
-            <span className="font-semibold maven-pro text-orange-300">
+          <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto maven-pro animate-fade-in delay-200">
+            Mira Bhayandar Projects has established itself as a key player in
+            Indian real estate. Our goal is to provide{" "}
+            <span className=" text-orange-500">
               “an enhanced lifestyle coupled with a sustainable environment”
             </span>
-            . We aspire to be the market leader by offering iconic and
-            world-class property development in India.
+            . We aim to be the market leader by offering iconic and world-class
+            property developments.
           </p>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10 lg:gap-16 text-left">
+          {/* Mission & Vision Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-12">
             {[
               {
                 title: "Our Mission",
@@ -152,22 +169,27 @@ const About = () => {
             ].map(({ title, desc }) => (
               <div
                 key={title}
-                className="px-6 py-6 rounded-2xl bg-black/20 border border-white shadow-lg hover:bg-black/60 hover:shadow-orange-400/10 hover:border-orange-300 transition-all duration-300"
+                className="p-6 md:p-8 rounded-3xl bg-white border border-gray-200 shadow-lg hover:shadow-orange-300/30 hover:scale-105 transition-transform duration-300"
               >
-                <h3 className="text-2xl sm:text-3xl gilda-display-regular text-orange-300 mb-3 drop-shadow-md">
+                <h3 className="text-2xl sm:text-3xl text-black oswald_span  mb-3">
                   {title}
                 </h3>
-                <p className="text-gray-100 text-base sm:text-lg maven-pro leading-relaxed">
+                <p className="text-gray-700 text-base sm:text-lg maven-pro leading-relaxed">
                   {desc}
                 </p>
               </div>
             ))}
           </div>
 
+          {/* Core Values */}
           <div className="flex flex-col items-center mt-16">
-            <h3 className="text-3xl sm:text-4xl gilda-display-regular text-orange-300 mb-10 drop-shadow-md">
-              Core Values
-            </h3>
+            <div className="relative z-10 flex items-center justify-center w-full mb-10">
+              <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
+              <h2 className="mx-6 text-2xl md:text-2xl uppercase text-black oswald_span tracking-wide">
+                Core Values
+              </h2>
+              <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
+            </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-5xl">
               {[
@@ -204,19 +226,18 @@ const About = () => {
               ].map(({ icon, title, desc }) => (
                 <div
                   key={title}
-                  className="flex items-start gap-5 rounded-2xl border border-white bg-black/20 p-6 shadow-md hover:bg-black/60 hover:scale-[1.02] hover:border-orange-300 transition-all duration-300"
+                  className="flex items-start gap-5 p-6 rounded-3xl bg-white border border-gray-200 shadow-md hover:scale-105 hover:shadow-orange-300/30 transition-all duration-300"
                 >
                   <img
                     src={icon}
-                    alt={`${title} icon`}
-                    className="h-12 w-12 flex-shrink-0 opacity-90"
-                    loading="lazy"
+                    alt={title}
+                    className="h-12 w-12 flex-shrink-0 bg-gray-400"
                   />
                   <div className="flex flex-col text-left">
-                    <span className="text-lg sm:text-xl font-semibold text-orange-300 oswald_span drop-shadow-sm">
+                    <span className="text-lg sm:text-xl font-semibold oswald_span text-black">
                       {title}
                     </span>
-                    <p className="text-gray-100 maven-pro text-sm sm:text-base leading-relaxed">
+                    <p className="text-gray-700 text-sm sm:text-base maven-pro leading-relaxed">
                       {desc}
                     </p>
                   </div>
@@ -231,13 +252,13 @@ const About = () => {
       <section className="relative w-full px-6 md:px-12 lg:px-20 py-10 bg-gradient-to-b from-white to-gray-100 flex flex-col items-center justify-center">
         <div className="flex items-center justify-center w-full mb-8">
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
-          <h2 className="mx-6 text-xl sm:text-2xl font-bold uppercase text-gray-900 oswald_span tracking-widest">
+          <h2 className="mx-6 text-xl sm:text-2xl  uppercase text-gray-900 oswald_span tracking-wide">
             Our Team
           </h2>
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
         </div>
 
-        <p className="text-gray-600 maven-pro text-center max-w-2xl mb-12 text-base sm:text-lg">
+        <p className="text-orange-500 maven-pro italic text-center max-w-2xl mb-12 text-base text-lg md:text-xl">
           The people behind{" "}
           <span className="font-semibold text-gray-900">
             Mira Bhayandar Projects
@@ -245,7 +266,7 @@ const About = () => {
           — building trust, innovation, and excellence in real estate.
         </p>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-6xl">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-5xl">
           {[
             {
               img: "img/peoples/Kishor_vyas.png",
@@ -267,7 +288,7 @@ const About = () => {
               key={name}
               className="group relative flex flex-col items-center bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-all duration-500 hover:scale-[1.03] hover:border hover:border-black"
             >
-              <div className="overflow-hidden w-full aspect-[3/4] ">
+              <div className="overflow-hidden w-full aspect-[4/4] ">
                 <img
                   src={img}
                   alt={name}

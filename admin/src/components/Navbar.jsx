@@ -24,7 +24,6 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // --- Improvement: Close mobile menu when resizing to desktop view ---
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {

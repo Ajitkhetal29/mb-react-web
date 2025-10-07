@@ -36,12 +36,19 @@ const Blog = () => {
         ref={parentSection}
         className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8"
       >
-        <div className="flex z-10 relative items-center justify-center w-full mb-10">
+        <div className="flex z-10 relative items-center justify-center w-full mb-2">
           <div className="flex-grow max-w-30 border-t border-black"></div>
           <h2 className="mx-4 text-2xl uppercase text-black oswald_span">
             FROM THE BLOG
           </h2>
           <div className="flex-grow flex-grow max-w-30 border-t border-black"></div>
+        </div>
+
+        <div className="flex w-full z-10 justify-center mb-4 opacity-90">
+          <p className="text-orange-500 italic text-center text-lg md:text-xl maven-pro">
+            “Discover ideas, inspiration, and expert advice — one article at a
+            time.”{" "}
+          </p>
         </div>
 
         <div className="flex fade-item  justify-center mb-5 gap-y-5 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">

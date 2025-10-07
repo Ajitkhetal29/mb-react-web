@@ -1,15 +1,13 @@
 import React, { useContext, useEffect, useRef } from "react";
-import { AppConetxt } from "../context/context";
 import { useTranslation } from "react-i18next";
 
-const FeaturedProjects = () => {
-  const { newLaunchProjects } = useContext(AppConetxt);
+const FeaturedProjects = ({ projects, projectBtn }) => {
   const parentSection = useRef(null);
   const btnParent = useRef(null);
   const { t } = useTranslation();
 
   useEffect(() => {
-    if (newLaunchProjects && parentSection.current) {
+    if (projects && parentSection.current) {
       const btn = btnParent.current;
       const observer = new IntersectionObserver(
         (entries, obs) => {
@@ -35,7 +33,9 @@ const FeaturedProjects = () => {
       if (btn) observer.observe(btn);
       return () => observer.disconnect();
     }
-  }, [newLaunchProjects]);
+  }, [projects]);
+
+  if (!projects) return <div>Loading...</div>;
 
   return (
     <section className="bg-gray-100 py-15 px-6 lg:px-10">
@@ -49,16 +49,16 @@ const FeaturedProjects = () => {
           <div className="flex-grow max-w-[80px] border-t border-black"></div>
         </div>
         <div className="w-full mt-2">
-          <span className="maven-pro text-orange-600">
+          <span className="maven-pro italic text-lg md:text-xl text-orange-500">
             " We create spaces that enable Everyday Joys, one community, one
             family, and one home at a time. "
           </span>
         </div>
-        <div className="mt-6 flex justify-end">
-          <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+       {projectBtn &&  <div className="mt-6 flex justify-end">
+          <button className="border  cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
             {t("featuredProject.Explore all properties")}
           </button>
-        </div>
+        </div>}
       </div>
 
       {/* Projects Grid */}
@@ -66,8 +66,8 @@ const FeaturedProjects = () => {
         ref={parentSection}
         className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-7xl mx-auto"
       >
-        {newLaunchProjects &&
-          newLaunchProjects.map((project, index) => (
+        {projects &&
+          projects.map((project, index) => (
             <a
               href="#"
               key={index}
@@ -77,7 +77,7 @@ const FeaturedProjects = () => {
                 <img
                   src={project.img}
                   alt={project.name}
-                  className="object-cover w-full h-56 group-hover:scale-105 transition-transform duration-700"
+                  className="object-conatin w-full h-56 group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-black/0 group-hover:bg-black/30 transition-all duration-500"></div>
               </div>
@@ -125,11 +125,11 @@ const FeaturedProjects = () => {
       </div>
 
       {/* Bottom Button */}
-      <div ref={btnParent} className="mt-10 fade-btn flex justify-center">
+      {projectBtn && <div ref={btnParent} className="mt-10 fade-btn flex justify-center">
         <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
           {t("featuredProject.Explore all properties")}
         </button>
-      </div>
+      </div>}
     </section>
   );
 };

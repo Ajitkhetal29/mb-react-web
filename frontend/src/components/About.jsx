@@ -53,7 +53,7 @@ const About = () => {
                   {t("about.Build Your Dream..")}
                 </h6>
                 <div className="w-full flex-col justify-start lg:items-start items-center gap-5 flex">
-                  <h2 className="text-yellow-200 text-2xl md:text-4xl maven-pro  text-start text-center">
+                  <h2 className="text-yellow-200 text-2xl md:text-4xl maven-pro  text-start text-center ">
                     {t(
                       "about.Engage with us for end to end property solutions."
                     )}

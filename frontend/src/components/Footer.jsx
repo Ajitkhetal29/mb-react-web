@@ -2,8 +2,8 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <div className="flex flex-col w-full bg-white py-8 px-4 sm:py-6 sm:px-12 md:px-10 lg:py-10 ">
-      <div className="flex flex-col  md:flex-row items-center justify-between px-4 md:px-10 gap-6 md:gap-0">
+    <div className="flex flex-col w-full bg-white py-5 px-4 sm:py-6 sm:px-12 md:px-10 lg:py-8 ">
+      <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 gap-6 md:gap-0">
         <img
           src="img/logo/logo.png"
           alt="Logo"
@@ -82,7 +82,7 @@ const Footer = () => {
         </ul>
       </div>
 
-      <div className="mt-10 flex border-b py-5 flex-col lg:flex-row gap-10 lg:gap-0 items-start lg:items-center border-t border-gray-200 pt-10">
+      <div className="mt-10 flex  flex-col lg:flex-row gap-10 lg:gap-0 items-start lg:items-center border-t border-gray-200 pt-10">
         {/* Disclaimer */}
         <div className="lg:w-1/2 px-4 lg:border-r border-gray-300">
           <p className="text-gray-600 text-sm sm:text-sm maven-pro leading-relaxed">
@@ -129,13 +129,14 @@ const Footer = () => {
 
 
       <div className="relative flex relative w-full items-center justify-center ">
-        <p className="absolute bottom-1 lg:bottom-5 text-sm text-center text-orange-500">
+        <div className="absolute inset-0 bg-black/50"></div>
+        <p className="absolute z-20 bg-black/90 bottom-1 lg:bottom-5 text-sm text-center text-white maven-pro">
           &copy; mirabhayandarprojects.com. All rights reserved.
         </p>
 
         <img
           src="img/backgrounds/footer-bg.jpeg"
-          className=" object-cover w-full "
+          className=" w-full z-10 h-50 object-cover "
           alt=""
         />
       </div>

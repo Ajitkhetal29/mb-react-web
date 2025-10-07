@@ -2,15 +2,17 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppConetxt } from "../context/context";
 import { useTranslation } from "react-i18next";
 import Footer from "../components/Footer";
-import SimpleCarousel from "../components/Carousel";
+import Carousel from "../components/Carousel";
+import FeaturedProjects from "../components/FeaturedProjects";
+import { useLocation } from "react-router-dom";
 
 const AllProjects = () => {
-  const { newLaunchProjects } = useContext(AppConetxt);
+  const location = useLocation();
+
+  const { Projects, caraouselImages } = useContext(AppConetxt);
   const { t } = useTranslation();
   const [filterText, setFilterText] = useState("all");
-  const [filteredProject, setFilteredProject] = useState([
-    ...newLaunchProjects,
-  ]);
+  const [filteredProject, setFilteredProject] = useState([...Projects]);
 
   const [mailSent, setMailsent] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -87,6 +89,18 @@ const AllProjects = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    // Check if there’s a hash in the URL
+    if (location.hash) {
+      const id = location.hash.replace("#", "");
+      const el = document.getElementById(id);
+      if (el) {
+        // Scroll smoothly to the element
+        el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [location]);
+
   const handleDownload = async () => {
     if (mailSent) {
       const link = document.createElement("a");
@@ -127,7 +141,7 @@ const AllProjects = () => {
   return (
     <>
       {/* header */}
-      <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('img/backgrounds/blog-bg.jpeg')]">
+      <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('img/carousel/Airica.jpg')]">
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70 z-10"></div>
 
         <div className="relative z-20 max-w-7xl w-full px-6 md:px-12 flex flex-col-reverse md:flex-row items-center md:items-stretch justify-center gap-8 md:gap-16 text-center md:text-left">
@@ -138,12 +152,12 @@ const AllProjects = () => {
             <h2 className="text-yellow-200 italiana-regular font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-lg">
               Top Notch Projects
             </h2>
-            <span className="text-white maven-pro text-xl sm:text-2xl md:text-3xl font-semibold drop-shadow-md italic">
-              Live Your Dream..
+            <span className="text-white maven-pro text-xl sm:text-2xl md:text-3xl drop-shadow-md ">
+              Live Your Dream Life...
             </span>
           </div>
 
-          <div className="flex justify-center md:justify-end items-center max-w-sm md:max-w-md lg:max-w-lg rounded-tr-[180px] rounded-bl-[180px] overflow-hidden shadow-2xl border-8 border-yellow-400">
+          <div className="flex justify-center md:justify-end items-center max-w-sm md:max-w-md lg:max-w-lg rounded-tr-[180px] rounded-bl-[180px] overflow-hidden shadow-2xl border-2 border-yellow-400">
             <img
               src="img/backgrounds/all-project.jpg"
               alt="Top Notch Projects"
@@ -334,93 +348,13 @@ const AllProjects = () => {
 
       {/* caraousel */}
 
-      <SimpleCarousel/>
+      <Carousel caraouselImages={caraouselImages} />
 
       {/* all projects */}
-      <section className="flex flex-col px-5 md:px-16 py-5">
-        <div className="flex z-10 relative items-center justify-center w-full mb-10">
-          <div className="flex-grow max-w-40 border-t border-black"></div>
-          <h2 className="mx-4 text-2xl font-bold uppercase text-black oswald_span">
-            All Projects
-          </h2>
-          <div className="flex-grow flex-grow max-w-40 border-t border-black"></div>
-        </div>
 
-        <div className="flex flex-row w-full md:justify-end mb-2 gap-3 p-2 items-center">
-          <span className="maven-pro text-orange-600">
-            Filter By Location :{" "}
-          </span>
-          <select
-            className="border cursor-pointer maven-pro rounded px-2 py-1"
-            name=""
-            value={filterText}
-            id=""
-            onChange={handleFilter}
-          >
-            <option value="all">All</option>
-            <option value="Mira Road">Mira Road</option>
-            <option value="Bhayandar Wast">Bhayandar East</option>
-            <option value="Bhayandar West">Bhayandar West</option>
-          </select>
-        </div>
 
-        <div
-          id=""
-          className="grid mt-1 grid-cols-1 gap-x-6 gap-y-6 sm:grid-cols-2 md:grid-cols-4"
-        >
-          {newLaunchProjects &&
-            filteredProject.map((project) => (
-              <a
-                href="#"
-                key={project.name}
-                className="group rounded-xl hover:border hover:-translate-y-6 bg-white  hover:bg-black rounded p-5 transition tarnsition-smooth duration-600"
-              >
-                <img
-                  src={project.img}
-                  alt="Tall slender porcelain bottle with natural clay textured body and cork stopper."
-                  className="aspect-square fade-item transition-all duration-700 ease-out w-full md:h-40 lg:h-60 rounded-lg bg-gray-200  roup-hover:overlay-20  overflow-hidden xl:aspect-7/8"
-                />
-                <p className="mt-3 text-xs text-orange-700 flex items-center">
-                  <span>
-                    <img className="h-4" src="img/icons/location.png" alt="" />
-                  </span>
-                  <span className="group-hover:text-white">
-                    {t(`featuredProject.${project.location}`)}
-                  </span>
-                </p>
-                <h2 className="mt-2 px-1 text-md group-hover:text-white font-medium maven-pro text-gray-900 group-">
-                  {t(`featuredProject.${project.name}`)}
-                </h2>
-                <div className="flex mt-2  item-center justify-between">
-                  <span className="flex  px-1 mt-1 w-fit items-center border">
-                    <svg
-                      width="1em"
-                      height="1em"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        fill-rule="evenodd"
-                        clip-rule="evenodd"
-                        d="M1.332 7.999c0-3.68 2.98-6.667 6.66-6.667a6.67 6.67 0 0 1 6.673 6.667 6.67 6.67 0 0 1-6.673 6.666A6.663 6.663 0 0 1 1.332 8Zm6.667 2.3 2.146 1.293a.33.33 0 0 0 .494-.36l-.567-2.447 1.887-1.633a.334.334 0 0 0-.187-.587l-2.493-.213-.974-2.293a.332.332 0 0 0-.613 0l-.973 2.3-2.494.213a.337.337 0 0 0-.193.587l1.887 1.633-.567 2.44a.335.335 0 0 0 .5.36l2.147-1.293Z"
-                        fill="#63BBEB"
-                      ></path>
-                    </svg>
-                    <span className="text-xs group-hover:text-white text-gray-700">
-                      {t("featuredProject.NEW LAUNCH")}
-                    </span>
-                  </span>
-                  <img
-                    className="h-5 border rounded-full border-gray-300"
-                    src="img/icons/arrow.png"
-                    alt=""
-                  />
-                </div>
-              </a>
-            ))}
-        </div>
-      </section>
+
+      <FeaturedProjects projects={filteredProject} projectBtn={false} />
 
       {/* video section */}
       <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('img/carousel/Airica.jpg')] bg-fixed">
@@ -440,7 +374,10 @@ const AllProjects = () => {
 
       {/* contact form */}
 
-      <section className="px-6 py-8 md:px-16 md:py-12 bg-gray-100 flex justify-center items-center min-h-screen">
+      <section
+        id="contact"
+        className="px-6 py-8 md:px-16 md:py-12 bg-gray-100 flex justify-center items-center min-h-screen"
+      >
         <div className="bg-white rounded-2xl w-full max-w-4xl px-6 py-8 md:px-10 md:py-10 shadow-lg">
           <div className="flex items-center justify-center w-full mb-12">
             <div className="flex-1 max-w-40 border-t-2 border-black" />
