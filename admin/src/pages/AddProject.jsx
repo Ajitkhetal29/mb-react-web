@@ -23,6 +23,18 @@ const AddProject = () => {
   const browcherPdfInputRef = useRef(null);
   const [browcherPdf, setBrowcherPdf] = useState(null);
 
+  // new updations
+  const [caraouselImages, setCaraouselImages] = useState([]);
+  const caraouselimgInputRef = useRef(null);
+  const [otherVideos, setOtherVideos] = useState([]);
+  const othervideoInputRef = useRef(null);
+  const [logo, setLogo] = useState(null);
+  const [logoPreview, setLogoPreview] = useState(null);
+  const logoInputRef = useRef(null);
+  const [coverImage, setCoverImage] = useState(null);
+  const [coverImagePreview, setCoverImagePreview] = useState(null);
+  const coverImageInputRef = useRef(null);
+
   const [layouts, setLayouts] = useState([
     {
       id: Date.now(),
@@ -64,6 +76,69 @@ const AddProject = () => {
       if (rem) URL.revokeObjectURL(rem.preview);
       return prev.filter((x) => x.id !== id);
     });
+
+  // caraousel handlers
+
+  const onCaraouselButtonClick = () => caraouselimgInputRef.current?.click();
+  const handleCaraouselChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    if (!files.length) return;
+    const newFiles = files.map((file, idx) => ({
+      id: Date.now() + idx,
+      file,
+      preview: URL.createObjectURL(file),
+    }));
+    setCaraouselImages((prev) => [...prev, ...newFiles]);
+  };
+
+  const removeCaraouselImage = (id) =>
+    setCaraouselImages((prev) => {
+      const rem = prev.find((x) => x.id === id);
+      if (rem) URL.revokeObjectURL(rem.preview);
+      return prev.filter((x) => x.id !== id);
+    });
+
+  // otherVideo handlers
+
+  const onOtherVideoButtonClick = () => othervideoInputRef.current?.click();
+  const handleOtherVideoChange = (e) => {
+    const files = Array.from(e.target.files || []);
+    console.log("files", files);
+
+    if (!files.length) return;
+    const newFiles = files.map((file, idx) => ({
+      id: Date.now() + idx,
+      file,
+    }));
+    setOtherVideos((prev) => [...prev, ...newFiles]);
+  };
+
+  const removeOtherVideo = (id) =>
+    setOtherVideos((prev) => {
+      return prev.filter((x) => x.id !== id);
+    });
+
+  // coverImage handlers
+
+  const onCoverImageButtonClick = () => coverImageInputRef.current?.click();
+  const handleCoverImageChange = (e) => {
+    URL.revokeObjectURL(coverImagePreview);
+    const file = e.target.files?.[0];
+    setCoverImagePreview(file ? URL.createObjectURL(file) : null);
+    setCoverImage(file || null);
+    e.target.value = null;
+  };
+
+  // logo handlers
+
+  const onLogoButtonClick = () => logoInputRef.current?.click();
+  const handleLogoChange = (e) => {
+    URL.revokeObjectURL(logoPreview);
+    const file = e.target.files?.[0];
+    setLogoPreview(file ? URL.createObjectURL(file) : null);
+    setLogo(file || null);
+    e.target.value = null;
+  };
 
   // Layout handlers
   const addLayout = () =>
@@ -129,6 +204,10 @@ const AddProject = () => {
       Object.entries(form).forEach(([key, value]) => fd.append(key, value));
       fd.append("features", JSON.stringify(features));
       if (browcherPdf) fd.append("browcherPdf", browcherPdf);
+      if (logo) fd.append("logo", logo);
+      if (coverImage) fd.append("coverImage", coverImage);
+      caraouselImages.forEach((c) => fd.append("carouselImages", c.file));
+      otherVideos.forEach((o) => fd.append("otherVideos", o.file));
       galleryImages.forEach((g) => fd.append("galleryImages", g.file));
       fd.append(
         "layouts",
@@ -140,11 +219,16 @@ const AddProject = () => {
         (l) => l.imageFile && fd.append("layoutImages", l.imageFile)
       );
 
+      fd.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+
+
       const response = await axios.post(
         `${backendUrl}/project/addProject`,
         fd,
-        {}
       );
+      console.log("data sent");
       if (response.data.success) {
         toast.success("Project Added Successfully", { autoClose: 2000 });
         navigate("/allprojects");
@@ -206,30 +290,213 @@ const AddProject = () => {
                 />
               </div>
             ))}
+          </div>
+          {/* Status */}
+          <div>
+            <label htmlFor="status" className="block text-sm  mb-2 text-white">
+              Status
+            </label>
+            <select
+              id="status"
+              value={form.status}
+              onChange={(e) =>
+                setForm((prev) => ({ ...prev, status: e.target.value }))
+              }
+              className="p-2 border focus:ring-2 border-gray-200  rounded-md bg-gray-800  text-white focus:ring-2 focus:ring-indigo-500"
+            >
+              <option value="" disabled className="text-gray-500">
+                Select Status
+              </option>
+              <option value="upcoming">Upcoming</option>
+              <option value="ongoing">Ongoing</option>
+              <option value="completed">Completed</option>
+            </select>
+          </div>
 
-            {/* Status */}
-            <div>
-              <label
-                htmlFor="status"
-                className="block text-sm  mb-2 text-white"
+          {/* logo image */}
+
+          <div>
+            <label className="block text-sm text-white mb-2">Logo Image</label>
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                ref={logoInputRef}
+                accept="image/*"
+                className="hidden"
+                onChange={handleLogoChange}
+              />
+              <button
+                type="button"
+                onClick={onLogoButtonClick}
+                className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
               >
-                Status
+                Upload Logo
+              </button>
+              {logo && (
+                <div className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all">
+                  <img src={logoPreview} className="w-full h-24 object-cover" />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* cover image */}
+
+          <div>
+            <label className="block text-sm text-white mb-2">Cover Image</label>
+            <div className="flex items-center gap-4">
+              <input
+                type="file"
+                ref={coverImageInputRef}
+                accept="image/*"
+                className="hidden"
+                onChange={handleCoverImageChange}
+              />
+              <button
+                type="button"
+                onClick={onCoverImageButtonClick}
+                className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
+              >
+                Upload Cover Image
+              </button>
+              {coverImage && (
+                <div className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all">
+                  <img
+                    src={coverImagePreview}
+                    className="w-full h-24 object-cover"
+                  />
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* carousel Images */}
+
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <label className="block text-sm text-white">
+                Caraousel Images
               </label>
-              <select
-                id="status"
-                value={form.status}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, status: e.target.value }))
-                }
-                className="p-2 border focus:ring-2 border-gray-200  rounded-md bg-gray-800  text-white focus:ring-2 focus:ring-indigo-500"
+              <button
+                type="button"
+                onClick={onCaraouselButtonClick}
+                className="px-5 py-2  bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
               >
-                <option value="" disabled className="text-gray-500">
-                  Select Status
-                </option>
-                <option value="upcoming">Upcoming</option>
-                <option value="ongoing">Ongoing</option>
-                <option value="completed">Completed</option>
-              </select>
+                Upload Images
+              </button>
+            </div>
+            <input
+              type="file"
+              ref={caraouselimgInputRef}
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={handleCaraouselChange}
+            />
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {caraouselImages.map((g) => (
+                <div
+                  key={g.id}
+                  className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
+                >
+                  <img
+                    src={g.preview}
+                    alt={g.file.name}
+                    className="w-full h-24 object-cover"
+                  />
+                  <span>{g.file.name}</span>
+                  <button
+                    type="button"
+                    className="absolute top-1 right-1 bg-black/70 rounded-full p-1 text-red-400 hover:text-red-600 transition"
+                    onClick={() => removeCaraouselImage(g.id)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Gallery */}
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <label className="block text-sm text-white">Gallery Images</label>
+              <button
+                type="button"
+                onClick={onGalleryButtonClick}
+                className="px-5 py-2  bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
+              >
+                Add Images
+              </button>
+            </div>
+            <input
+              type="file"
+              ref={galleryInputRef}
+              accept="image/*"
+              multiple
+              className="hidden"
+              onChange={handleGalleryChange}
+            />
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {galleryImages.map((g) => (
+                <div
+                  key={g.id}
+                  className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
+                >
+                  <img
+                    src={g.preview}
+                    alt={g.file.name}
+                    className="w-full h-24 object-cover"
+                  />
+                  <button
+                    type="button"
+                    className="absolute top-1 right-1 bg-black/70 rounded-full p-1 text-red-400 hover:text-red-600 transition"
+                    onClick={() => removeGalleryImage(g.id)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* other Videos */}
+
+          <div>
+            <div className="flex justify-between items-center mb-2">
+              <label className="block text-sm text-white">Other Videos</label>
+              <button
+                type="button"
+                onClick={onOtherVideoButtonClick}
+                className="px-5 py-2  bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
+              >
+                Add videos
+              </button>
+            </div>
+            <input
+              type="file"
+              ref={othervideoInputRef}
+              accept="video/*"
+              multiple
+              className="hidden"
+              onChange={handleOtherVideoChange}
+            />
+            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
+              {otherVideos.map((g) => (
+                <div
+                  key={g.id}
+                  className="relative border px-5 py-2 border-gray-700 rounded-md overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
+                >
+                  <span>{g.file.name}</span>
+                  <button
+                    type="button"
+                    className="absolute top-0 right-1 bg-black/70  p-1 text-red-400 hover:text-red-600 transition"
+                    onClick={() => removeOtherVideo(g.id)}
+                  >
+                    ✕
+                  </button>
+                </div>
+              ))}
             </div>
           </div>
 
@@ -324,49 +591,6 @@ const AddProject = () => {
                   {browcherPdf.name}
                 </span>
               )}
-            </div>
-          </div>
-
-          {/* Gallery */}
-          <div>
-            <div className="flex justify-between items-center mb-2">
-              <label className="block text-sm text-white">Gallery Images</label>
-              <button
-                type="button"
-                onClick={onGalleryButtonClick}
-                className="px-5 py-2  bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
-              >
-                Add Images
-              </button>
-            </div>
-            <input
-              type="file"
-              ref={galleryInputRef}
-              accept="image/*"
-              multiple
-              className="hidden"
-              onChange={handleGalleryChange}
-            />
-            <div className="mt-4 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-4">
-              {galleryImages.map((g) => (
-                <div
-                  key={g.id}
-                  className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
-                >
-                  <img
-                    src={g.preview}
-                    alt={g.file.name}
-                    className="w-full h-24 object-cover"
-                  />
-                  <button
-                    type="button"
-                    className="absolute top-1 right-1 bg-black/70 rounded-full p-1 text-red-400 hover:text-red-600 transition"
-                    onClick={() => removeGalleryImage(g.id)}
-                  >
-                    ✕
-                  </button>
-                </div>
-              ))}
             </div>
           </div>
 
@@ -495,3 +719,7 @@ const AddProject = () => {
 };
 
 export default AddProject;
+
+
+
+// 255 153 51 0.5

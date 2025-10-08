@@ -1,6 +1,8 @@
 import projectModel from "../models/project.js";
 
 const createProject = async (req, res) => {
+  console.log("Incoming body:", req.body);
+  console.log("Incoming files:", Object.keys(req.files || {}));
   try {
     const {
       name,
@@ -13,12 +15,24 @@ const createProject = async (req, res) => {
     } = req.body;
 
     const galleryPaths = (req.files.galleryImages || []).map((file) => ({
-      filename: file.originalname.replace(/\s+/g, "_"),
-      path: file.path,
+      title: file.originalname.replace(/\s+/g, "_"),
+      image: file.path,
     }));
 
-    const pdfFile = req.files?.browcherPdf?.[0]?.path || "";
-    const pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
+    const pdfFile = req.files?.browcherPdf?.[0] || "";
+    const pdfPathWithExt = pdfFile ? pdfFile.path : "";
+
+    const logo = req.files?.logo?.[0]?.path || "";
+    const coverImage = req.files?.coverImage?.[0]?.path || "";
+    const carouselImages = (req.files.carouselImages || []).map((file) => ({
+      title: file.originalname.replace(/\s+/g, "_"),
+      image: file.path,
+    }));
+
+    const otherVideos = (req.files?.otherVideos || []).map((file) => ({
+      title: file.originalname.replace(/\s+/g, "_"),
+      videoLink: file.path,
+    }));
 
     const layoutMeta = JSON.parse(req.body.layouts || "[]");
 
@@ -40,6 +54,10 @@ const createProject = async (req, res) => {
       galleryImages: galleryPaths,
       layouts,
       browcherPdf: pdfPathWithExt,
+      logo,
+      coverImage,
+      carouselImages,
+      otherVideos,
     });
 
     await project.save();
@@ -105,10 +123,8 @@ const updateProject = async (req, res) => {
     if (pdfChanged === "true") {
       pdfFile = req.files?.browcherPdf?.[0];
       pdfPathWithExt = pdfFile ? pdfFile.path + ".pdf" : "";
-      console.log("New PDF uploaded.");
     } else {
       pdfPathWithExt = existingProject.browcherPdf;
-      console.log("Retaining existing PDF.");
     }
 
     const newGalleryPaths = galleryNewImages.map((file) => ({

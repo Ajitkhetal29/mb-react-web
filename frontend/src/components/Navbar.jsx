@@ -190,7 +190,7 @@ const Navbar = () => {
             Blogs
           </NavLink>
           <NavLink
-            to="/contact"
+              to="/allProjects#contact"
             className={({ isActive }) =>
               `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
                 isActive ? "text-yellow-400" : "text-white"

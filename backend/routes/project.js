@@ -7,11 +7,28 @@ const projectRouter = express.Router();
 
 projectRouter.post(
     "/addProject",
-    upload.fields([
-        { name: "galleryImages", maxCount: 20 },
-        { name: "layoutImages", maxCount: 50 },
-        { name: "browcherPdf", maxCount: 50 },
-    ]),
+    (req, res, next) => {
+        console.log('middle ware called');
+        console.log(req.files);
+        
+        upload.fields([
+            { name: "logo", maxCount: 1 },
+            { name: "coverImage", maxCount: 1 },
+            { name: "carouselImages", maxCount: 20 },
+            { name: "galleryImages", maxCount: 20 },
+            { name: "browcherPdf", maxCount: 1 },
+            { name: "layoutImages", maxCount: 10 },
+            { name: "otherVideos", maxCount: 10 },
+
+        ])(req, res, (err) => {
+            if (err) {
+                console.error('Multer error:', err);
+                return res.status(400).json({ message: 'File upload failed', error: err });
+            }
+            next();
+        });
+    }
+    ,
     createProject
 );
 

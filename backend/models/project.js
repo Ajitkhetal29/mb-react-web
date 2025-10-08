@@ -17,9 +17,8 @@ const projectSchema = new mongoose.Schema(
         },
         caraouselImages: [
             {
-                filename: { type: String, required: true },
                 title: { type: String, required: true },
-                path: { type: String, required: true },
+                image: { type: String, required: true },
             }],
         otherVideos: [{
             title: { type: String, required: true },
@@ -43,9 +42,8 @@ const projectSchema = new mongoose.Schema(
         features: [String],
         galleryImages: [
             {
-                filename: { type: String, required: true },
                 title: { type: String, required: true },
-                path: { type: String, required: true },
+                image: { type: String, required: true },
             },
         ],
 
