@@ -3,9 +3,9 @@ import { AppConetxt } from "../context/context";
 import Footer from "../components/Footer";
 
 const AllBolgs = () => {
-  const { blogs } = useContext(AppConetxt);
+  const { allBlogs } = useContext(AppConetxt);
 
-  if (!blogs) return <div>Loading...</div>;
+  if (!allBlogs) return <div>Loading...</div>;
 
   return (
     <>
@@ -69,15 +69,15 @@ const AllBolgs = () => {
 
         {/* Blog Grid */}
         <div className="w-full grid grid-cols-1  md:grid-cols-3 gap-8">
-          {blogs.length > 0 ? (
-            blogs.map((blog, idx) => (
+          {allBlogs.length > 0 ? (
+            allBlogs.map((blog, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
               >
                 <div className="overflow-hidden">
                   <img
-                    src={blog.img}
+                    src={blog.image}
                     alt={blog.title}
                     className="w-full h-64 md:h-56 lg:h-64 object-cover transform transition-transform duration-500 hover:scale-105"
                   />
@@ -96,7 +96,7 @@ const AllBolgs = () => {
                   </div>
                   <div className="mt-auto pt-2 border-t border-gray-200 flex justify-between items-center">
                     <span className="text-gray-800 font-semibold maven-pro">
-                      {blog.author}
+                      {blog.writer}
                     </span>
                   </div>
                 </div>

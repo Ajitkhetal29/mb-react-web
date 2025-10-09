@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { AppConetxt } from "../context/context";
 
-const Blog = () => {
-  const { blogs } = useContext(AppConetxt);
+const Blog = ({ allBlogs }) => {
   const parentSection = useRef(null);
 
-  useEffect(() => {}, [blogs]);
+  const { backendUrl } = useContext(AppConetxt);
+
+  useEffect(() => {}, [allBlogs]);
 
   useEffect(() => {
     if (parentSection.current) {
@@ -52,15 +53,15 @@ const Blog = () => {
         </div>
 
         <div className="flex fade-item  justify-center mb-5 gap-y-5 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-          {blogs &&
-            blogs.slice(0, 3).map((blog) => (
+          {allBlogs &&
+            allBlogs.map((blog) => (
               <div
                 key={blog._id}
                 className="group relative cursor-pointer w-full max-lg:max-w-xl lg:w-1/3 rounded-2xl p-5 transition-all duration-300 border border-gray-200 hover:border-white overflow-hidden"
               >
                 <div className="flex items-center mb-6">
                   <img
-                    src={blog.img}
+                    src={blog.image}
                     alt={blog.title}
                     className="rounded-lg border w-full h-56 object-cover"
                   />
@@ -79,7 +80,7 @@ const Blog = () => {
                       : blog.content}
                   </p>
                   <div className="flex items-center justify-between font-medium">
-                    <h6 className="text-sm text-gray-900">{blog.author}</h6>
+                    <h6 className="text-sm text-gray-900">{blog.writer}</h6>
                   </div>
                 </div>
 

@@ -11,12 +11,13 @@ const AppConetxtProvider = (props) => {
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  // fetch projects from backend
+  // fetch  from backend
 
   // fetch all projects
   const getAllProjects = async () => {
+    
     try {
-      const response = await axios.get(`${backendUrl}/project/allProjects`);
+      const response = await axios.get(`${backendUrl}/api/project/allProjects`);
       if (response.data.success) {
         setAllProjects(response.data.allProjects);
       } else {
@@ -26,11 +27,12 @@ const AppConetxtProvider = (props) => {
       console.log(error);
     }
   };
-
+  
   // fetch all blogs
   const getAllBlogs = async () => {
+    
     try {
-      const response = await axios.get(`${backendUrl}/blog/allBlogs`);
+      const response = await axios.get(`${backendUrl}/api/blog/allBlogs`);
       if (response.data.success) {
         setAllblogs(response.data.allblogs);
       } else {
@@ -40,6 +42,38 @@ const AppConetxtProvider = (props) => {
       console.log(error);
     }
   };
+
+  // get FAQ
+  const getAllFaq = async () => {
+    try {
+      const response = await axios.get(`${backendUrl}/api/faq/allFaqs`);
+      if (response.data.success) {
+        setAllFaq(response.data.allFaqs);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getAllTestimonials = async () => {
+    console.log("fetching testimonials");
+    
+    try {
+      const response = await axios.get(`${backendUrl}/api/testimonial/allTestimonials`);
+      if (response.data.success) {
+        setAllTestimonials(response.data.allTestimonials);
+      } else {
+        console.log(response.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  console.log("allTestimonials", allTestimonials);
+  
+
 
   const galleryItems = [
     { src: "img/gallery/5.jpg", title: "Modern Kitchen" },
@@ -53,24 +87,11 @@ const AppConetxtProvider = (props) => {
     { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
   ];
 
-  // get FAQ
-  const getAllFaq = async () => {
-    try {
-      const response = await axios.get(`${backendUrl}/faq/allFaqs`);
-      if (response.data.success) {
-        setAllFaq(response.data.allFaqs);
-      } else {
-        console.log(response.data.message);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
   useEffect(() => {
     getAllProjects();
     getAllBlogs();
     getAllFaq();
+    getAllTestimonials()
   }, []);
 
   // new project
@@ -201,14 +222,16 @@ const AppConetxtProvider = (props) => {
   ];
 
   const value = {
-    Projects,
-    CustReviews,
-    blogs,
-    faq,
+    allProjects,
+    allTestimonials,
+    allBlogs,
+    allFaq,
     lang,
     setLang,
     galleryItems,
-    caraouselImages
+    caraouselImages,
+    backendUrl
+
   };
 
   return (

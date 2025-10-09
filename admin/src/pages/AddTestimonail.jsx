@@ -24,7 +24,7 @@ const AddTestimonail = () => {
 
     try {
       const response = await axios.post(
-        `${backendUrl}/testimonial/addTestimonial`,
+        `${backendUrl}/api/testimonial/addTestimonial`,
         form,
         {}
       );

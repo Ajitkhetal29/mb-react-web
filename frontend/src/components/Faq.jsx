@@ -2,7 +2,7 @@ import React, { useContext, useState, useEffect } from "react";
 import { AppConetxt } from "../context/context";
 
 const Faq = () => {
-  const { faq } = useContext(AppConetxt);
+  const { allFaq } = useContext(AppConetxt);
   const [openIndex, setOpenIndex] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -92,8 +92,8 @@ const Faq = () => {
 
         {/* Right: FAQ List */}
         <div className="lg:w-1/2 w-full flex flex-col gap-5">
-          {faq &&
-            faq.slice(0, 5).map((item, idx) => (
+          {allFaq &&
+            allFaq.slice(0, 5).map((item, idx) => (
               <div
                 key={idx}
                 className="border border-gray-300 rounded-2xl bg-white shadow-sm hover:shadow-md transition-all duration-300 overflow-hidden"

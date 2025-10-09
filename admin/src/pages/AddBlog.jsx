@@ -36,7 +36,7 @@ const AddBlog = () => {
     fd.append("blogImage", blogImage);
 
     try {
-      const response = await axios.post(`${backendUrl}/blog/addBlog`, fd, {
+      const response = await axios.post(`${backendUrl}/api/blog/addBlog`, fd, {
         headers: { "Content-Type": "multipart/form-data" },
       });
 

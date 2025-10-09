@@ -1,10 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { AppConetxt } from "../context/context";
 
-const Testimonials = () => {
-  const { CustReviews } = useContext(AppConetxt);
-
-  useEffect(() => {}, [CustReviews]);
+const Testimonials = ({allTestimonials}) => {
+  
 
   return (
     <div
@@ -28,8 +26,8 @@ const Testimonials = () => {
       </div>
 
       <div className="relative z-10 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-        {CustReviews &&
-          CustReviews.slice(0, 3).map(({ name, position, text }, idx) => (
+        {allTestimonials &&
+          allTestimonials.map(({ name, position, message }, idx) => (
             <article
               key={idx}
               className="flex flex-col backdrop-blur-md bg-white/20 border border-white/30 rounded-3xl shadow-xl p-6 transition-transform transform hover:scale-105 hover:shadow-2xl cursor-default"
@@ -39,7 +37,7 @@ const Testimonials = () => {
             >
               <div className="flex-grow border-b py-2">
                 <p className="text-white italic text-base md:text-lg leading-relaxed">
-                  “{text}”
+                  “{message}”
                 </p>
               </div>
 

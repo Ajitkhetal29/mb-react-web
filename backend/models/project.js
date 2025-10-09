@@ -15,7 +15,7 @@ const projectSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        caraouselImages: [
+        carouselImages: [
             {
                 title: { type: String, required: true },
                 image: { type: String, required: true },

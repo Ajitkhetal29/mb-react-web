@@ -7,10 +7,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export const storage = multer.diskStorage({
-
   destination: (req, file, cb) => {
-    console.log("multer called");
-
     const projectName = req.body.name
       ? req.body.name.replace(/\s+/g, '_')
       : 'unnamed_project';
@@ -20,11 +17,11 @@ export const storage = multer.diskStorage({
     let subFolder = 'others';
     if (file.fieldname === 'logo') subFolder = 'logo';
     else if (file.fieldname === 'coverImage') subFolder = 'coverImage';
-    else if (file.fieldname === 'carouselImages') subFolder = 'carouselImages';
-    else if (file.fieldname === 'galleryImages') subFolder = 'galleryImages';
+    else if (['carouselImages', 'newCaraouselImages'].includes(file.fieldname)) subFolder = 'carouselImages';
+    else if (['galleryImages', 'galleryNewImages'].includes(file.fieldname)) subFolder = 'galleryImages';
     else if (file.fieldname === 'browcherPdf') subFolder = 'browcherPdf';
-    else if (file.fieldname === 'layoutImages') subFolder = 'layouts';
-    else if (file.fieldname === 'otherVideos') subFolder = 'otherVideos';
+    else if (['layoutImages', 'newlayoutImages'].includes(file.fieldname)) subFolder = 'layouts';
+    else if (['otherVideos', 'otherNewVideos'].includes(file.fieldname)) subFolder = 'otherVideos';
 
     const finalFolder = path.join(baseFolder, subFolder);
     if (!fs.existsSync(finalFolder)) {

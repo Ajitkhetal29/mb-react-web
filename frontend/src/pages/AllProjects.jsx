@@ -9,10 +9,10 @@ import { useLocation } from "react-router-dom";
 const AllProjects = () => {
   const location = useLocation();
 
-  const { Projects, caraouselImages } = useContext(AppConetxt);
+  const { allProjects, caraouselImages } = useContext(AppConetxt);
   const { t } = useTranslation();
   const [filterText, setFilterText] = useState("all");
-  const [filteredProject, setFilteredProject] = useState([...Projects]);
+  const [filteredProject, setFilteredProject] = useState([...allProjects]);
 
   const [mailSent, setMailsent] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -362,7 +362,7 @@ const AllProjects = () => {
         <div className="relative z-20 mx-auto flex justify-center items-center w-full">
           <iframe
             className="w-full max-w-3xl aspect-video rounded-2xl shadow-2xl border border-white/20"
-            src="https://www.youtube.com/embed/8uVQACW7uh4?autoplay=1&mute=1&loop=1&playlist=8uVQACW7uh4"
+            src="https://www.youtube.com/embed/-ZPsr1RMD6A?autoplay=1&mute=1&loop=1&playlist=8uVQACW7uh4"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

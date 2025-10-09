@@ -36,7 +36,7 @@ const AllFaq = () => {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${backendUrl}/faq/addfaq`,
+        `${backendUrl}/api/faq/addfaq`,
         faqForm,
         {}
       );
@@ -57,7 +57,7 @@ const AllFaq = () => {
 
     try {
       const response = await axios.put(
-        `${backendUrl}/faq/updateFaq`,
+        `${backendUrl}/api/faq/updateFaq`,
         updateForm,
         {}
       );

@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
+import { AppConetxt } from "../context/context";
 
 const FeaturedProjects = ({ projects, projectBtn }) => {
   const parentSection = useRef(null);
   const btnParent = useRef(null);
   const { t } = useTranslation();
+
+  const {backendUrl} = useContext(AppConetxt)  
 
   useEffect(() => {
     if (projects && parentSection.current) {
@@ -75,7 +78,7 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
             >
               <div className="relative overflow-hidden rounded-t-xl">
                 <img
-                  src={project.img}
+                  src={`${backendUrl}/${project.coverImage}`}
                   alt={project.name}
                   className="object-conatin w-full h-56 group-hover:scale-105 transition-transform duration-700"
                 />
@@ -86,12 +89,12 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
                 <p className="text-xs text-orange-600 flex items-center gap-1">
                   <img className="h-4" src="img/icons/location.png" alt="" />
                   <span className="group-hover:text-black">
-                    {t(`featuredProject.${project.location}`)}
+                    {project.location}
                   </span>
                 </p>
 
                 <h3 className="mt-2 text-lg group-hover:font-medium text-gray-900 group-hover:text-black maven-pro">
-                  {t(`featuredProject.${project.name}`)}
+                {project.name}
                 </h3>
 
                 <div className="mt-3 flex items-center justify-between">

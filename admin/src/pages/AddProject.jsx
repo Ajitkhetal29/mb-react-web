@@ -225,7 +225,7 @@ const AddProject = () => {
 
 
       const response = await axios.post(
-        `${backendUrl}/project/addProject`,
+        `${backendUrl}/api/project/addProject`,
         fd,
       );
       console.log("data sent");

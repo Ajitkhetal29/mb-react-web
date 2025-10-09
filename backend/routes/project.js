@@ -1,6 +1,7 @@
 import { createProject, deleteProject, getAllProjects, updateProject } from '../controllers/Project.js';
 import { upload } from '../config/multer.js';
 
+
 import express from 'express';
 
 const projectRouter = express.Router();
@@ -8,9 +9,8 @@ const projectRouter = express.Router();
 projectRouter.post(
     "/addProject",
     (req, res, next) => {
-        console.log('middle ware called');
-        console.log(req.files);
-        
+
+
         upload.fields([
             { name: "logo", maxCount: 1 },
             { name: "coverImage", maxCount: 1 },
@@ -40,6 +40,12 @@ projectRouter.post(
         { name: "layoutImages", maxCount: 50 },
         { name: "newlayoutImages", maxCount: 50 },
         { name: "browcherPdf", maxCount: 50 },
+        { name: "logo", maxCount: 1 },
+        { name: "coverImage", maxCount: 1 },
+        { name: "otherVideos", maxCount: 10 },
+        { name: "carouselImages", maxCount: 20 },
+        { name: "newCaraouselImages", maxCount: 20 },
+        { name: 'otherNewVideos', maxCount: 10 }
 
     ]),
     updateProject

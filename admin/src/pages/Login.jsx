@@ -24,7 +24,7 @@ const Login = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(`${backendUrl}/admin/login`, formData);
+      const response = await axios.post(`${backendUrl}/api/admin/login`, formData);
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         setToken(response.data.token);

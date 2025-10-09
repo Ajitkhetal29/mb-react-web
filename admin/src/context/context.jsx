@@ -17,7 +17,7 @@ const AppConetxtProvider = (props) => {
   // fetch all projects
   const getAllProjects = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/project/allProjects`);
+      const response = await axios.get(`${backendUrl}/api/project/allProjects`);
       if (response.data.success) {
         setAllProjects(response.data.allProjects);
       } else {
@@ -31,7 +31,7 @@ const AppConetxtProvider = (props) => {
   // delete project
   const deleteProject = async (id) => {
     try {
-      const response = await axios.post(`${backendUrl}/project/deleteProject`, {
+      const response = await axios.post(`${backendUrl}/api/project/deleteProject`, {
         id,
       });
       if (response.data.success) {
@@ -60,7 +60,7 @@ const AppConetxtProvider = (props) => {
   // fetch all blogs
   const getAllBlogs = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/blog/allBlogs`);
+      const response = await axios.get(`${backendUrl}/api/blog/allBlogs`);
       if (response.data.success) {
         setAllblogs(response.data.allblogs);
       } else {
@@ -75,7 +75,7 @@ const AppConetxtProvider = (props) => {
   const deleteBlog = async (id) => {
     try {
       const response = await axios.delete(
-        `${backendUrl}/blog/deleteBlog/${id}`
+        `${backendUrl}/api/blog/deleteBlog/${id}`
       );
       if (response.data.success) {
         toast.warning("Blog Deleted", { autoClose: 2000 });
@@ -94,7 +94,7 @@ const AppConetxtProvider = (props) => {
   const getAllTestimonials = async () => {
     try {
       const response = await axios.get(
-        `${backendUrl}/testimonial/allTestimonials`
+        `${backendUrl}/api/testimonial/allTestimonials`
       );
       if (response.data.success) {
         setAllTestimonials(response.data.allTestimonials);
@@ -110,7 +110,7 @@ const AppConetxtProvider = (props) => {
   const deleteTestimonial = async (id) => {
     try {
       const response = await axios.post(
-        `${backendUrl}/testimonial/deleteTestimonial/${id}`
+        `${backendUrl}/api/testimonial/deleteTestimonial/${id}`
       );
       if (response.data.success) {
         toast.warning("Testimonial Deleted", { autoClose: 2000 });
@@ -128,7 +128,7 @@ const AppConetxtProvider = (props) => {
   // get FAQ
   const getAllFaq = async () => {
     try {
-      const response = await axios.get(`${backendUrl}/faq/allFaqs`);
+      const response = await axios.get(`${backendUrl}/api/faq/allFaqs`);
       if (response.data.success) {
         setAllFaq(response.data.allFaqs);
       } else {
@@ -142,7 +142,7 @@ const AppConetxtProvider = (props) => {
   // delete FAQ
   const deleteFaq = async (id) => {
     try {
-      const response = await axios.delete(`${backendUrl}/faq/deleteFaq/${id}`);
+      const response = await axios.delete(`${backendUrl}/api/faq/deleteFaq/${id}`);
       if (response.data.success) {
         toast.warning("FAQ Deleted", { autoClose: 2000 });
         getAllFaq();

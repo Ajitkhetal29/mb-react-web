@@ -89,8 +89,8 @@ export default function Gallery({galleryItems}) {
                 alt={item.title}
                 className="object-cover object-center w-full h-56 rounded-lg"
               />
-              <div className="absolute inset-0 bg-black/80 bg-opacity-50  opacity-0   hover:opacity-100 transition-opacity  duration-500 flex items-center justify-center">
-                <span className="text-white translate-y-full group-hover:translate-y-0 transition-transform duration-500  text-md maven-pro px-3 text-center ">
+              <div className="absolute inset-0 bg-[rgba(255,153,51,0.5)] bg-opacity-30  opacity-0   hover:opacity-100 transition-opacity  duration-500 flex items-center justify-center">
+                <span className="text-black font-semibold translate-y-full group-hover:translate-y-0 transition-transform duration-500  text-md maven-pro px-3 text-center ">
                   {item.title}
                 </span>
               </div>

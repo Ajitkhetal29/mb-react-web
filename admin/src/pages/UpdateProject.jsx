@@ -39,6 +39,8 @@ const UpdateProject = () => {
   const [layouts, setLayouts] = useState([]);
   const [newLayouts, setNewLayouts] = useState([]);
 
+  console.log("layouts", layouts);
+
   // new
   const [logo, setLogo] = useState(null);
   const [coverImage, setCoverImage] = useState(null);
@@ -56,6 +58,8 @@ const UpdateProject = () => {
   // Load project
   useEffect(() => {
     const found = allProjects?.find((p) => p._id === id);
+    console.log("found", found);
+
     if (found) {
       setEditableProject(found);
       setForm({
@@ -187,8 +191,11 @@ const UpdateProject = () => {
     setNewOtherVideos((prev) => [...prev, ...newFiles]);
   };
 
-  const removeOtherVideo = (id) =>
+  const removeOtherVideo = (id) => {
+    console.log("called");
     setOtherVideos((prev) => prev.filter((vid) => vid._id !== id));
+    console.log(otherVideos);
+  };
 
   const removeNewOtherVideo = (id) => {
     setNewOtherVideos((prev) => prev.filter((vid) => vid.id !== id));
@@ -204,7 +211,7 @@ const UpdateProject = () => {
     setNewLayouts((prev) => [
       ...prev,
       {
-        _id: Date.now(),
+        id: Date.now(),
         title: "",
         area: "",
         price: "",
@@ -231,7 +238,7 @@ const UpdateProject = () => {
   const handleNewLayoutChange = (id, e) => {
     const { name, value } = e.target;
     setNewLayouts((prev) =>
-      prev.map((l) => (l._id === id ? { ...l, [name]: value } : l))
+      prev.map((l) => (l.id === id ? { ...l, [name]: value } : l))
     );
   };
 
@@ -255,7 +262,7 @@ const UpdateProject = () => {
     if (!file) return;
     setNewLayouts((prev) =>
       prev.map((l) =>
-        l._id === id
+        l.id === id
           ? { ...l, image: file, imagePreview: URL.createObjectURL(file) }
           : l
       )
@@ -279,34 +286,27 @@ const UpdateProject = () => {
       fd.append("features", JSON.stringify(features));
       fd.append("videoLink", form.videoLink);
       fd.append("pdfChanged", pdfChanged);
+      fd.append("logoChanged", logoChanged);
+      fd.append("coverImageChanged", coverImageChanged);
       if (browcherPdf) fd.append("browcherPdf", browcherPdf);
       fd.append("galleryImages", JSON.stringify(galleryImages || []));
-
+      fd.append("carouselImages", JSON.stringify(carouselImages || []));
       newGalleryImages.forEach((img) =>
         fd.append("galleryNewImages", img.file)
       );
+
       fd.append("logo", logo);
       fd.append("coverImage", coverImage);
 
       newCaraouselImages.forEach((img) =>
-        fd.append("carouseNewlImages", img.file)
+        fd.append("newCaraouselImages", img.file)
       );
 
-      otherVideos.forEach((vid) => fd.append("otherVideos", otherVideos));
+      fd.append("otherVideos", JSON.stringify(otherVideos || []));
 
       newOtherVideos.forEach((vid) => fd.append("otherNewVideos", vid.file));
 
-      fd.append(
-        "layouts",
-        JSON.stringify(
-          (layouts || []).map(({ _id, title, area, price }) => ({
-            _id,
-            title,
-            area,
-            price,
-          }))
-        )
-      );
+      fd.append("layouts", JSON.stringify(layouts || []));
       fd.append(
         "newLayouts",
         JSON.stringify(
@@ -322,8 +322,10 @@ const UpdateProject = () => {
         (l) => l.image && fd.append("newlayoutImages", l.image)
       );
 
+      console.log("coverImag", coverImage);
+
       const response = await axios.post(
-        `${backendUrl}/project/updateProject`,
+        `${backendUrl}/api/project/updateProject`,
         fd
       );
       if (response.data.success) {
@@ -446,11 +448,12 @@ const UpdateProject = () => {
           {/* Brochure */}
           <div className="flex  gap-2">
             <label className="text-gray-200">Project Brochure</label>
-            {browcherPdf && (
-              <span
-                className="text-sm truncate text-white flex-2"
-                title={browcherPdf.name}
-              >
+            {!pdfChanged ? (
+              <span className="text-sm truncate text-white flex-2">
+                {browcherPdf}
+              </span>
+            ) : (
+              <span className="text-sm truncate text-white flex-2">
                 {browcherPdf.name}
               </span>
             )}
@@ -495,7 +498,10 @@ const UpdateProject = () => {
                 </div>
               ) : (
                 <div className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all">
-                  <img src={logo} className="w-full h-24 object-cover" />
+                  <img
+                    src={`${backendUrl}/${logo}`}
+                    className="w-full h-24 object-cover"
+                  />
                 </div>
               )}
             </div>
@@ -529,7 +535,10 @@ const UpdateProject = () => {
                 </div>
               ) : (
                 <div className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all">
-                  <img src={logo} className="w-full h-24 object-cover" />
+                  <img
+                    src={`${backendUrl}/${coverImage}`}
+                    className="w-full h-24 object-cover"
+                  />
                 </div>
               )}
             </div>
@@ -564,7 +573,7 @@ const UpdateProject = () => {
                   className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
                 >
                   <img
-                    src={img.image}
+                    src={`${backendUrl}/${img.image}`}
                     alt={img.title}
                     className="w-full h-24 object-cover"
                   />
@@ -606,7 +615,7 @@ const UpdateProject = () => {
                 <input
                   ref={otherVideosInputRef}
                   type="file"
-                  accept="image/*"
+                  accept="video/*"
                   multiple
                   className="hidden"
                   onChange={handleOtherVideosChange}
@@ -626,22 +635,22 @@ const UpdateProject = () => {
                   key={g.id}
                   className="relative border px-5 py-2 border-gray-700 rounded-md overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
                 >
-                  <span>{g.title}</span>
+                  <span className="text-white">{g.title}</span>
                   <button
                     type="button"
                     className="absolute top-0 right-1 bg-black/70  p-1 text-red-400 hover:text-red-600 transition"
-                    onClick={() => removeOtherVideo(g.id)}
+                    onClick={() => removeOtherVideo(g._id)}
                   >
                     ✕
                   </button>
                 </div>
               ))}
-               {newOtherVideos.map((g) => (
+              {newOtherVideos.map((g) => (
                 <div
                   key={g.id}
                   className="relative border px-5 py-2 border-gray-700 rounded-md overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
                 >
-                  <span>{g.file.name}</span>
+                  <span className="text-white">{g.file.name}</span>
                   <button
                     type="button"
                     className="absolute top-0 right-1 bg-black/70  p-1 text-red-400 hover:text-red-600 transition"
@@ -683,7 +692,7 @@ const UpdateProject = () => {
                   className="relative border border-gray-700 rounded-xl overflow-hidden bg-gray-800/70 hover:scale-[1.03] transition-all"
                 >
                   <img
-                    src={img.image}
+                    src={`${backendUrl}/${img.image}`}
                     alt={img.title}
                     className="w-full h-24 object-cover"
                   />
@@ -716,7 +725,6 @@ const UpdateProject = () => {
             </div>
           </div>
 
-
           {/* Layouts */}
           <div className="flex flex-col gap-4">
             <div className="flex justify-between items-center">
@@ -734,7 +742,7 @@ const UpdateProject = () => {
               const isNew = newLayouts.includes(l);
               return (
                 <div
-                  key={l._id}
+                  key={l.id}
                   className="border border-gray-700 rounded-xl p-6 bg-gray-800/70 hover:scale-[1.01] transition"
                 >
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
@@ -744,9 +752,10 @@ const UpdateProject = () => {
                       </label>
                       <select
                         value={l.title}
+                        name="title"
                         onChange={
                           isNew
-                            ? (e) => handleNewLayoutChange(l._id, e)
+                            ? (e) => handleNewLayoutChange(l.id, e)
                             : (e) => handleLayoutChange(l._id, e)
                         }
                         className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
@@ -768,7 +777,7 @@ const UpdateProject = () => {
                         name="area"
                         onChange={
                           isNew
-                            ? (e) => handleNewLayoutChange(l._id, e)
+                            ? (e) => handleNewLayoutChange(l.id, e)
                             : (e) => handleLayoutChange(l._id, e)
                         }
                         className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
@@ -785,7 +794,7 @@ const UpdateProject = () => {
                         name="price"
                         onChange={
                           isNew
-                            ? (e) => handleNewLayoutChange(l._id, e)
+                            ? (e) => handleNewLayoutChange(l.id, e)
                             : (e) => handleLayoutChange(l._id, e)
                         }
                         className="w-full rounded-xl border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:outline-none focus:ring-2 focus:ring-amber-400 transition"
@@ -798,17 +807,17 @@ const UpdateProject = () => {
                       type="file"
                       accept="image/*"
                       className="hidden"
-                      id={`layoutInput-${l._id}`}
+                      id={`layoutInput-${l.id}`}
                       onChange={
                         isNew
-                          ? (e) => handleNewLayoutImageChange(l._id, e)
+                          ? (e) => handleNewLayoutImageChange(l.id, e)
                           : (e) => handleLayoutImageChange(l._id, e)
                       }
                     />
                     <button
                       type="button"
                       onClick={() =>
-                        document.getElementById(`layoutInput-${l._id}`).click()
+                        document.getElementById(`layoutInput-${l.id}`).click()
                       }
                       className="px-5 py-2 bg-white border rounded-md text-black  shadow-md hover:bg-black hover:text-white hover:border-white transition"
                     >
@@ -818,7 +827,11 @@ const UpdateProject = () => {
                     {l.imagePreview || l.image ? (
                       <div>
                         <img
-                          src={l.imagePreview || l.image || l.imagePath}
+                          src={
+                            l.imagePreview ||
+                            `${backendUrl}/${l.image}` ||
+                            l.imagePath
+                          }
                           alt="Layout"
                           className="w-40 h-40 object-cover rounded-xl border border-gray-600"
                         />
@@ -833,7 +846,7 @@ const UpdateProject = () => {
                       type="button"
                       onClick={
                         isNew
-                          ? () => removeNewLayout(l._id)
+                          ? () => removeNewLayout(l.id)
                           : () => removeLayout(l._id)
                       }
                       className="px-5 py-2 bg-red-500  border rounded-md text-black shadow-md hover:bg-black hover:text-white hover:border-white transition"
