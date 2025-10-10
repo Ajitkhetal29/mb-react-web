@@ -45,7 +45,7 @@ const Home = () => {
     }, 5000);
 
     return () => clearInterval(interval);
-  }, [allTestimonials]);
+  }, [allTestimonials,allBlogs, allProjects, ]);
 
   return (
     <div>

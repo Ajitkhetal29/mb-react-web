@@ -1,13 +1,15 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { AppConetxt } from "../context/context";
-
+import { useNavigate } from "react-router-dom";
 const FeaturedProjects = ({ projects, projectBtn }) => {
+  
   const parentSection = useRef(null);
   const btnParent = useRef(null);
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const {backendUrl} = useContext(AppConetxt)  
+  const { backendUrl } = useContext(AppConetxt);
 
   useEffect(() => {
     if (projects && parentSection.current) {
@@ -57,24 +59,25 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
             family, and one home at a time. "
           </span>
         </div>
-       {projectBtn &&  <div className="mt-6 flex justify-end">
-          <button className="border  cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
-            {t("featuredProject.Explore all properties")}
-          </button>
-        </div>}
+        {projectBtn && (
+          <div className="mt-6 flex justify-end">
+            <button  onClick={()=>navigate('/allProjects')} className="border  cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+              {t("featuredProject.Explore all properties")}
+            </button>
+          </div>
+        )}
       </div>
 
-      {/* Projects Grid */}
       <div
         ref={parentSection}
-        className="grid gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-7xl mx-auto"
+        className="grid  gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 max-w-7xl mx-auto"
       >
         {projects &&
           projects.map((project, index) => (
             <a
-              href="#"
+              onClick={() => navigate(`/project/${project._id}`)}
               key={index}
-              className="group relative bg-white border border-transparent hover:border-black/70 rounded-xl shadow-md hover:shadow-xl hover:-translate-y-3 transition-all duration-500 ease-in-out overflow-hidden fade-item"
+              className="group cursor-pointer relative bg-white border border-transparent hover:border-black/70 rounded-xl shadow-md hover:shadow-xl hover:border-orange-700 hover:-translate-y-10 transition-all duration-800 ease-in-out overflow-hidden fade-item"
             >
               <div className="relative overflow-hidden rounded-t-xl">
                 <img
@@ -94,7 +97,7 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
                 </p>
 
                 <h3 className="mt-2 text-lg group-hover:font-medium text-gray-900 group-hover:text-black maven-pro">
-                {project.name}
+                  {project.name}
                 </h3>
 
                 <div className="mt-3 flex items-center justify-between">
@@ -128,11 +131,13 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
       </div>
 
       {/* Bottom Button */}
-      {projectBtn && <div ref={btnParent} className="mt-10 fade-btn flex justify-center">
-        <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
-          {t("featuredProject.Explore all properties")}
-        </button>
-      </div>}
+      {projectBtn && (
+        <div ref={btnParent} className="mt-10 fade-btn flex justify-center">
+          <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+            {t("featuredProject.Explore all properties")}
+          </button>
+        </div>
+      )}
     </section>
   );
 };

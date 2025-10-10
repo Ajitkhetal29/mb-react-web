@@ -3,7 +3,9 @@ import blogModel from "../models/blog.js";
 const createBlog = async (req, res) => {
     try {
         const { title, content, writer } = req.body;
-        const imagePath = req.file ? req.file.path : "";
+
+        const imagePath = 'upload' + (req.file ? req.file.path.split('upload')[1].replace(/\\/g, '/') : "");
+
         const blog = new blogModel({
             title,
             content,
@@ -31,7 +33,7 @@ const getAllBlogs = async (req, res) => {
 
 const deleteBlog = async (req, res) => {
     console.log("delete blog called");
-    
+
     try {
         const { id } = req.params;
         await blogModel.findByIdAndDelete(id);

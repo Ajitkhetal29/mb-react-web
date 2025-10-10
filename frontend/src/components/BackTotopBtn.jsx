@@ -11,7 +11,7 @@ const BackTotopBtn = () => {
       setShowButton(true);
     } else {
       setShowButton(false);
-    }   
+    }
   };
 
   const backToTop = () => {
@@ -30,21 +30,25 @@ const BackTotopBtn = () => {
   return (
     <button
       type="button"
-      class={`fixed bottom-5 end-5 ${showButton ? '' : 'hidden' } z-50   cursor-pointer rounded-full bg-red-600 p-3 text-xs font-medium uppercase leading-tight text-white shadow-md transition duration-150 ease-in-out hover:bg-red-700 hover:shadow-lg focus:bg-red-700 focus:shadow-lg focus:outline-none focus:ring-0 active:bg-red-800 active:shadow-lg`}
+      class={`fixed bottom-5 end-5 ${
+        showButton ? "" : "hidden"
+      } fixed bottom-6 cursor-pointer  right-6 bg-orange-600 text-white p-3 rounded-full shadow-lg hover:bg-black focus:outline-none focus:ring-4 focus:ring-orange-400 transition`}
       onClick={backToTop}
     >
       <span class="[&>svg]:w-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
           fill="none"
           viewBox="0 0 24 24"
-          stroke-width="3"
           stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
         >
           <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M5 15l7-7 7 7"
           />
         </svg>
       </span>

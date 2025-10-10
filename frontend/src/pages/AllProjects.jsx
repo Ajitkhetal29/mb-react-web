@@ -5,6 +5,8 @@ import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import FeaturedProjects from "../components/FeaturedProjects";
 import { useLocation } from "react-router-dom";
+import emailjs from "@eslint/js";
+import { toast } from "react-toastify";
 
 const AllProjects = () => {
   const location = useLocation();
@@ -12,7 +14,7 @@ const AllProjects = () => {
   const { allProjects, caraouselImages } = useContext(AppConetxt);
   const { t } = useTranslation();
   const [filterText, setFilterText] = useState("all");
-  const [filteredProject, setFilteredProject] = useState([...allProjects]);
+  const [filteredProject, setFilteredProject] = useState([]);
 
   const [mailSent, setMailsent] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -46,6 +48,10 @@ const AllProjects = () => {
         "GoZgeEbgB3GxueDMC"
       );
       console.log("email sent");
+      toast.success(
+        "Thank you for contacting us. We will get back to you soon!",
+        { autoClose: 5000 }
+      );
       setMailsent(true);
     } catch (error) {
       console.log(error);
@@ -73,6 +79,11 @@ const AllProjects = () => {
         "GoZgeEbgB3GxueDMC"
       );
       console.log("email sent");
+      toast.success(
+        "Thank you for contacting us. We will get back to you soon!",
+        { autoClose: 5000 }
+      );
+
       setMailsent(true);
     } catch (error) {
       console.log(error);
@@ -124,24 +135,14 @@ const AllProjects = () => {
     }
   };
 
-  const handleFilter = (e) => {
-    setFilterText(e.target.value);
-    if (filterText === "all") {
-      setFilteredProject([...newLaunchProjects]);
-    } else {
-      const tempProjects = newLaunchProjects.filter(
-        (project) => project.location === filterText
-      );
-
-      setFilteredProject([...tempProjects]);
-    }
-    console.log("filtered Project", filteredProject);
-  };
+  if (allProjects.length && filteredProject.length === 0) {
+    setFilteredProject([...allProjects]);
+  }
 
   return (
     <>
       {/* header */}
-      <section className="relative w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('img/carousel/Airica.jpg')]">
+      <section className="relative md:px-10 md:py-10 w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('img/carousel/Airica.jpg')]">
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70 z-10"></div>
 
         <div className="relative z-20 max-w-7xl w-full px-6 md:px-12 flex flex-col-reverse md:flex-row items-center md:items-stretch justify-center gap-8 md:gap-16 text-center md:text-left">
@@ -157,9 +158,9 @@ const AllProjects = () => {
             </span>
           </div>
 
-          <div className="flex justify-center md:justify-end items-center max-w-sm md:max-w-md lg:max-w-lg rounded-tr-[180px] rounded-bl-[180px] overflow-hidden shadow-2xl border-2 border-yellow-400">
+          <div className="flex justify-center md:justify-end items-center max-w-sm md:max-w-md lg:max-w-md rounded-tr-[180px] rounded-bl-[180px] overflow-hidden shadow-2xl border-2 border-yellow-400">
             <img
-              src="img/backgrounds/all-project.jpg"
+              src="img/backgrounds/painting-city-skyline-with-blue-building.jpeg"
               alt="Top Notch Projects"
               className="object-cover w-full h-64 sm:h-80 md:h-full transition-transform duration-500 hover:scale-105 rounded-tr-[180px] rounded-bl-[180px]"
             />
@@ -351,8 +352,6 @@ const AllProjects = () => {
       <Carousel caraouselImages={caraouselImages} />
 
       {/* all projects */}
-
-
 
       <FeaturedProjects projects={filteredProject} projectBtn={false} />
 

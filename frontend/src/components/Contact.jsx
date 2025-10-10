@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import emailjs from "emailjs-com";
+import { toast } from "react-toastify";
 
 const Contact = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const formRef = useRef(null);
+  const [submitting, setSubmitting] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -22,8 +24,12 @@ const Contact = () => {
     e.preventDefault();
 
     try {
+      setSubmitting(true);
       await emailjs.sendForm("service_3qxauyp", "template_pvmnnin", formRef.current, "GoZgeEbgB3GxueDMC");
       console.log("email sent");
+      setSubmitting(false);
+      formRef.current.reset();
+      toast.success("Thank you for contacting us. We will get back to you soon!",{autoClose:5000});
     } catch (error) {
       console.log(error);
     }
@@ -203,6 +209,7 @@ const Contact = () => {
             <div className="flex flex-col sm:flex-row gap-2 sm:justify-between">
               <button
                 type="submit"
+                disabled={submitting}
                 className="bg-yellow-500 hover:bg-black maven-pro cursor-pointer text-black  hover:text-white  py-1 px-4 rounded border border-black "
               >
                 Send Message

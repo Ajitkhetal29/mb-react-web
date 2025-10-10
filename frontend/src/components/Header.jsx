@@ -1,6 +1,11 @@
 import React from "react";
 
+import { useNavigate } from "react-router-dom";
+
 const Header = () => {
+
+  const navigate = useNavigate();
+
   return (
     <>
       <section className="relative flex items-center justify-center h-[70vh] md:h-[85vh] lg:h-[95vh] overflow-hidden">
@@ -34,10 +39,10 @@ const Header = () => {
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 mt-8">
-            <button className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-white hover:text-black transition-all duration-300 rounded-md maven-pro tracking-wide">
+            <button onClick={()=>navigate('/allProjects')} className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-white hover:text-black transition-all duration-300 rounded-md maven-pro tracking-wide">
               ALL PROPERTIES
             </button>
-            <button className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-orange-500 hover:border-orange-500 transition-all duration-300 rounded-md maven-pro tracking-wide">
+            <button onClick={()=>navigate('/allProjects#contact')} className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-orange-500 hover:border-orange-500 transition-all duration-300 rounded-md maven-pro tracking-wide">
               CONTACT US
             </button>
           </div>

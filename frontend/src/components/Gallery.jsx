@@ -1,7 +1,14 @@
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
+import { AppConetxt } from "../context/context";
 
 
 export default function Gallery({galleryItems}) {
+
+  const {backendUrl} = useContext(AppConetxt);
+
+  console.log(galleryItems);
+  
+
   const [imgBoxOpen, setImgBoxOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -85,7 +92,7 @@ export default function Gallery({galleryItems}) {
               onClick={() => openImgBox(item.src, index)}
             >
               <img
-                src={item.src}
+                src={item.src ? item.src : `${backendUrl}/${item.image}`}
                 alt={item.title}
                 className="object-cover object-center w-full h-56 rounded-lg"
               />

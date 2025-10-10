@@ -6,7 +6,23 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-export const storage = multer.diskStorage({
+const blogStorage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    const baseFolder = path.join(__dirname, '..', 'uploads', 'blogs');
+
+    if (!fs.existsSync(baseFolder)) {
+      fs.mkdirSync(baseFolder, { recursive: true });
+    }
+    cb(null, baseFolder);
+
+  },
+  filename : (req, file, cb) => {
+    const filename = file.originalname.replace(/\s+/g, '_');
+    cb(null, Date.now() + '_' + filename);
+  }
+
+})
+const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     const projectName = req.body.name
       ? req.body.name.replace(/\s+/g, '_')
@@ -38,3 +54,4 @@ export const storage = multer.diskStorage({
 });
 
 export const upload = multer({ storage });
+export const blogUpload = multer({ storage: blogStorage });

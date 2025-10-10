@@ -21,11 +21,11 @@ const Navbar = () => {
   return (
     <header
       id="siteHeader"
-      className={`fixed 0 z-50 top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out ${
-        scrolled ? "bg-black/80  shadow-lg" : "bg-black/20"
+      className={`fixed font-md z-50 top-0 left-0 right-0 w-full z-50 transition-all duration-300 ease-in-out ${
+        scrolled ? "bg-black/80 backdrop-blur-md shadow-lg" : "bg-black/20"
       }`}
     >
-      <nav className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4 md:py-5">
+      <nav className="max-w-7xl  mx-auto flex items-center justify-between px-6 py-4 md:py-5">
         {/* Logo */}
         <NavLink
           to="/"

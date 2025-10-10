@@ -5,7 +5,7 @@ const Footer = () => {
     <div className="flex flex-col w-full bg-white py-5 px-4 sm:py-6 sm:px-12 md:px-10 lg:py-8 ">
       <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 gap-6 md:gap-0">
         <img
-          src="img/logo/logo.png"
+          src="/img/logo/logo.png"
           alt="Logo"
           className="h-12 md:h-14 object-contain"
         />
@@ -129,13 +129,12 @@ const Footer = () => {
 
 
       <div className="relative flex relative w-full items-center justify-center ">
-        <div className="absolute inset-0 bg-black/50"></div>
         <p className="absolute z-20 bg-black/90 bottom-1 lg:bottom-5 text-sm text-center text-white maven-pro">
           &copy; mirabhayandarprojects.com. All rights reserved.
         </p>
 
         <img
-          src="img/backgrounds/footer-bg.jpeg"
+          src="/img/backgrounds/city-footer.png"
           className=" w-full z-10 h-50 object-cover "
           alt=""
         />

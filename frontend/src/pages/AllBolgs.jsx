@@ -3,7 +3,7 @@ import { AppConetxt } from "../context/context";
 import Footer from "../components/Footer";
 
 const AllBolgs = () => {
-  const { allBlogs } = useContext(AppConetxt);
+  const { allBlogs ,backendUrl} = useContext(AppConetxt);
 
   if (!allBlogs) return <div>Loading...</div>;
 
@@ -77,7 +77,7 @@ const AllBolgs = () => {
               >
                 <div className="overflow-hidden">
                   <img
-                    src={blog.image}
+                    src={`${backendUrl}/${blog.image}`}
                     alt={blog.title}
                     className="w-full h-64 md:h-56 lg:h-64 object-cover transform transition-transform duration-500 hover:scale-105"
                   />
@@ -85,12 +85,12 @@ const AllBolgs = () => {
                 <div className="p-6 flex flex-col justify-between flex-grow">
                   <div className="mb-4">
                     <span className="text-gray-400 text-sm md:text-base maven-pro">
-                      {blog.date}
+                      {new Date(blog.date).toLocaleDateString()}
                     </span>
-                    <h3 className="text-xl md:text-2xl font-semibold mb-2 text-gray-900 maven-pro">
+                    <h3 className="text-md md:text-xl font-semibold mb-2 text-gray-900 maven-pro">
                       {blog.title}
                     </h3>
-                    <p className="text-gray-700 text-base md:text-lg maven-pro leading-relaxed">
+                    <p className="text-gray-700 text-base md:text-md maven-pro leading-relaxed">
                       {blog.content}
                     </p>
                   </div>
@@ -112,7 +112,7 @@ const AllBolgs = () => {
 
       {/* footer */}
 
-      <Footer/>
+      <Footer />
     </>
   );
 };

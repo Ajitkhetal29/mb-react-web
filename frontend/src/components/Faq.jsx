@@ -6,6 +6,10 @@ const Faq = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  console.log('faq called');
+  
+  
+
   const imgs = [
     "https://napa.wpresidence.net/wp-content/uploads/2014/05/2.6-3-2-1-1024x623.webp",
     "https://napa.wpresidence.net/wp-content/uploads/2014/05/4.1-1024x623.webp",
@@ -21,12 +25,17 @@ const Faq = () => {
   const nextSlide = () =>
     setCurrentSlide((prev) => (prev === imgs.length - 1 ? 0 : prev + 1));
 
+  const changeSlide = ()=>{
+    setCurrentSlide((prev) => (prev === imgs.length - 1 ? 0 : prev + 1));
+  }
+
+
   useEffect(() => {
     const interval = setInterval(() => {
       nextSlide();
     }, 5000);
     return () => clearInterval(interval);
-  }, [currentSlide]);
+  }, [imgs.length]);
 
   return (
     <section className="relative w-full py-10 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
@@ -102,7 +111,7 @@ const Faq = () => {
                   onClick={() => toggleFaq(idx)}
                   className="w-full cursor-pointer flex justify-between items-center p-5 text-left text-gray-800 font-medium maven-pro focus:outline-none"
                 >
-                  <span>{item.que}</span>
+                  <span>{item.question}</span>
                   <svg
                     className={`w-6 h-6 transform transition-transform duration-300 ${
                       openIndex === idx ? "rotate-45 text-orange-500" : ""
@@ -121,13 +130,13 @@ const Faq = () => {
                 </button>
 
                 <div
-                  className={`px-5 pb-4 text-gray-700 maven-pro transition-all duration-500 ${
+                  className={`px-5 pb-4 text-green-700 maven-pro transition-all duration-500 ${
                     openIndex === idx
                       ? "max-h-60 opacity-100"
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  {item.ans}
+                  {item.answer}
                 </div>
               </div>
             ))}

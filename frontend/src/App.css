@@ -65,21 +65,17 @@
 
 
 /* fonts */
-
-
-/* animation foe brand caraousel */
 @keyframes scroll {
   0% {
     transform: translateX(0);
   }
-
   100% {
     transform: translateX(-50%);
   }
 }
 
 .animate-scroll {
-  animation: scroll 30s linear infinite;
+  animation: scroll 40s linear infinite;
   width: max-content;
 }
 
@@ -88,7 +84,6 @@
     opacity: 0;
     transform: translateY(40px);
   }
-
   100% {
     opacity: 1;
     transform: translateY(0);
@@ -96,7 +91,7 @@
 }
 
 .fade-slide-up {
-  animation: fadeSlideUp 1.5s ease-out forwards;
+  animation: fadeSlideUp 1.2s ease-out forwards;
 }
 
 /* animation foe brand caraousel */
@@ -146,6 +141,7 @@
 .fade-btn.show {
   animation: fadeDownBtn 0.9s ease forwards;
 }
+
 
 
 
@@ -261,3 +257,35 @@ card:nth-child(1) { animation-delay: 0.1s; }
   transition: opacity 0.5s ease;
 }
 
+
+/* Hero section animations */
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slideInLeft {
+  animation: slideInLeft 1s ease-out both;
+}
+
+.animate-fadeIn {
+  animation: fadeIn 1.2s ease-out both;
+}

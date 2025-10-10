@@ -12,19 +12,21 @@ import AllProjects from "./pages/AllProjects";
 import About from "./pages/About";
 import AllBolgs from "./pages/AllBolgs";
 import ScrollToTop from "./pages/ScrollToTop";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const [count, setCount] = useState(0);
 
   return (
     <>
+    <ToastContainer />
       <Navbar />
         <ScrollToTop/>
 
       <div>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Project />} />
+          <Route path="/project/:projectId" element={<Project />} />
           <Route path="/allProjects" element={<AllProjects />} />
           <Route path="/about" element={<About />} />
           <Route path="/allBlogs" element={<AllBolgs />} />

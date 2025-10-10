@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useRef } from "react";
 import { AppConetxt } from "../context/context";
+import { useNavigate } from "react-router-dom";
 
 const Blog = ({ allBlogs }) => {
   const parentSection = useRef(null);
 
   const { backendUrl } = useContext(AppConetxt);
+  const navigate = useNavigate();
+  
 
   useEffect(() => {}, [allBlogs]);
 
@@ -61,7 +64,7 @@ const Blog = ({ allBlogs }) => {
               >
                 <div className="flex items-center mb-6">
                   <img
-                    src={blog.image}
+                    src={ `${backendUrl}/${blog.image}`}
                     alt={blog.title}
                     className="rounded-lg border w-full h-56 object-cover"
                   />
@@ -69,7 +72,15 @@ const Blog = ({ allBlogs }) => {
 
                 <div className="block">
                   <div className="flex mb-3 items-center justify-between font-medium">
-                    <h6 className="text-sm text-gray-500">{blog.date}</h6>
+                    <h6 className="text-sm text-gray-500">
+                      {
+                        new Intl.DateTimeFormat("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        }).format(new Date(blog.date))
+                      }
+                    </h6>
                   </div>
                   <div className="flex mb-3 items-center justify-between font-medium">
                     <h6 className="text-sm text-black">{blog.title}</h6>
@@ -94,7 +105,7 @@ const Blog = ({ allBlogs }) => {
         </div>
 
         <div className="mt-10 flex justify-center">
-          <button className="border cursor-pointer border-black px-6 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+          <button onClick={()=>navigate('/allBlogs')} className="border cursor-pointer border-black px-6 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
             View All
           </button>
         </div>

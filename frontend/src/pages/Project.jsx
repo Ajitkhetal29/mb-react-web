@@ -4,9 +4,17 @@ import Footer from "../components/Footer";
 import emailjs from "emailjs-com";
 import Carousel from "../components/Carousel";
 import { AppConetxt } from "../context/context";
+import { toast } from "react-toastify";
+
+import { useParams } from "react-router-dom";
+import axios from "axios";
 
 const Project = () => {
-  const { galleryItems, caraouselImages } = useContext(AppConetxt);
+  const { projectId } = useParams();
+  console.log("Project ID from URL:", projectId);
+  const { galleryItems, caraouselImages, allProjects, backendUrl } =
+    useContext(AppConetxt);
+  const [project, setProject] = useState(null);
 
   const [showFeatures, setShowFeatures] = useState(false);
   const [layoutIndex, setLayoutIndex] = useState(0);
@@ -16,6 +24,16 @@ const Project = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const formRef = useRef(null);
   const contactFormRef = useRef(null);
+
+  useEffect(() => {
+    const project = allProjects.find((proj) => proj._id === projectId);
+    setProject(project);
+    if (project) {
+      console.log("Project found:", project);
+    } else {
+      console.log("No project found with the given ID.");
+    }
+  }, [projectId, allProjects]);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -45,6 +63,11 @@ const Project = () => {
         "GoZgeEbgB3GxueDMC"
       );
       console.log("email sent");
+      toast.success(
+        "Thank you for contacting us! We'll get back to you soon.",
+        { autoClose: 3000 }
+      );
+
       setMailsent(true);
     } catch (error) {
       console.log(error);
@@ -72,6 +95,10 @@ const Project = () => {
         "GoZgeEbgB3GxueDMC"
       );
       console.log("email sent");
+      toast.success(
+        "Thank you for contacting us! We'll get back to you soon.",
+        { autoClose: 3000 }
+      );
       setMailsent(true);
     } catch (error) {
       console.log(error);
@@ -99,7 +126,7 @@ const Project = () => {
   const handleDownload = async () => {
     if (mailSent) {
       const link = document.createElement("a");
-      link.href = "https://www.orimi.com/pdf-test.pdf"; // external PDF link
+      link.href = `${backendUrl}/${project.browcherPdf}`; // external PDF link
       link.setAttribute("download", "Brochure.pdf"); // suggested filename
       document.body.appendChild(link);
       link.click();
@@ -119,70 +146,27 @@ const Project = () => {
     }
   };
 
-  const Description = `Welcome to Anandam in Bhayandar West, premium and luxury residences that don't restrict you in any manner. Homes that are more convenient as compared to conventionally designed residences and admirably fulfill the demands of fine living.
-
-Make yourself at home in this premium 2BHKs, replete with the most modern amenities one could wish for. Located in Bhayandar West amongst life's conveniences, Anandam lets everyone experience fine living in a spacious environment.
-
-MahaRERA No - : P51700017515 / P51700017941
-
-G + 24 Storey tower
-
-2 BHK & Jodi Options`;
-
-  const layouts = [
-    {
-      title: "1 BHK",
-      area: "1500",
-      price: "58,00,00",
-      img: "img/layouts/anandam/1.png",
-    },
-    {
-      title: "2 BHK",
-      area: "2500",
-      price: "58,00,00",
-      img: "img/layouts/anandam/2.png",
-    },
-    {
-      title: "3 BHK",
-      area: "3000",
-      price: "58,00,00",
-      img: "img/layouts/anandam/3.png",
-    },
-  ];
-
-  const Features = [
-    "Gymnasium",
-    "Senior Citizen Corner",
-    "Kids Play Area",
-    "Steam Room",
-    "Swimming Pool",
-    "CCTV for Security",
-    "Clubhouse with AV",
-    "Fire Fighting System",
-    "Meditation Room",
-    "Adequate Parking Spaces",
-  ];
+  if (!project) return <div>Loading...</div>;
 
   return (
     <>
       {/* Header Section  */}
-      <section className="relative w-full h-[90vh] sm:h-[80vh] md:h-[70vh] flex items-center bg-[url('img/carousel/5.png')] justify-center bg-fixed bg-center bg-cover">
-        {/* Overlay with subtle gradient and dark tint */}
+      <section className="relative w-full h-[90vh] sm:h-[80vh] md:h-[70vh] flex items-center bg-[url('/img/carousel/5.png')] justify-center bg-fixed bg-center bg-cover">
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-10"></div>
 
         {/* Content Container */}
         <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 md:px-12 max-w-3xl mx-auto">
           <img
-            src="img/logo/anandam logo.png"
+            src={`${backendUrl}/${project.logo}`}
             alt="Anandam Logo"
             className="h-24 w-24 md:h-32 md:w-32 mb-6 drop-shadow-lg"
             loading="lazy"
           />
           <h1 className="text-white text-6xl sm:text-7xl md:text-8xl font-extrabold italiana-regular select-none drop-shadow-xl">
-            Anandam
+            {project.name}
           </h1>
           <span className="text-yellow-400 text-2xl sm:text-3xl maven-pro mt-2 tracking-wide drop-shadow-md italic">
-            Mira Road
+            {project.location}
           </span>
 
           {/* Optional Quote */}
@@ -218,7 +202,7 @@ G + 24 Storey tower
           {/* Logo */}
           <div className="flex items-center justify-end mb-2 sm:mb-4">
             <img
-              src="img/logo/logo.png"
+              src="/img/logo/logo.png"
               className="w-20 sm:w-24 md:w-28"
               alt="Logo"
             />
@@ -381,11 +365,11 @@ G + 24 Storey tower
             ABOUT
           </span>
           <h2 className="mt-1 text-4xl sm:text-5xl md:text-6xl font-bold italiana-regular bg-gradient-to-r from-red-500 to-red-900 bg-clip-text text-transparent">
-            Anandam
+            {project.name}
           </h2>
         </header>
 
-        <div className="flex flex-col lg:flex-row gap-4 sm:gap-8 md:gap-16 items-start md:items-center">
+        <div className="flex flex-col flex-col-reverse lg:flex-row gap-4 sm:gap-8 md:gap-16 items-start md:items-center">
           <div className="flex flex-col w-full lg:w-1/2 max-w-full md:max-w-xl">
             <div className="inline-flex border-black rounded overflow-hidden w-fit mb-4">
               <button
@@ -416,14 +400,14 @@ G + 24 Storey tower
 
             <div className="border border-gray-300 border-orange-600 rounded p-4 min-h-[40vh]  lg:min-h-[60vh] overflow-auto text-gray-700 text-sm sm:text-base whitespace-pre-wrap">
               {showFeatures ? (
-                <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 list-none">
-                  {Features.map((feature, index) => (
+                <ul className="grid grid-cols-1 sm:grid-cols-2  gap-x-4 gap-y-3 list-none">
+                  {project.features.map((feature, index) => (
                     <li
                       key={index}
                       className="flex items-center maven-pro space-x-2 text-gray-700 text-sm sm:text-base"
                     >
                       <img
-                        src="img/check-mark-circle-svgrepo-com.svg"
+                        src="/img/check-mark-circle-svgrepo-com.svg"
                         alt="Check mark"
                         className="h-5 w-5 flex-shrink-0"
                         loading="lazy"
@@ -433,30 +417,25 @@ G + 24 Storey tower
                   ))}
                 </ul>
               ) : (
-                <p className="maven-pro">{Description}</p>
+                <p className="maven-pro">{project.description}</p>
               )}
             </div>
           </div>
-
-          {/* Video Section */}
-          <div className="border  lg:w-1/2 rounded  overflow-hidden shadow-lg w-full md:max-w-4xl aspect-video min-h-[200px] sm:min-h-[300px] md:min-h-[60vh] flex items-center justify-center">
-            <iframe
-              width="560"
-              height="315"
-              src="https://www.youtube.com/embed/-YWwxrt69FI?si=sGgyi0UMu1uJt5E4"
-              title="Anandam Project Video"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              allowFullScreen
-              referrerPolicy="strict-origin-when-cross-origin"
-              className="w-full h-full object-contain"
-            ></iframe>
-          </div>
+          {/* image Section */}
+          <div className="flex justify-center items-center relative">
+            <div className="absolute inset-0 bg-gradient-to-t from-orange-100/50 to-transparent rounded-full blur-3xl"></div>
+            <img
+              src={`${backendUrl}/${project.coverImage}`}
+              alt="Modern real estate cityscape"
+              className="relative z-10 w-full max-w-md md:max-w-lg object-contain drop-shadow-2xl"
+            />
+          </div>{" "}
         </div>
       </section>
 
       {/* caraousel */}
 
-      <Carousel caraouselImages={caraouselImages} />
+      <Carousel caraouselImages={project.carouselImages} />
 
       {/* layout section */}
       <section className="px-6 md:px-16 py-8 bg-gray-100">
@@ -481,8 +460,8 @@ G + 24 Storey tower
           {/* Image Container */}
           <div className="flex-1 bg-black/85 rounded-xl shadow-lg p-4 flex justify-center items-center">
             <img
-              src={layouts[layoutIndex].img}
-              alt={layouts[layoutIndex].title}
+              src={`${backendUrl}/${project.layouts[layoutIndex].image}`}
+              alt={project.layouts[layoutIndex].title}
               onClick={openImgBox}
               className="w-full cursor-pointer h-[350px] md:h-[400px] object-contain rounded-lg"
             />
@@ -492,7 +471,7 @@ G + 24 Storey tower
           <div className="flex flex-1 flex-col justify-between h-full">
             {/* Buttons */}
             <div className="flex  flex-wrap gap-3 mb-6">
-              {layouts.map((l, idx) => (
+              {project.layouts.map((l, idx) => (
                 <button
                   key={idx}
                   type="button"
@@ -512,12 +491,12 @@ G + 24 Storey tower
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80">
                 <div className="flex flex-col items-center">
                   <img
-                    src={layouts[layoutIndex].img}
+                    src={`${backendUrl}/${project.layouts[layoutIndex].image}`}
                     alt="Enlarged view"
                     className="max-w-full max-h-[80vh] rounded-lg shadow-2xl"
                   />
                   <p className="text-white text-md maven-pro mt-4 italic">
-                    {layouts[layoutIndex].title}
+                    {project.layouts[layoutIndex].title}
                   </p>
                 </div>
 
@@ -536,19 +515,19 @@ G + 24 Storey tower
               <p className="mb-2 maven-pro font-semibold">
                 Title:{" "}
                 <span className="font-normal">
-                  {layouts[layoutIndex].title}
+                  {project.layouts[layoutIndex].title}
                 </span>
               </p>
               <p className="mb-2 maven-pro font-semibold">
                 Area:{" "}
                 <span className="font-normal">
-                  {layouts[layoutIndex].area} sq ft
+                  {project.layouts[layoutIndex].area} sq ft
                 </span>
               </p>
               <p className="maven-pro  font-semibold">
                 Price:{" "}
                 <span className="font-normal">
-                  {layouts[layoutIndex].price} Lacs
+                  {project.layouts[layoutIndex].price} Lacs
                 </span>
               </p>
             </div>
@@ -572,12 +551,29 @@ G + 24 Storey tower
         </div>
       </section>
 
+      {/* video section */}
+
+      <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('/img/carousel/Airica.jpg')] bg-fixed">
+        <div className="absolute inset-0 bg-black/40"></div>
+        <div className="relative z-20 mx-auto flex justify-center items-center w-full">
+          <iframe
+            className="w-full max-w-3xl aspect-video rounded-2xl shadow-2xl border border-white/20"
+            src={`${project.videoLink}?autoplay=1&mute=1&loop=1&playlist=8uVQACW7uh4`}
+            title="YouTube video player"
+            frameBorder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerPolicy="strict-origin-when-cross-origin"
+            allowFullScreen
+          ></iframe>
+        </div>
+      </section>
+
       {/* gallery section */}
-      <Gallery galleryItems={galleryItems} />
+      <Gallery galleryItems={project.galleryImages} />
 
       {/* address */}
 
-      <section className="relative px-6 md:px-16 py-12 bg-[url(img/carousel/Codename-LIT.jpg)]  bg-fixed bg-cover">
+      <section className="relative px-6 md:px-16 py-12 bg-[url(/img/carousel/Codename-LIT.jpg)]  bg-fixed bg-cover">
         <div className="absolute inset-0 bg-black/70"></div>
         <div className="flex z-20 flex-col  md:flex-row md:space-x-12 gap-10 max-w-7xl mx-auto">
           {/* Address Section */}

@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-
-
+import React, { useState, useEffect, useContext } from "react";
+import { AppConetxt } from "../context/context";
 
 const Carousel = ({caraouselImages}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const {backendUrl} = useContext(AppConetxt);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -15,10 +15,11 @@ const Carousel = ({caraouselImages}) => {
   return (
     <div className="relative px-8 py-5 w-full max-w-6xl mx-auto">
       <div className="relative h-56 md:h-96 overflow-hidden rounded-lg">
-        {caraouselImages.map((src, index) => (
+        {caraouselImages.map((c, index) => (
+
           <img
             key={index}
-            src={src}
+            src={c.src ? c.src : `${backendUrl}/${c.image}`}
             alt={`Slide ${index + 1}`}
             className={`absolute top-1/2 left-1/2 w-full max-w-full max-h-full object-cover
               -translate-x-1/2 -translate-y-1/2 transition-opacity duration-700 ease-in-out

@@ -15,7 +15,6 @@ const AppConetxtProvider = (props) => {
 
   // fetch all projects
   const getAllProjects = async () => {
-    
     try {
       const response = await axios.get(`${backendUrl}/api/project/allProjects`);
       if (response.data.success) {
@@ -27,10 +26,9 @@ const AppConetxtProvider = (props) => {
       console.log(error);
     }
   };
-  
+
   // fetch all blogs
   const getAllBlogs = async () => {
-    
     try {
       const response = await axios.get(`${backendUrl}/api/blog/allBlogs`);
       if (response.data.success) {
@@ -56,11 +54,12 @@ const AppConetxtProvider = (props) => {
       console.log(error);
     }
   };
+
   const getAllTestimonials = async () => {
-    console.log("fetching testimonials");
-    
     try {
-      const response = await axios.get(`${backendUrl}/api/testimonial/allTestimonials`);
+      const response = await axios.get(
+        `${backendUrl}/api/testimonial/allTestimonials`
+      );
       if (response.data.success) {
         setAllTestimonials(response.data.allTestimonials);
       } else {
@@ -71,27 +70,13 @@ const AppConetxtProvider = (props) => {
     }
   };
 
-  console.log("allTestimonials", allTestimonials);
   
-
-
-  const galleryItems = [
-    { src: "img/gallery/5.jpg", title: "Modern Kitchen" },
-    { src: "img/gallery/2.jpg", title: "Spacious Living Room" },
-    { src: "img/gallery/3.jpg", title: "Cozy Bedroom" },
-    { src: "img/gallery/4.jpg", title: "Elegant Dining Area" },
-    { src: "img/gallery/5.jpg", title: "Luxurious Bathroom" },
-    { src: "img/gallery/6.jpeg", title: "Outdoor Patio" },
-    { src: "img/gallery/3.jpg", title: "Home Office" },
-    { src: "img/gallery/8.jpeg", title: "Modern Kitchen 2" },
-    { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
-  ];
 
   useEffect(() => {
     getAllProjects();
     getAllBlogs();
     getAllFaq();
-    getAllTestimonials()
+    getAllTestimonials();
   }, []);
 
   // new project
@@ -138,7 +123,19 @@ const AppConetxtProvider = (props) => {
     },
   ];
 
-  // testimonials
+  // raw data
+
+  const galleryItems = [
+    { src: "img/gallery/5.jpg", title: "Modern Kitchen" },
+    { src: "img/gallery/2.jpg", title: "Spacious Living Room" },
+    { src: "img/gallery/3.jpg", title: "Cozy Bedroom" },
+    { src: "img/gallery/4.jpg", title: "Elegant Dining Area" },
+    { src: "img/gallery/5.jpg", title: "Luxurious Bathroom" },
+    { src: "img/gallery/6.jpeg", title: "Outdoor Patio" },
+    { src: "img/gallery/3.jpg", title: "Home Office" },
+    { src: "img/gallery/8.jpeg", title: "Modern Kitchen 2" },
+    { src: "img/gallery/9.jpeg", title: "Open Floor Plan" },
+  ];
 
   const CustReviews = [
     {
@@ -214,11 +211,26 @@ const AppConetxtProvider = (props) => {
   const [lang, setLang] = useState("english");
 
   const caraouselImages = [
-    "img/carousel/1.png",
-    "img/carousel/5.png",
-    "img/carousel/6.png",
-    "img/carousel/7.png",
-    "img/carousel/8.png",
+    {
+      title: "Anandam Estate",
+      src: "img/carousel/1.png",
+    },
+    {
+      title: "Anandam Estate",
+      src: "img/carousel/5.png",
+    },
+    {
+      title: "Anandam Estate",
+      src: "img/carousel/6.png",
+    },
+    {
+      title: "Anandam Estate",
+      src: "img/carousel/7.png",
+    },
+
+    { title: "Anandam Estate", src: "img/carousel/2.png" },
+
+    { title: "Anandam Estate", src: "img/carousel/8.png" },
   ];
 
   const value = {
@@ -230,8 +242,7 @@ const AppConetxtProvider = (props) => {
     setLang,
     galleryItems,
     caraouselImages,
-    backendUrl
-
+    backendUrl,
   };
 
   return (

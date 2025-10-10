@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import {useNavigate} from 'react-router-dom';
 
 const Carousel = () => {
   const [current, setCurrent] = useState(0);
   const [typeText, setTypeText] = useState("");
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
 
   const slidesData = [
     {
