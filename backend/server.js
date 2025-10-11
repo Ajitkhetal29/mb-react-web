@@ -38,11 +38,6 @@ app.use('/api/blog', blogRouter)
 app.use('/api/testimonial', testimonialRouter)
 app.use('/api/faq', faqRouter)
 
-app.use("/api/admin", adminRouter);
-app.use("/api/project", projectRouter);
-app.use("/api/blog", blogRouter);
-app.use("/api/testimonial", testimonialRouter);
-app.use("/api/faq", faqRouter);
 
 app.get("/", (req, res) => {
   res.send("Hello from Backend");
