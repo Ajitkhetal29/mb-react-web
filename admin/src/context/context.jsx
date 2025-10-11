@@ -161,8 +161,8 @@ const AppConetxtProvider = (props) => {
     if (!token && localStorage.getItem("token")) {
       setToken(localStorage.getItem("token"));
     }
-    // getAllProjects();
-    // getAllBlogs();
+    getAllProjects();
+    getAllBlogs();
     getAllTestimonials();
     getAllFaq();
   }, []);

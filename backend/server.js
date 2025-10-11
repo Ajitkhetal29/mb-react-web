@@ -18,7 +18,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 
 // ✅ Middleware setup
 app.use(express.json({ limit: "200mb" }));
@@ -44,12 +44,10 @@ app.use("/api/blog", blogRouter);
 app.use("/api/testimonial", testimonialRouter);
 app.use("/api/faq", faqRouter);
 
-// ✅ Routes
 app.get("/", (req, res) => {
   res.send("Hello from Backend");
 });
 
-// ✅ Error handler for better debugging
 app.use((err, req, res, next) => {
   console.error("❌ Server Error:", err);
   res.status(500).json({ message: "Internal Server Error", error: err.message });

@@ -9,7 +9,8 @@ const AllTestimonials = () => {
     getAllTestimonials();
   }, []);
 
-  if (!allTestimonials) {err
+  if (!allTestimonials) {
+    err;
     return (
       <div className="p-6 text-center text-gray-400 dark:text-gray-300">
         Loading Testimonials...
