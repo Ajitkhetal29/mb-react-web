@@ -1,6 +1,6 @@
 import express from "express";
 import cors from "cors";
-import corsOptions from "./cors.js"; // ✅ import custom cors
+
 import connectDb from "./config/db.js";
 import adminRouter from "./routes/admin.js";
 import projectRouter from "./routes/project.js";
@@ -18,7 +18,6 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-// app.use(cors(corsOptions));
 app.use(cors());
 
 // ✅ Middleware setup
