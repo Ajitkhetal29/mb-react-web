@@ -309,7 +309,7 @@ const About = () => {
       </section>
 
       {/* video */}
-      <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('img/carousel/Airica.jpg')] bg-fixed">
+      <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('/img/carousel/Airica.jpg')] bg-fixed">
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-20 mx-auto flex justify-center items-center w-full">
           <iframe

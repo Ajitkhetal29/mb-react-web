@@ -39,7 +39,7 @@ const Brands = () => {
   return (
     <section
       id="partnersSection"
-      className="relative w-full py-20 px-6 bg-[url('img/backgrounds/testimonal-bg.jpeg')] bg-cover bg-fixed bg-center overflow-hidden"
+      className="relative w-full py-20 px-6 bg-[url('/img/backgrounds/testimonal-bg.jpeg')] bg-cover bg-fixed bg-center overflow-hidden"
     >
       {/* Gradient Overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/80"></div>

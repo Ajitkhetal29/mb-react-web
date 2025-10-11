@@ -2,7 +2,7 @@ import React from "react";
 
 const HeroAbout = () => {
   return (
-   <section className="relative w-full bg-fixed bg-[url('img/backgrounds/hero-2-bg.jpeg')] bg-cover bg-center py-12 md:py-20 flex items-center justify-center overflow-hidden">
+   <section className="relative w-full bg-fixed bg-[url('/img/backgrounds/hero-2-bg.jpeg')] bg-cover bg-center py-12 md:py-20 flex items-center justify-center overflow-hidden">
   {/* Overlay */}
   <div className="absolute inset-0 bg-black/60"></div>
 

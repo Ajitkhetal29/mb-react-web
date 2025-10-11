@@ -142,7 +142,7 @@ const AllProjects = () => {
   return (
     <>
       {/* header */}
-      <section className="relative md:px-10 md:py-10 w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('img/carousel/Airica.jpg')]">
+      <section className="relative md:px-10 md:py-10 w-full h-[90vh] md:h-[70vh] lg:h-[80vh] flex items-center justify-center bg-fixed bg-center bg-cover bg-[url('/img/carousel/Airica.jpg')]">
         <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70 z-10"></div>
 
         <div className="relative z-20 max-w-7xl w-full px-6 md:px-12 flex flex-col-reverse md:flex-row items-center md:items-stretch justify-center gap-8 md:gap-16 text-center md:text-left">
@@ -356,7 +356,7 @@ const AllProjects = () => {
       <FeaturedProjects projects={filteredProject} projectBtn={false} />
 
       {/* video section */}
-      <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('img/carousel/Airica.jpg')] bg-fixed">
+      <section className="relative flex w-full px-5 md:px-16 py-12 bg-center bg-cover bg-[url('/img/carousel/Airica.jpg')] bg-fixed">
         <div className="absolute inset-0 bg-black/40"></div>
         <div className="relative z-20 mx-auto flex justify-center items-center w-full">
           <iframe

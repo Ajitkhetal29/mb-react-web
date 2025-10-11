@@ -2,7 +2,9 @@
 const allowedOrigins = [
   "https://mb-react-web-admin.vercel.app", 
   "http://localhost:3000", 
+  "http://localhost:5173",
   "https://mb-react-web-frontend.vercel.app",
+  "http://localhost:5174"
 ];
 
 const corsOptions = {

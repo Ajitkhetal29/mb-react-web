@@ -6,7 +6,7 @@ const Testimonials = ({allTestimonials}) => {
 
   return (
     <div
-      className="relative bg-[url('img/carousel/7.png')] bg-cover bg-fixed bg-center px-6 py-8 sm:px-8 lg:px-12 lg:py-10 mx-auto max-w-7xl rounded-xl overflow-hidden"
+      className="relative bg-[url('/img/carousel/7.png')] bg-cover bg-fixed bg-center px-6 py-8 sm:px-8 lg:px-12 lg:py-10 mx-auto max-w-7xl rounded-xl overflow-hidden"
       aria-label="Customer testimonials section"
     >
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/70 pointer-events-none rounded-xl"></div>
