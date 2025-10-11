@@ -17,11 +17,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const app = express();
-<<<<<<< HEAD
 
-// ✅ Apply CORS before anything else
-=======
->>>>>>> a4d2377753e1d3e6be73944da36e6d8b2e721501
 app.use(cors(corsOptions));
 
 // ✅ Middleware setup
@@ -34,19 +30,16 @@ app.use(cors());
 // ✅ Connect database
 connectDb();
 
-<<<<<<< HEAD
 // ✅ Routes
 app.get("/", (req, res) => {
   res.send("Hello from Backend");
 });
-=======
 
 app.use('/api/admin', adminRouter)
 app.use('/api/project', projectRouter)
 app.use('/api/blog', blogRouter)
 app.use('/api/testimonial', testimonialRouter)
 app.use('/api/faq', faqRouter)
->>>>>>> a4d2377753e1d3e6be73944da36e6d8b2e721501
 
 app.use("/api/admin", adminRouter);
 app.use("/api/project", projectRouter);
