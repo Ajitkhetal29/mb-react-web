@@ -1,7 +1,8 @@
 // config/corsOptions.js
 
 const allowedOrigins = [
-  "https://mb-react-web-admin.vercel.app", // production admin frontend
+  "https://mb-react-web-admin.vercel.app",
+  /^https:\/\/mb-react-web-admin.*\.vercel\.app$/,
   "http://localhost:5173", // local frontend
   'http://localhost:5174'
 ];
