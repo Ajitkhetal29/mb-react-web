@@ -1,10 +1,7 @@
 import express from "express";
 import cors from "cors";
-<<<<<<< HEAD
 import dotenv from "dotenv";
-=======
 
->>>>>>> 9e9d590aac6c50a6c967d88f05de9f1ac2c44d18
 import connectDb from "./config/db.js";
 import corsOptions from "./config/corsOptions.js";
 
@@ -23,11 +20,8 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
-<<<<<<< HEAD
 app.use(cors(corsOptions));
-=======
 app.use(cors());
->>>>>>> 9e9d590aac6c50a6c967d88f05de9f1ac2c44d18
 
 app.use(express.json({ limit: "200mb" }));
 app.use(express.urlencoded({ extended: true, limit: "200mb" }));
