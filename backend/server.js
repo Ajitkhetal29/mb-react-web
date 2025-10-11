@@ -8,6 +8,7 @@ import blogRouter from "./routes/blog.js";
 import testimonialRouter from "./routes/testimonial.js";
 import faqRouter from "./routes/faq.js";
 import blogModel from "./models/blog.js";
+import corsOptions from "./cors.js";
 
 import fs from 'fs';
 import { fileURLToPath } from 'url';
@@ -21,6 +22,7 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 app.use(cors());
+app.use(corsOptions)
 app.use(express.json({ limit: '200mb' }));
 app.use(express.urlencoded({ extended: true, limit: '200mb' }));
 app.use("/uploads", express.static(path.join(__dirname, "uploads")));
