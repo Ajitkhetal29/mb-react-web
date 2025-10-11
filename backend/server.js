@@ -12,6 +12,10 @@ import blogModel from "./models/blog.js";
 import fs from 'fs';
 import { fileURLToPath } from 'url';
 
+import dotenv from "dotenv"
+
+dotenv.config();
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
@@ -31,7 +35,7 @@ app.use('/api/faq', faqRouter)
 
 
 
-app.listen(3000, () => {
+app.listen(process.env.PORT, () => {
     console.log('Server is running ');
 })
 
