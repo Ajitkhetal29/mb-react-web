@@ -8,10 +8,6 @@ const createToken = (id) => {
 
 const login = async (req, res) => {
 
-    console.log('log called');
-
-
-
     try {
 
         const { username, password } = req.body;

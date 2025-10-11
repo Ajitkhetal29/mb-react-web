@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 const Login = () => {
   const { backendUrl, token, navigate, setToken } = useContext(AppConetxt);
 
-  console.log(backendUrl);
 
   const [formData, setFormdata] = useState({
     username: "",
@@ -22,19 +21,19 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
-
-    console.log('login called');
-    
-
     e.preventDefault();
     try {
-      const response = await axios.post(`${backendUrl}/api/admin/login`, formData);
+      const response = await axios.post(
+        `${backendUrl}/api/admin/login`,
+        formData
+      );
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         setToken(response.data.token);
         navigate("/dashboard");
         toast.success("Logged In Successfully", { autoClose: 2000 });
         console.log("logged in");
+        
       } else {
         alert(response.data.message);
       }

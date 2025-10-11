@@ -7,8 +7,7 @@ export const AppConetxt = createContext();
 
 const AppConetxtProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
-  console.log(backendUrl);
-  
+
   const [token, setToken] = useState("");
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState([]);
@@ -18,24 +17,32 @@ const AppConetxtProvider = (props) => {
 
   // fetch all projects
   const getAllProjects = async () => {
+    console.log("getAllProjects  called");
+
     try {
       const response = await axios.get(`${backendUrl}/api/project/allProjects`);
       if (response.data.success) {
         setAllProjects(response.data.allProjects);
+        console.log("getAllProjects  success");
       } else {
         console.log(response.data.message);
+        console.log("getAllProjects  error-1alled");
       }
     } catch (error) {
       console.log(error);
+      console.log("getAllProjects  error");
     }
   };
 
   // delete project
   const deleteProject = async (id) => {
     try {
-      const response = await axios.post(`${backendUrl}/api/project/deleteProject`, {
-        id,
-      });
+      const response = await axios.post(
+        `${backendUrl}/api/project/deleteProject`,
+        {
+          id,
+        }
+      );
       if (response.data.success) {
         toast.warning("Project Delered", { autoClose: 2000 });
 
@@ -61,15 +68,21 @@ const AppConetxtProvider = (props) => {
 
   // fetch all blogs
   const getAllBlogs = async () => {
+    console.log("getAllBlogs  called");
+
     try {
       const response = await axios.get(`${backendUrl}/api/blog/allBlogs`);
       if (response.data.success) {
         setAllblogs(response.data.allblogs);
+        console.log("getAllBlogs  success");
       } else {
         console.log(response.data.message);
+        console.log("getAllBlogs  error-1");
       }
     } catch (error) {
       console.log(error);
+          console.log("getAllBlogs  error");
+
     }
   };
 
@@ -94,17 +107,22 @@ const AppConetxtProvider = (props) => {
 
   // get testimonials
   const getAllTestimonials = async () => {
+    console.log("getAllTestimonials called ");
+
     try {
       const response = await axios.get(
         `${backendUrl}/api/testimonial/allTestimonials`
       );
       if (response.data.success) {
         setAllTestimonials(response.data.allTestimonials);
+        console.log("getAllTestimonials success ");
       } else {
         console.log(response.data.message);
+        console.log("getAllTestimonials error -1 ");
       }
     } catch (error) {
       console.log(error);
+      console.log("getAllTestimonials error ");
     }
   };
 
@@ -129,22 +147,29 @@ const AppConetxtProvider = (props) => {
 
   // get FAQ
   const getAllFaq = async () => {
+    console.log("getAllFaq called ");
+
     try {
       const response = await axios.get(`${backendUrl}/api/faq/allFaqs`);
       if (response.data.success) {
         setAllFaq(response.data.allFaqs);
+        console.log("getAllFaq success ");
       } else {
         console.log(response.data.message);
+        console.log("getAllFaq error -1 ");
       }
     } catch (error) {
       console.log(error);
+      console.log("getAllFaq error ");
     }
   };
 
   // delete FAQ
   const deleteFaq = async (id) => {
     try {
-      const response = await axios.delete(`${backendUrl}/api/faq/deleteFaq/${id}`);
+      const response = await axios.delete(
+        `${backendUrl}/api/faq/deleteFaq/${id}`
+      );
       if (response.data.success) {
         toast.warning("FAQ Deleted", { autoClose: 2000 });
         getAllFaq();
