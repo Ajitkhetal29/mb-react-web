@@ -22,6 +22,10 @@ const Login = () => {
   };
 
   const handleSubmit = async (e) => {
+
+    console.log('login called');
+    
+
     e.preventDefault();
     try {
       const response = await axios.post(`${backendUrl}/api/admin/login`, formData);

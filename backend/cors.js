@@ -1,21 +1,22 @@
 // config/corsOptions.js
 
 const allowedOrigins = [
-  "https://mb-react-web-admin.vercel.app", // production frontend (Vercel)
-  "http://localhost:3000", // local frontend for development
+  "https://mb-react-web-admin.vercel.app", // production admin frontend
+  "http://localhost:5173", // local frontend
 ];
 
 const corsOptions = {
   origin: function (origin, callback) {
-    // Allow requests with no origin (like mobile apps, curl, or Postman)
+    // Allow REST tools or server-to-server calls (no origin)
     if (!origin || allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
+      console.log("❌ Blocked by CORS:", origin);
       callback(new Error("Not allowed by CORS"));
     }
   },
-  credentials: true, // allow cookies, auth headers, etc.
-  optionsSuccessStatus: 200, // some legacy browsers choke on 204
+  credentials: true, // allow cookies and auth headers
+  optionsSuccessStatus: 200,
 };
 
 export default corsOptions;

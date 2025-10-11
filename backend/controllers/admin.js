@@ -3,13 +3,13 @@ import jwt from "jsonwebtoken";
 
 
 const createToken = (id) => {
-    return jwt.sign({id}, process.env.JWT_SECRET);
+    return jwt.sign({ id }, process.env.JWT_SECRET);
 }
 
-const login = async (req, res) => { 
+const login = async (req, res) => {
 
-    console.log("login called");
-    console.log(req.body);
+    console.log('log called');
+
 
 
     try {
