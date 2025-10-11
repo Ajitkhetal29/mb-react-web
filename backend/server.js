@@ -27,10 +27,10 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 connectDb();
 
-// app.use('/',(req,res)=>{
-//     res.send("Hello from Backend")
+app.use('/',(req,res)=>{
+    res.send("Hello from Backend")
     
-// })
+})
 app.use('/api/admin', adminRouter)
 app.use('/api/project', projectRouter)
 app.use('/api/blog', blogRouter)
