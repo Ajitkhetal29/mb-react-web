@@ -7,6 +7,8 @@ export const AppConetxt = createContext();
 
 const AppConetxtProvider = (props) => {
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
+  console.log(backendUrl);
+  
   const [token, setToken] = useState("");
   const navigate = useNavigate();
   const [allProjects, setAllProjects] = useState([]);
