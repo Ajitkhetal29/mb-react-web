@@ -7,9 +7,9 @@ import AppConetxtProvider from "./context/context.jsx";
 import { HashRouter } from "react-router-dom";
 
 createRoot(document.getElementById("root")).render(
-  <BrowserRouter>
+  <HashRouter>
     <AppConetxtProvider>
       <App />
     </AppConetxtProvider>
-  </BrowserRouter>
+  </HashRouter>
 );
