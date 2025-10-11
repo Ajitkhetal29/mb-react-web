@@ -9,7 +9,6 @@ import { toast } from "react-toastify";
 const Login = () => {
   const { backendUrl, token, navigate, setToken } = useContext(AppConetxt);
 
-
   const [formData, setFormdata] = useState({
     username: "",
     password: "",
@@ -30,10 +29,9 @@ const Login = () => {
       if (response.data.success) {
         localStorage.setItem("token", response.data.token);
         setToken(response.data.token);
-        navigate("/dashboard");
         toast.success("Logged In Successfully", { autoClose: 2000 });
         console.log("logged in");
-        
+        navigate("/dashboard");
       } else {
         alert(response.data.message);
       }
