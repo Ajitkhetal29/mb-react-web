@@ -30,10 +30,7 @@ app.use(cors());
 // ✅ Connect database
 connectDb();
 
-// ✅ Routes
-app.get("/", (req, res) => {
-  res.send("Hello from Backend");
-});
+
 
 app.use('/api/admin', adminRouter)
 app.use('/api/project', projectRouter)
@@ -46,6 +43,11 @@ app.use("/api/project", projectRouter);
 app.use("/api/blog", blogRouter);
 app.use("/api/testimonial", testimonialRouter);
 app.use("/api/faq", faqRouter);
+
+// ✅ Routes
+app.get("/", (req, res) => {
+  res.send("Hello from Backend");
+});
 
 // ✅ Error handler for better debugging
 app.use((err, req, res, next) => {
