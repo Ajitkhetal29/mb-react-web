@@ -32,7 +32,7 @@ const Navbar = () => {
           className="flex items-center text-2xl font-extrabold text-white"
         >
           <img
-            src="/img/logo/logo.png"
+            src="/img/logo/logo-white.png"
             alt="logo"
             className="h-10 w-auto max-w-[150px] object-contain"
           />
@@ -88,7 +88,7 @@ const Navbar = () => {
                 }`
               }
             >
-              Blogs
+              {t("nav.Blogs")}
             </NavLink>
           </li>
 
@@ -187,10 +187,10 @@ const Navbar = () => {
             }
             onClick={() => setMobileOpen(false)}
           >
-            Blogs
+            {t('nav.Blogs')}
           </NavLink>
           <NavLink
-              to="/allProjects#contact"
+            to="/allProjects#contact"
             className={({ isActive }) =>
               `hover:text-yellow-400 maven-pro transition-colors duration-300 focus:outline-none focus:text-yellow-400 ${
                 isActive ? "text-yellow-400" : "text-white"

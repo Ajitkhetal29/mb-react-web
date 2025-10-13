@@ -1,14 +1,15 @@
 import React, { useContext, useState, useEffect } from "react";
 import { AppConetxt } from "../context/context";
+import { useTranslation } from "react-i18next";
 
 const Faq = () => {
   const { allFaq } = useContext(AppConetxt);
   const [openIndex, setOpenIndex] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  console.log('faq called');
-  
-  
+  console.log("faq called");
+
+  const { t } = useTranslation();
 
   const imgs = [
     "https://napa.wpresidence.net/wp-content/uploads/2014/05/2.6-3-2-1-1024x623.webp",
@@ -25,10 +26,9 @@ const Faq = () => {
   const nextSlide = () =>
     setCurrentSlide((prev) => (prev === imgs.length - 1 ? 0 : prev + 1));
 
-  const changeSlide = ()=>{
+  const changeSlide = () => {
     setCurrentSlide((prev) => (prev === imgs.length - 1 ? 0 : prev + 1));
-  }
-
+  };
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -40,24 +40,23 @@ const Faq = () => {
   return (
     <section className="relative w-full py-10 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
       {/* Title */}
-    <div className="flex z-10 relative items-center justify-center w-full mb-2">
-          <div className="flex-grow max-w-30 border-t border-black"></div>
-          <h2 className="mx-4 text-2xl uppercase text-black oswald_span">
-            frequently asked questions
-          </h2>
-          <div className="flex-grow flex-grow max-w-30 border-t border-black"></div>
-        </div>
+      <div className="flex z-10 relative items-center justify-center w-full mb-2">
+        <div className="flex-grow max-w-30 border-t border-black"></div>
+        <h2 className="mx-4 text-2xl uppercase text-black oswald_span">
+          {t(`faq.frequently asked questions`)}
+        </h2>
+        <div className="flex-grow flex-grow max-w-30 border-t border-black"></div>
+      </div>
 
       {/* Quote */}
       <p className="text-center italic text-orange-500 text-lg md:text-xl italic maven-pro mb-5">
-        “Got questions? We’ve got clear answers — because transparency builds
-        trust.”
+      “ {t(`faq.Got questions? We’ve got clear answers — because transparency builds trust.`)} ”
       </p>
 
       {/* Main Layout */}
       <div className="flex flex-col lg:flex-row gap-12 justify-center items-center w-full max-w-7xl mx-auto">
         {/* Left: Image Slider */}
-        <div className="lg:w-1/2 w-full relative">
+        <div className="lg:w-1/2 w  -full relative">
           <div className="relative w-full h-64 md:h-[350px] overflow-hidden rounded-2xl shadow-lg">
             {imgs.map((img, idx) => (
               <img
@@ -111,7 +110,7 @@ const Faq = () => {
                   onClick={() => toggleFaq(idx)}
                   className="w-full cursor-pointer flex justify-between items-center p-5 text-left text-gray-800 font-medium maven-pro focus:outline-none"
                 >
-                  <span>{item.question}</span>
+                  <span> {t(`faq.${item.question}`)}</span>
                   <svg
                     className={`w-6 h-6 transform transition-transform duration-300 ${
                       openIndex === idx ? "rotate-45 text-orange-500" : ""
@@ -136,7 +135,7 @@ const Faq = () => {
                       : "max-h-0 opacity-0"
                   }`}
                 >
-                  {item.answer}
+                  {t(`faq.${item.answer}`)}
                 </div>
               </div>
             ))}

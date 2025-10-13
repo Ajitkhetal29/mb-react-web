@@ -267,6 +267,8 @@ const UpdateProject = () => {
           : l
       )
     );
+    
+    
   };
 
   const discard = () => navigate("/allProjects");

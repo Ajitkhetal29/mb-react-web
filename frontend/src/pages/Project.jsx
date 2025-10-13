@@ -11,7 +11,6 @@ import axios from "axios";
 
 const Project = () => {
   const { projectId } = useParams();
-  console.log("Project ID from URL:", projectId);
   const { galleryItems, caraouselImages, allProjects, backendUrl } =
     useContext(AppConetxt);
   const [project, setProject] = useState(null);

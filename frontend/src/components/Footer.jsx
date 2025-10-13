@@ -1,6 +1,9 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <div className="flex flex-col w-full bg-white py-5 px-4 sm:py-6 sm:px-12 md:px-10 lg:py-8 ">
       <div className="flex flex-col md:flex-row items-center justify-between px-4 md:px-10 gap-6 md:gap-0">
@@ -89,14 +92,7 @@ const Footer = () => {
             <b className="text-black text-base sm:text-lg maven-pro">
               Disclaimers:
             </b>{" "}
-            This pre-launch presentation is purely conceptual & for
-            representative purpose only. The information & details herein are
-            strictly provided for illustrative purpose. All renderings,
-            pictures, list of amenities, location map, layout plans, floor
-            plans, design, write-ups, specifications & other details are only
-            indicative & subject to approval of the respective government
-            authorities. The developer reserves the right to change any of these
-            in the interest of the development. *Terms & conditions apply.
+            {t(`footer.This pre-launch presentation is purely conceptual & for representative purpose only. The information & details herein are strictly provided for illustrative purpose. All renderings, pictures, list of amenities, location map, layout plans, floor plans, design, write-ups, specifications & other details are only indicative & subject to approval of the respective government authorities. The developer reserves the right to change any of these in the interest of the development. *Terms & conditions apply.`)}
           </p>
         </div>
 
@@ -126,7 +122,6 @@ const Footer = () => {
           </form>
         </div>
       </div>
-
 
       <div className="relative flex relative w-full items-center justify-center ">
         <p className="absolute z-20 bg-black/90 bottom-1 lg:bottom-5 text-sm text-center text-white maven-pro">

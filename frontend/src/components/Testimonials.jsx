@@ -1,8 +1,8 @@
 import React, { useContext, useEffect } from "react";
 import { AppConetxt } from "../context/context";
-
-const Testimonials = ({allTestimonials}) => {
-  
+import { useTranslation } from "react-i18next";
+const Testimonials = ({ allTestimonials }) => {
+  const { t } = useTranslation();
 
   return (
     <div
@@ -14,14 +14,18 @@ const Testimonials = ({allTestimonials}) => {
       <div className="relative z-10 flex items-center justify-center w-full mb-2">
         <div className="flex-grow max-w-30 border-t border-white/50 opacity-70"></div>
         <h2 className="mx-6 text-2xl md:text-2xl uppercase text-white oswald_span tracking-wider">
-          Customers Stories
+          {t("review.Customers Stories")}
         </h2>
         <div className="flex-grow max-w-30 border-t border-white/50 opacity-70"></div>
       </div>
 
       <div className="flex w-full z-10 justify-center mb-6 opacity-90">
         <p className="text-orange-200 mb-2 italic text-center text-lg md:text-xl maven-pro">
-          “Real stories from the people who found their dream homes with us.”
+          “{" "}
+          {t(
+            "review.Real stories from the people who found their dream homes with us."
+          )}{" "}
+          ”
         </p>
       </div>
 
@@ -37,13 +41,18 @@ const Testimonials = ({allTestimonials}) => {
             >
               <div className="flex-grow border-b py-2">
                 <p className="text-white italic text-base md:text-lg leading-relaxed">
-                  “{message}”
+                  “ {t(`review.${message}`)}”
                 </p>
               </div>
 
               <footer className="mt-4">
-                <h3 className="text-lg font-semibold text-black">{name}</h3>
-                <p className="text-gray-300 text-sm">{position}</p>
+                <h3 className="text-lg font-semibold text-black">
+                  {t(`review.${name}`)}
+                </h3>
+                <p className="text-gray-300 text-sm">
+                  {" "}
+                  {t(`review.${position}`)} 
+                </p>
               </footer>
             </article>
           ))}

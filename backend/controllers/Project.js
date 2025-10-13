@@ -170,18 +170,18 @@ const updateProject = async (req, res) => {
     }
 
     const newGalleryPaths = galleryNewImages.map((file) => ({
-      filename: file.originalname.replace(/\s+/g, "_"),
+      title: file.originalname.replace(/\s+/g, "_").split('.')[0],
       image: 'upload' + (file.path.split('upload')[1].replace(/\\/g, '/') || ""),
     }));
 
     // new
     const newCaraouselPaths = newCaraouselImages.map((file) => ({
-      title: file.originalname.replace(/\s+/g, "_"),
+      title: file.originalname.replace(/\s+/g, "_").split('.')[0],
       image: 'upload' + (file.path.split('upload')[1].replace(/\\/g, '/') || ""),
     }));
 
     const newOtherVideosPaths = newOtherVideos.map((file) => ({
-      title: file.originalname.replace(/\s+/g, "_"),
+      title: file.originalname.replace(/\s+/g, "_").split('.')[0],
       videoLink: 'upload' + (file.path.split('upload')[1].replace(/\\/g, '/') || ""),
     }));
 

@@ -1,11 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import Footer from "../components/Footer";
+import { useTranslation } from "react-i18next";
 
 const About = () => {
   const textRef = useRef(null);
   const imgref = useRef(null);
   const headingRef = useRef(null);
   const parentReF = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const target = textRef.current;
@@ -60,11 +62,14 @@ const About = () => {
         >
           <div>
             <h2 className="italiana-regular text-white text-2xl md:text-6xl mb-5">
-              Welcome To Mira-Bhayandar Project Hub
+              {t(`aboutPage.Welcome To Mira-Bhayandar Project Hub`)}
             </h2>
-            <span className="maven-pro text-orange-200  md:text-2xl md:mt-10">
-              " Your trusted partner in premium real estate across Mira
-              Bhayandar. "
+            <span className="maven-pro italic text-orange-200  md:text-2xl md:mt-10">
+              "{" "}
+              {t(
+                `aboutPage.Your trusted partner in premium real estate across Mira Bhayandar.`
+              )}{" "}
+              "
             </span>
           </div>
         </div>
@@ -84,7 +89,7 @@ const About = () => {
           <div className="flex items-center justify-center w-full mb-5">
             <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
             <h2 className="mx-6 text-2xl font-extrabold uppercase text-gray-900 oswald_span tracking-widest">
-              About Us
+              {t(`aboutPage.About Us`)}
             </h2>
             <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
           </div>
@@ -93,32 +98,23 @@ const About = () => {
             ref={textRef}
             className="text-lg md:text-xl italic maven-pro text-orange-500 mb-10"
           >
-            A one stop shop for all real estate services
+            {t(`aboutPage.A one stop shop for all real estate services`)}
           </span>
         </div>
 
         <div className="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-20 px-4 items-center">
           <div className=" border border-orange-700 rounded-xl p-8 shadow-md">
             <h3 className="text-4xl text-red-600 font-semibold oswald_span mb-6">
-              What do we mean?
+              {t(`aboutPage.What do we mean?`)}
             </h3>
             <div className="space-y-4 text-gray-800 maven-pro text-base md:text-lg leading-relaxed">
-              <p>
-                <span className="text-2xl maven-pro  text-black">S</span>ince
-                our foundation in 2005, our goal has been to use technology to
-                create experiences with a deeper impact.
+              <p className=" first-letter:text-4xl   first-letter:font-bold">
+                {t(
+                  `aboutPage.Since our foundation in 2005, our goal has been to use technology to create experiences with a deeper impact.`
+                )}
               </p>
-              <p>
-                <span className="text-2xl maven-pro  text-black">W</span>e get
-                you the right deal with the best options based on analyzed
-                market inputs and understanding your economic, social &
-                lifestyle needs.
-              </p>
-              <p>
-                <span className="text-2xl maven-pro  text-black">L</span>orem
-                ipsum dolor sit amet consectetur adipisicing elit. Ex
-                necessitatibus molestiae deserunt quibusdam. Consequuntur cum
-                vel officia sed quis voluptate nobis nemo non? Ipsum, qui.
+              <p className=" first-letter:text-4xl   first-letter:font-bold">
+                {t(`aboutPage.We get you the right deal with the best options based on analyzed market inputs and understanding your economic, social & lifestyle needs.`)}
               </p>
             </div>
           </div>
@@ -140,19 +136,21 @@ const About = () => {
           <div className="relative z-10 flex items-center justify-center w-full mb-2">
             <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
             <h2 className="mx-6 text-2xl md:text-2xl uppercase text-black oswald_span tracking-wider">
-              Mission & Vision
+              {t(`aboutPage.Mission & Vision`)}
             </h2>
             <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
           </div>
 
           <p className="text-gray-700 text-base sm:text-lg md:text-xl leading-relaxed max-w-3xl mx-auto maven-pro animate-fade-in delay-200">
-            Mira Bhayandar Projects has established itself as a key player in
-            Indian real estate. Our goal is to provide{" "}
+            {t(`aboutPage.Mira Bhayandar Projects has established itself as a key player in Indian real estate. Our goal is to provide`)}
             <span className=" text-orange-500">
-              “an enhanced lifestyle coupled with a sustainable environment”
+              “
+              {t(
+                `aboutPage.an enhanced lifestyle coupled with a sustainable environment`
+              )}
+              ”
             </span>
-            . We aim to be the market leader by offering iconic and world-class
-            property developments.
+            {t(`aboutPage. . We aim to be the market leader by offering iconic and world-class property developments.`)}
           </p>
 
           {/* Mission & Vision Cards */}
@@ -172,10 +170,10 @@ const About = () => {
                 className="p-6 md:p-8 rounded-3xl bg-white border border-gray-200 shadow-lg hover:shadow-orange-300/30 hover:scale-105 transition-transform duration-300"
               >
                 <h3 className="text-2xl sm:text-3xl text-black oswald_span  mb-3">
-                  {title}
+                  {t(`aboutPage.${title}`)}
                 </h3>
                 <p className="text-gray-700 text-base sm:text-lg maven-pro leading-relaxed">
-                  {desc}
+                  {t(`aboutPage.${desc}`)}
                 </p>
               </div>
             ))}
@@ -186,7 +184,7 @@ const About = () => {
             <div className="relative z-10 flex items-center justify-center w-full mb-10">
               <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
               <h2 className="mx-6 text-2xl md:text-2xl uppercase text-black oswald_span tracking-wide">
-                Core Values
+                {t(`aboutPage.Core Values`)}
               </h2>
               <div className="flex-grow max-w-30 border-t border-black opacity-70"></div>
             </div>
@@ -235,10 +233,10 @@ const About = () => {
                   />
                   <div className="flex flex-col text-left">
                     <span className="text-lg sm:text-xl font-semibold oswald_span text-black">
-                      {title}
+                      {t(`aboutPage.${title}`)}
                     </span>
                     <p className="text-gray-700 text-sm sm:text-base maven-pro leading-relaxed">
-                      {desc}
+                      {t(`aboutPage.${desc}`)}
                     </p>
                   </div>
                 </div>
@@ -253,17 +251,15 @@ const About = () => {
         <div className="flex items-center justify-center w-full mb-8">
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
           <h2 className="mx-6 text-xl sm:text-2xl  uppercase text-gray-900 oswald_span tracking-wide">
-            Our Team
+            {t(`aboutPage.Our Team`)}
           </h2>
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
         </div>
 
         <p className="text-orange-500 maven-pro italic text-center max-w-2xl mb-12 text-base text-lg md:text-xl">
-          The people behind{" "}
-          <span className="font-semibold text-gray-900">
-            Mira Bhayandar Projects
-          </span>{" "}
-          — building trust, innovation, and excellence in real estate.
+          {t(`aboutPage.The people behind Mira Bhayandar Projects`)}
+        <span> - </span>
+         {t(`aboutPage.Building trust, innovation, and excellence in real estate.`)}
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 w-full max-w-5xl">

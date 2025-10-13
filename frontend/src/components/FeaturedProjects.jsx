@@ -3,7 +3,6 @@ import { useTranslation } from "react-i18next";
 import { AppConetxt } from "../context/context";
 import { useNavigate } from "react-router-dom";
 const FeaturedProjects = ({ projects, projectBtn }) => {
-  
   const parentSection = useRef(null);
   const btnParent = useRef(null);
   const { t } = useTranslation();
@@ -55,13 +54,19 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
         </div>
         <div className="w-full mt-2">
           <span className="maven-pro italic text-lg md:text-xl text-orange-500">
-            " We create spaces that enable Everyday Joys, one community, one
-            family, and one home at a time. "
+            "{" "}
+            {t(
+              "featuredProject.We create spaces that enable Everyday Joys, one community, one family, and one home at a time."
+            )}{" "}
+            "
           </span>
         </div>
         {projectBtn && (
           <div className="mt-6 flex justify-end">
-            <button  onClick={()=>navigate('/allProjects')} className="border  cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+            <button
+              onClick={() => navigate("/allProjects")}
+              className="border  cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500"
+            >
               {t("featuredProject.Explore all properties")}
             </button>
           </div>
@@ -92,12 +97,12 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
                 <p className="text-xs text-orange-600 flex items-center gap-1">
                   <img className="h-4" src="img/icons/location.png" alt="" />
                   <span className="group-hover:text-black">
-                    {project.location}
+                    {t(`featuredProject.${project.location}`)}
                   </span>
                 </p>
 
                 <h3 className="mt-2 text-lg group-hover:font-medium text-gray-900 group-hover:text-black maven-pro">
-                  {project.name}
+                  {t(`featuredProject.${project.name}`)}
                 </h3>
 
                 <div className="mt-3 flex items-center justify-between">

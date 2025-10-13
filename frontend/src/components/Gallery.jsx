@@ -1,42 +1,42 @@
 import { useContext, useEffect, useRef, useState } from "react";
 import { AppConetxt } from "../context/context";
+import { useTranslation } from "react-i18next";
 
-
-export default function Gallery({galleryItems}) {
-
-  const {backendUrl} = useContext(AppConetxt);
-
-  console.log(galleryItems);
-  
+export default function Gallery({ galleryItems }) {
+  const { backendUrl } = useContext(AppConetxt);
+  const { t } = useTranslation();
 
   const [imgBoxOpen, setImgBoxOpen] = useState(false);
   const [selectedImg, setSelectedImg] = useState("");
   const [currentIndex, setCurrentIndex] = useState(0);
   const parentSection = useRef(null);
 
-  const openImgBox = (src, index) => {
-    setSelectedImg(src);
+  const openImgBox = (index) => {
+    setSelectedImg(galleryItems[index]);
     setCurrentIndex(index);
     setImgBoxOpen(true);
+    console.log(selectedImg.title);
   };
 
   const closeImgBox = () => {
-    setSelectedImg("");
+    setSelectedImg(null);
     setImgBoxOpen(false);
+    console.log(selectedImg.title);
   };
 
   const prevImage = () => {
     const newIndex =
       currentIndex > 0 ? currentIndex - 1 : galleryItems.length - 1;
     setCurrentIndex(newIndex);
-    setSelectedImg(galleryItems[newIndex].src);
+    setSelectedImg(galleryItems[newIndex]);
+    console.log(selectedImg.title);
   };
 
   const nextImage = () => {
     const newIndex =
       currentIndex < galleryItems.length - 1 ? currentIndex + 1 : 0;
     setCurrentIndex(newIndex);
-    setSelectedImg(galleryItems[newIndex].src);
+    setSelectedImg(galleryItems[newIndex]);
   };
 
   useEffect(() => {
@@ -68,15 +68,18 @@ export default function Gallery({galleryItems}) {
       <div className="flex items-center justify-center w-full mb-3">
         <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
         <h2 className="mx-6 text-2xl uppercase text-gray-900 oswald_span ">
-          Gallery
+          {t("Gallery.Gallery")}
         </h2>
         <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
       </div>
       <div className="w-full flex justify-center italic text-center text-lg md:text-xl maven-pro text-orange-500 mb-5">
         <span>
-          {" "}
           <span>
-           " Experience the art of modern living through our curated gallery "
+            "
+            {t(
+              "Gallery.Experience the art of modern living through our curated gallery"
+            )}{" "}
+            "
           </span>
         </span>
       </div>
@@ -89,7 +92,7 @@ export default function Gallery({galleryItems}) {
             <div
               key={index}
               className={`${fadeClass} card group relative rounded-lg shadow-lg overflow-hidden cursor-pointer transform transition-transform duration-500 hover:scale-105 hover:z-10 hover:shadow-2xl`}
-              onClick={() => openImgBox(item.src, index)}
+              onClick={() => openImgBox(index)}
             >
               <img
                 src={item.src ? item.src : `${backendUrl}/${item.image}`}
@@ -117,12 +120,16 @@ export default function Gallery({galleryItems}) {
           </button>
           <div className="flex flex-col items-center">
             <img
-              src={selectedImg}
+              src={
+                selectedImg.src
+                  ? selectedImg.src
+                  : `${backendUrl}/${selectedImg.image}`
+              }
               alt="Enlarged view"
               className="max-w-full max-h-[80vh] rounded-lg shadow-2xl"
             />
             <p className="text-white text-md maven-pro mt-4 italic">
-              {galleryItems[currentIndex].title}
+              {setSelectedImg.title}
             </p>
           </div>
           <button

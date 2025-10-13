@@ -1,10 +1,10 @@
 import React from "react";
-
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
 
 const Header = () => {
-
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <>
@@ -31,19 +31,25 @@ const Header = () => {
           />
 
           {/* Tagline */}
-          <ul className="flex flex-wrap justify-center gap-3 sm:gap-5 gilda-display-regular text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-wider">
-            <li className="border-r pr-3 sm:pr-5 border-white">FEEL IT</li>
-            <li className="border-r pr-3 sm:pr-5 border-white">LIVE IT</li>
-            <li>OWN IT</li>
+          <ul className="flex text-yellow-200 flex-wrap justify-center gap-3 sm:gap-5 gilda-display-regular text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-white tracking-wider">
+            <li className="border-r pr-3 sm:pr-5 border-white">{t('header.FEEL IT')}</li>
+            <li className="border-r pr-3 sm:pr-5 border-white">{t('header.LIVE IT')} </li>
+            <li>{t('header.OWN IT')}  </li>
           </ul>
 
           {/* Buttons */}
           <div className="flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-5 mt-8">
-            <button onClick={()=>navigate('/allProjects')} className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-white hover:text-black transition-all duration-300 rounded-md maven-pro tracking-wide">
-              ALL PROPERTIES
+            <button
+              onClick={() => navigate("/allProjects")}
+              className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-white hover:text-black transition-all duration-300 rounded-md maven-pro tracking-wide"
+            >
+            {t('header.ALL PROPERTIES')}  
             </button>
-            <button onClick={()=>navigate('/allProjects#contact')} className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-orange-500 hover:border-orange-500 transition-all duration-300 rounded-md maven-pro tracking-wide">
-              CONTACT US
+            <button
+              onClick={() => navigate("/allProjects#contact")}
+              className="border cursor-pointer border-white/80 px-6 py-2 text-sm sm:text-base text-white hover:bg-orange-500 hover:border-orange-500 transition-all duration-300 rounded-md maven-pro tracking-wide"
+            >
+                   {t('header.CONTACT US')}   
             </button>
           </div>
         </div>

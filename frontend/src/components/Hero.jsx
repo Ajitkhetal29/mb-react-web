@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {useTranslation} from 'react-i18next'
 
 const Hero = () => {
   const navigate = useNavigate();
   const textRef = useRef(null);
   const imageRef = useRef(null);
+  const{ t} = useTranslation();
 
   // State to track if animations are applied
   const [textAnimated, setTextAnimated] = useState(false);
@@ -56,7 +58,7 @@ const Hero = () => {
       <div className="flex w-full flex-row items-center gap-4 justify-center mb-6">
         <div className="flex-grow max-w-40 border-t border-gray-400"></div>
         <h2 className="text-2xl text-gray-800 tracking-wider oswald_span uppercase font-semibold">
-          About
+        {t('about.About')}
         </h2>
         <div className="flex-grow max-w-40 border-t border-gray-400"></div>
       </div>
@@ -64,7 +66,7 @@ const Hero = () => {
       {/* Quote */}
       <div className="flex justify-center w-full items-center text-center mb-12">
         <p className="text-orange-600 italic text-lg md:text-xl maven-pro tracking-wide">
-          “Building spaces that inspire trust, comfort, and a better tomorrow.”
+           “ {t('about.Building spaces that inspire trust, comfort, and a better tomorrow')}. ”
         </p>
       </div>
 
@@ -78,12 +80,10 @@ const Hero = () => {
           }`}
         >
           <h2 className="text-5xl sm:text-6xl lg:text-7xl font-bold gilda-display-regular leading-tight text-gray-900">
-            Build Your Dream
+            {t("about.Build Your Dream")} 
           </h2>
           <p className="text-lg sm:text-xl text-gray-700 maven-pro leading-relaxed max-w-lg">
-            We provide end-to-end property solutions with expertise,
-            transparency, and care. Whether you're buying, selling, or investing
-            — we help you make your dream home a reality.
+            {t(`about.We provide end-to-end property solutions with expertise, transparency, and care. Whether you're buying, selling, or investing — we help you make your dream home a reality.`)}
           </p>
 
           <div>
@@ -94,7 +94,7 @@ const Hero = () => {
             >
               <span className="absolute inset-0 w-full h-full bg-gradient-to-r from-orange-500 to-yellow-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></span>
               <span className="relative cursor-pointer z-10 font-medium tracking-wide maven-pro">
-                Know More
+                {t('about.Know More')}
               </span>
             </button>
           </div>

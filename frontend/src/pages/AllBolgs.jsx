@@ -1,9 +1,11 @@
 import React, { useContext } from "react";
 import { AppConetxt } from "../context/context";
 import Footer from "../components/Footer";
+import {useTranslation} from 'react-i18next'
 
 const AllBolgs = () => {
   const { allBlogs ,backendUrl} = useContext(AppConetxt);
+  const {t} = useTranslation();
 
   if (!allBlogs) return <div>Loading...</div>;
 
@@ -26,14 +28,13 @@ const AllBolgs = () => {
           {/* Text */}
           <div className="flex-1">
             <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold italiana-regular text-white mb-4 drop-shadow-lg">
-              Blogs
+              {t(`blog.Blogs`)}
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-orange-200 maven-pro">
-              Stay updated with our latest news and insights
+              {t(`blog.Discover ideas, inspiration, and expert advice — one article at a time.`)}
             </p>
             <div className="mt-6 flex justify-center lg:justify-start gap-4">
               <a
-                href="#"
                 className="text-white maven-pro border border-white bg-black border-black px-6 py-2 rounded-md shadow-lg hover:bg-white hover:text-black transition-colors"
               >
                 Read Latest
@@ -53,18 +54,17 @@ const AllBolgs = () => {
       </section>
 
       {/* blog section */}
-      <section className="w-full flex flex-col items-center justify-center px-6 py-12 md:px-16 md:py-16 bg-gray-100">
+      <section id="blogSection" className="w-full flex flex-col items-center justify-center px-6 py-12 md:px-16 md:py-16 bg-gray-100">
         <div className="flex items-center justify-center w-full mb-6">
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
           <h2 className="mx-6 text-2xl md:text-2xl uppercase text-gray-900 oswald_span tracking-wide">
-            Blogs
+            {t(`blog.Blogs`)}
           </h2>
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
         </div>
 
         <p className="w-full text-center text-lg md:text-xl italic maven-pro text-orange-500 mb-10 max-w-3xl">
-          “Discover ideas, inspiration, and expert advice — one article at a
-          time.”
+              {t(`blog.Discover ideas, inspiration, and expert advice — one article at a time.`)}
         </p>
 
         {/* Blog Grid */}
@@ -88,10 +88,10 @@ const AllBolgs = () => {
                       {new Date(blog.date).toLocaleDateString()}
                     </span>
                     <h3 className="text-md md:text-xl font-semibold mb-2 text-gray-900 maven-pro">
-                      {blog.title}
+                      {t(`blog.${blog.title}`)} 
                     </h3>
                     <p className="text-gray-700 text-base md:text-md maven-pro leading-relaxed">
-                      {blog.content}
+                      {t(`blog.Bhayandar’s Rapid Growth: The Next Real Estate Hub`)}
                     </p>
                   </div>
                   <div className="mt-auto pt-2 border-t border-gray-200 flex justify-between items-center">
