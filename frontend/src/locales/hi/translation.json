@@ -43,7 +43,7 @@
     "Sky Avenue": "स्काई एवेन्यू",
     "Sky Heights": "स्काई हाइट्स",
     "skyline": "स्काईलाइन",
-    "Bhayandar West (Uttan)": "भायंदर वेस्ट (उत्तन)",
+    "Bhayandar West (uttan)": "भायंदर वेस्ट (उत्तन)",
     "We create spaces that enable Everyday Joys, one community, one family, and one home at a time.": "हम ऐसे स्थान बनाते हैं जो रोज़मर्रा की खुशियों को संभव बनाते हैं — एक समुदाय, एक परिवार और एक घर एक समय में।"
   },
   "heroAbout": {
@@ -88,6 +88,7 @@
   "blog": {
     "FROM THE BLOG": "ब्लॉग से",
     "Blogs": "ब्लॉग",
+    "Read Latest": "नवीनतम पढ़ें",
     "Discover ideas, inspiration, and expert advice — one article at a time.": "हर लेख के माध्यम से नए विचार, प्रेरणा और विशेषज्ञ सलाह जानें।",
     "The Mumbai Metropolitan Region (MMR)": "मुंबई महानगर क्षेत्र (MMR)",
     "The Mumbai Metropolitan Region (MMR) continues to be one of India's most dynamic real estate markets, with Bhayandar emerging as a prime investment destination. As we move through 2024, several key trends are reshaping the landscape...": "मुंबई महानगर क्षेत्र (MMR) भारत के सबसे गतिशील रियल एस्टेट बाजारों में से एक बना हुआ है, और भायंदर अब प्रमुख निवेश केंद्र बन रहा है। 2024 में कई महत्वपूर्ण रुझान इस क्षेत्र को नया आकार दे रहे हैं।",
@@ -110,32 +111,29 @@
     "Rahul Mehta": "Rahul Mehta",
     "How Infrastructure Projects are Transforming Property Prices in Bhayandar": "भायंदर में इंफ्रास्ट्रक्चर प्रोजेक्ट्स प्रॉपर्टी कीमतों को कैसे बदल रहे हैं",
     "The ongoing infrastructure upgrades, including new flyovers, metro routes, and improved road connectivity, are directly influencing real estate prices in Bhayandar. This transformation is attracting both end-users and investors seeking long-term gains.": "नए फ्लायओवर्स, मेट्रो मार्ग और बेहतर सड़क कनेक्टिविटी सहित चल रहे इंफ्रास्ट्रक्चर अपग्रेड्स सीधे भायंदर में रियल एस्टेट कीमतों को प्रभावित कर रहे हैं। यह बदलाव दीर्घकालिक लाभ चाहने वाले उपयोगकर्ताओं और निवेशकों को आकर्षित कर रहा है।",
-    "Neha Patel": "Neha Patel"
+    "Neha Patel": "Neha Patel",
+    "What You Need to Know": "जो आपको जानना चाहिए",
+    "The Future of Real Estate Development": "रियल एस्टेट विकास का भविष्य",
+    "The Next Real Estate Hub": "अगला रियल एस्टेट हब"
   },
   "faq": {
-  "frequently asked questions": "अक्सर पूछे जाने वाले प्रश्न",
-  "Got questions? We’ve got clear answers — because transparency builds trust.": "कोई सवाल है? हमारे पास हैं आपके लिए स्पष्ट जवाब — क्योंकि भरोसा पारदर्शिता से बनता है।",
-
- "How do I schedule a property viewing?": "मैं प्रॉपर्टी देखने का समय कैसे तय कर सकता हूँ?",
-  "You can request a showing directly on the property’s listing page or contact us via phone or email. We’ll confirm a convenient date and time and guide you through the viewing process.": "आप प्रॉपर्टी की लिस्टिंग पेज से सीधे विज़िट रिक्वेस्ट कर सकते हैं या हमें फोन/ईमेल के जरिए संपर्क कर सकते हैं। हम आपके लिए सुविधाजनक दिन और समय तय कर पूरी प्रक्रिया में मदद करेंगे।",
-
-  "Do I need mortgage pre-approval before house hunting?": "क्या घर देखने से पहले मुझे लोन की प्री-अप्रूवल की जरूरत है?",
-  "Its highly recommended. Pre-approval helps you understand your budget, strengthens your offer, and speeds up the closing process once you find the right property.": "जी हां, यह सलाह दी जाती है। प्री-अप्रूवल से आपको अपने बजट की स्पष्टता मिलती है, आपकी ऑफर मज़बूत होती है और सही प्रॉपर्टी मिलने पर डील जल्दी पूरी होती है।",
-
-  "What are the costs involved in buying a home?": "घर खरीदने में कौन-कौन से खर्च शामिल होते हैं?",
-  "Beyond the purchase price, buyers should budget for closing costs (typically 2–5% of the home price), inspections, appraisal fees, and potential HOA or maintenance charges.": "घर की कीमत के अलावा, खरीदारों को क्लोजिंग कॉस्ट (आमतौर पर घर की कीमत का 2–5%), निरीक्षण शुल्क, मूल्यांकन शुल्क और मेंटेनेंस या सोसाइटी चार्जेज के लिए भी बजट रखना चाहिए।",
-
-  "How do you market a property you list?": "आप लिस्ट की हुई प्रॉपर्टी का मार्केटिंग कैसे करते हैं?",
-  "We use a mix of digital marketing, professional photography, social media campaigns, and listing platforms to maximize exposure and attract the right buyers.": "हम डिजिटल मार्केटिंग, प्रोफेशनल फोटोग्राफी, सोशल मीडिया कैंपेन और लिस्टिंग प्लेटफॉर्म्स के ज़रिए आपकी प्रॉपर्टी को सही खरीदारों तक पहुंचाते हैं।",
-
-  "Can you help me find rental or investment properties?": "क्या आप मुझे किराये या निवेश के लिए प्रॉपर्टी ढूंढने में मदद कर सकते हैं?",
-  "Yes! Whether youre looking for a rental, a vacation home, or an income property, we can assist with finding and negotiating the right opportunity.": "बिलकुल! चाहे आप किराये की, छुट्टियों के लिए या निवेश के लिए प्रॉपर्टी ढूंढ रहे हों — हम सही विकल्प ढूंढने और सौदा तय करने में आपकी मदद करेंगे।"
-},
-"footer": { 
-  "This pre-launch presentation is purely conceptual & for representative purpose only. The information & details herein are strictly provided for illustrative purpose. All renderings, pictures, list of amenities, location map, layout plans, floor plans, design, write-ups, specifications & other details are only indicative & subject to approval of the respective government authorities. The developer reserves the right to change any of these in the interest of the development. *Terms & conditions apply.": 
-  "यह प्री-लॉन्च प्रस्तुति पूरी तरह से संकल्पनात्मक है और केवल प्रतिनिधिक उद्देश्य के लिए है। इसमें दी गई सभी जानकारी और विवरण केवल उदाहरणात्मक प्रयोजन के लिए हैं। सभी चित्र, रेंडरिंग, सुविधाओं की सूची, लोकेशन मैप, लेआउट प्लान, फ्लोर प्लान, डिज़ाइन, विवरण और विशिष्टताएं केवल सांकेतिक हैं तथा संबंधित सरकारी प्राधिकरणों की स्वीकृति के अधीन हैं। डेवलपर विकास की आवश्यकता के अनुसार इनमें परिवर्तन करने का अधिकार सुरक्षित रखता है। *नियम और शर्तें लागू।"
-},
-"aboutPage": {
+    "frequently asked questions": "अक्सर पूछे जाने वाले प्रश्न",
+    "Got questions? We’ve got clear answers — because transparency builds trust.": "कोई सवाल है? हमारे पास हैं आपके लिए स्पष्ट जवाब — क्योंकि भरोसा पारदर्शिता से बनता है।",
+    "How do I schedule a property viewing?": "मैं प्रॉपर्टी देखने का समय कैसे तय कर सकता हूँ?",
+    "You can request a showing directly on the property’s listing page or contact us via phone or email. We’ll confirm a convenient date and time and guide you through the viewing process.": "आप प्रॉपर्टी की लिस्टिंग पेज से सीधे विज़िट रिक्वेस्ट कर सकते हैं या हमें फोन/ईमेल के जरिए संपर्क कर सकते हैं। हम आपके लिए सुविधाजनक दिन और समय तय कर पूरी प्रक्रिया में मदद करेंगे।",
+    "Do I need mortgage pre-approval before house hunting?": "क्या घर देखने से पहले मुझे लोन की प्री-अप्रूवल की जरूरत है?",
+    "Its highly recommended. Pre-approval helps you understand your budget, strengthens your offer, and speeds up the closing process once you find the right property.": "जी हां, यह सलाह दी जाती है। प्री-अप्रूवल से आपको अपने बजट की स्पष्टता मिलती है, आपकी ऑफर मज़बूत होती है और सही प्रॉपर्टी मिलने पर डील जल्दी पूरी होती है।",
+    "What are the costs involved in buying a home?": "घर खरीदने में कौन-कौन से खर्च शामिल होते हैं?",
+    "Beyond the purchase price, buyers should budget for closing costs (typically 2–5% of the home price), inspections, appraisal fees, and potential HOA or maintenance charges.": "घर की कीमत के अलावा, खरीदारों को क्लोजिंग कॉस्ट (आमतौर पर घर की कीमत का 2–5%), निरीक्षण शुल्क, मूल्यांकन शुल्क और मेंटेनेंस या सोसाइटी चार्जेज के लिए भी बजट रखना चाहिए।",
+    "How do you market a property you list?": "आप लिस्ट की हुई प्रॉपर्टी का मार्केटिंग कैसे करते हैं?",
+    "We use a mix of digital marketing, professional photography, social media campaigns, and listing platforms to maximize exposure and attract the right buyers.": "हम डिजिटल मार्केटिंग, प्रोफेशनल फोटोग्राफी, सोशल मीडिया कैंपेन और लिस्टिंग प्लेटफॉर्म्स के ज़रिए आपकी प्रॉपर्टी को सही खरीदारों तक पहुंचाते हैं।",
+    "Can you help me find rental or investment properties?": "क्या आप मुझे किराये या निवेश के लिए प्रॉपर्टी ढूंढने में मदद कर सकते हैं?",
+    "Yes! Whether youre looking for a rental, a vacation home, or an income property, we can assist with finding and negotiating the right opportunity.": "बिलकुल! चाहे आप किराये की, छुट्टियों के लिए या निवेश के लिए प्रॉपर्टी ढूंढ रहे हों — हम सही विकल्प ढूंढने और सौदा तय करने में आपकी मदद करेंगे।"
+  },
+  "footer": {
+    "This pre-launch presentation is purely conceptual & for representative purpose only. The information & details herein are strictly provided for illustrative purpose. All renderings, pictures, list of amenities, location map, layout plans, floor plans, design, write-ups, specifications & other details are only indicative & subject to approval of the respective government authorities. The developer reserves the right to change any of these in the interest of the development. *Terms & conditions apply.": "यह प्री-लॉन्च प्रस्तुति पूरी तरह से संकल्पनात्मक है और केवल प्रतिनिधिक उद्देश्य के लिए है। इसमें दी गई सभी जानकारी और विवरण केवल उदाहरणात्मक प्रयोजन के लिए हैं। सभी चित्र, रेंडरिंग, सुविधाओं की सूची, लोकेशन मैप, लेआउट प्लान, फ्लोर प्लान, डिज़ाइन, विवरण और विशिष्टताएं केवल सांकेतिक हैं तथा संबंधित सरकारी प्राधिकरणों की स्वीकृति के अधीन हैं। डेवलपर विकास की आवश्यकता के अनुसार इनमें परिवर्तन करने का अधिकार सुरक्षित रखता है। *नियम और शर्तें लागू।"
+  },
+  "aboutPage": {
     "Welcome To Mira-Bhayandar Project Hub": "मिरा-भायंदर प्रोजेक्ट हब में आपका स्वागत है",
     "Your trusted partner in premium real estate across Mira Bhayandar.": "मिरा-भायंदर में प्रीमियम रियल एस्टेट का आपका भरोसेमंद साथी।",
     "About Us": "हमारे बारे में",
@@ -166,7 +164,33 @@
     "Our Team": "हमारी टीम",
     "The people behind Mira Bhayandar Projects": "मीरा-भायंदर प्रोजेक्ट्स के स्तंभ",
     "Building trust, innovation, and excellence in real estate.": "हमेशा आपके लिए बेहतरीन अनुभव सुनिश्चित करते हैं"
+  },
+  "allProject": {
+    "Explore All The": "सभी प्रोजेक्ट्स देखें",
+    "Top Notch Projects": "उत्तम गुणवत्ता वाले प्रोजेक्ट्स",
+    "Live Your Dream Life...": "अपने सपनों की जिंदगी जिएं...",
+    "Featured Projects": "विशेष प्रोजेक्ट्स",
+    "We create spaces that enable Everyday Joys, one community, one family, and one home at a time.": "हम ऐसे स्थान बनाते हैं जो रोज़मर्रा की खुशियों को संभव बनाते हैं — एक समुदाय, एक परिवार और एक घर एक समय में।"
+  },
+  "contactPage": {
+    "Contact Us": "संपर्क करें",
+    "Please enter the details below to get in touch with us": "हमसे संपर्क करने के लिए कृपया नीचे विवरण भरें",
+    "Name": "नाम",
+    "Email": "ईमेल",
+    "Contact No": "संपर्क नंबर",
+    "Project": "प्रोजेक्ट",
+    "Select Project": "प्रोजेक्ट चुनें",
+    "1BHK": "1BHK",
+    "2BHK": "2BHK",
+    "3BHK": "3BHK",
+    "1+1 JODI": "1+1 जोड़ी",
+    "Location": "स्थान",
+    "Select a location": "स्थान चुनें",
+    "Bhayandar East": "भायंदर ईस्ट",
+    "Bhayandar West": "भायंदर वेस्ट",
+    "Mira Road": "मीरा रोड",
+    "Message": "संदेश",
+    "Send Message": "संदेश भेजें",
+    "Cancel": "रद्द करें"
   }
-
-  
 }

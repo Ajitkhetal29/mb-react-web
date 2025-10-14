@@ -5,16 +5,16 @@ import Footer from "../components/Footer";
 import Carousel from "../components/Carousel";
 import FeaturedProjects from "../components/FeaturedProjects";
 import { useLocation } from "react-router-dom";
-import emailjs from "@eslint/js";
+import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
 
 const AllProjects = () => {
   const location = useLocation();
-
   const { allProjects, caraouselImages } = useContext(AppConetxt);
   const { t } = useTranslation();
   const [filterText, setFilterText] = useState("all");
   const [filteredProject, setFilteredProject] = useState([]);
+  const [submitting, setSubmitting] = useState(false);
 
   const [mailSent, setMailsent] = useState(false);
   const [showContactForm, setShowContactForm] = useState(false);
@@ -41,6 +41,7 @@ const AllProjects = () => {
   const handleContactFormSubmit = async (e) => {
     e.preventDefault();
     try {
+      setSubmitting(true);
       await emailjs.sendForm(
         "service_3qxauyp",
         "template_pvmnnin",
@@ -48,6 +49,9 @@ const AllProjects = () => {
         "GoZgeEbgB3GxueDMC"
       );
       console.log("email sent");
+      setSubmitting(false);
+      contactFormRef.current.reset()
+
       toast.success(
         "Thank you for contacting us. We will get back to you soon!",
         { autoClose: 5000 }
@@ -72,6 +76,8 @@ const AllProjects = () => {
     e.preventDefault();
 
     try {
+      setSubmitting(true);
+
       await emailjs.sendForm(
         "service_3qxauyp",
         "template_pvmnnin",
@@ -83,7 +89,8 @@ const AllProjects = () => {
         "Thank you for contacting us. We will get back to you soon!",
         { autoClose: 5000 }
       );
-
+      formRef.current.reset()
+      setSubmitting(false);
       setMailsent(true);
     } catch (error) {
       console.log(error);
@@ -95,7 +102,7 @@ const AllProjects = () => {
     const timer = setTimeout(() => {
       setShowContactForm(true);
       console.log("Form opened");
-    }, 10000);
+    }, 6000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -148,13 +155,13 @@ const AllProjects = () => {
         <div className="relative z-20 max-w-7xl w-full px-6 md:px-12 flex flex-col-reverse md:flex-row items-center md:items-stretch justify-center gap-8 md:gap-16 text-center md:text-left">
           <div className="flex flex-col justify-center items-center md:items-start gap-4 md:gap-6 max-w-xl">
             <h1 className="text-yellow-200 italiana-regular font-extrabold text-4xl sm:text-5xl md:text-6xl lg:text-7xl leading-tight drop-shadow-lg">
-              Explore All The
+              {t(`allProject.Explore All The`)}
             </h1>
             <h2 className="text-yellow-200 italiana-regular font-extrabold text-3xl sm:text-4xl md:text-5xl lg:text-6xl leading-tight drop-shadow-lg">
-              Top Notch Projects
+              {t(`allProject.Top Notch Projects`)}
             </h2>
             <span className="text-white maven-pro text-xl sm:text-2xl md:text-3xl drop-shadow-md ">
-              Live Your Dream Life...
+              {t(`allProject.Live Your Dream Life...`)}
             </span>
           </div>
 
@@ -381,7 +388,7 @@ const AllProjects = () => {
           <div className="flex items-center justify-center w-full mb-12">
             <div className="flex-1 max-w-40 border-t-2 border-black" />
             <h2 className="mx-6 text-2xl md:text-3xl font-bold uppercase text-black oswald_span tracking-widest select-none">
-              Contact Us
+              {t("contactPage.Contact Us")}
             </h2>
             <div className="flex-1 max-w-40 border-t-2 border-black" />
           </div>
@@ -393,7 +400,7 @@ const AllProjects = () => {
                   htmlFor="name"
                   className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
                 >
-                  Name:
+                  {t("contactPage.Name")} :
                 </label>
                 <input
                   type="text"
@@ -409,7 +416,7 @@ const AllProjects = () => {
                   htmlFor="email"
                   className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
                 >
-                  Email:
+                  {t("contactPage.Email")}:
                 </label>
                 <input
                   type="email"
@@ -430,7 +437,7 @@ const AllProjects = () => {
                   htmlFor="number"
                   className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
                 >
-                  Contact No:
+                  {t("contactPage.Email")} :
                 </label>
                 <input
                   type="tel"
@@ -447,7 +454,7 @@ const AllProjects = () => {
                   htmlFor="choice"
                   className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
                 >
-                  Project:
+                  {t("contactPage.Project")} :{" "}
                 </label>
                 <select
                   name="choice"
@@ -456,11 +463,11 @@ const AllProjects = () => {
                   onChange={handleContactFormdata}
                   className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                 >
-                  <option value="">Select Project</option>
-                  <option value="1BHK">1BHK</option>
-                  <option value="2BHK">2BHK</option>
-                  <option value="3BHK">3BHK</option>
-                  <option value="1+1 JODI">1+1 JODI</option>
+                  <option value="">{t("contactPage.Select Project")}</option>
+                  <option value="1BHK"> {t("contactPage.1BHK")}</option>
+                  <option value="2BHK"> {t("contactPage.2BHK")}</option>
+                  <option value="3BHK">{t("contactPage.3BHK")}</option>
+                  <option value="1+1 JODI">{t("contactPage.1+1 JODI")}</option>
                 </select>
               </div>
             </div>
@@ -471,7 +478,7 @@ const AllProjects = () => {
                 htmlFor="location"
                 className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Location:
+                {t("contactPage.Location")}:
               </label>
               <select
                 name="location"
@@ -480,10 +487,14 @@ const AllProjects = () => {
                 onChange={handleContactFormdata}
                 className="shadow border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option value="">Select a location</option>
-                <option value="Bhayandar East">Bhayandar East</option>
-                <option value="Bhayandar West">Bhayandar West</option>
-                <option value="Mira road">Mira Road</option>
+                <option value="">{t("contactPage.Select a location")} </option>
+                <option value="Bhayandar East">
+                  {t("contactPage.Bhayandar East")}
+                </option>
+                <option value="Bhayandar West">
+                  {t("contactPage.Bhayandar West")}
+                </option>
+                <option value="Mira road">{t("contactPage.Mira Road")}</option>
               </select>
             </div>
 
@@ -493,7 +504,7 @@ const AllProjects = () => {
                 htmlFor="message"
                 className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Message:
+                {t("contactPage.Message")}:
               </label>
               <textarea
                 id="message"
@@ -509,9 +520,10 @@ const AllProjects = () => {
             <div className="flex justify-center sm:justify-start">
               <button
                 type="submit"
-                className="bg-black text-white py-2 px-6 rounded border border-black hover:bg-yellow-500 hover:text-black transition-colors font-semibold cursor-pointer"
+                disabled = {submitting}
+                className={`py-2 bg-black text-white px-6 rounded border border-black hover:bg-yellow-500 hover:text-black transition-colors font-semibold cursor-pointer ` }
               >
-                Send Message
+                {t("contactPage.Send Message")}
               </button>
             </div>
           </form>

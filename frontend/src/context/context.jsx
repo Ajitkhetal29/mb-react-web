@@ -244,7 +244,7 @@ const AppConetxtProvider = (props) => {
       src: "img/carousel/7.png",
     },
 
-    { title: "Anandam Estate", src: "img/carousel/2.png" },
+    { title: "Anandam Estate", src: "img/carousel/5.png" },
 
     { title: "Anandam Estate", src: "img/carousel/8.png" },
   ];

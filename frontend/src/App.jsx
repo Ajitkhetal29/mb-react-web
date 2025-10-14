@@ -14,29 +14,14 @@ import { AppConetxt } from "./context/context";
 
 function App() {
   const { loading: apiLoading } = useContext(AppConetxt);
-  const [assetsLoaded, setAssetsLoaded] = useState(false);
   const [showLoader, setShowLoader] = useState(true);
-
-  useEffect(() => {
-    const handleAssetsLoaded = () => {
-      console.log("✅ All images/videos loaded");
-      setAssetsLoaded(true);
-    };
-
-    if (document.readyState === "complete") {
-      handleAssetsLoaded();
-    } else {
-      window.addEventListener("load", handleAssetsLoaded);
-      return () => window.removeEventListener("load", handleAssetsLoaded);
-    }
-  }, []);
 
   // 👉 Minimum 1-second loader logic
   useEffect(() => {
     const startTime = Date.now();
 
     const checkLoading = setInterval(() => {
-      if (!apiLoading && assetsLoaded) {
+      if (!apiLoading) {
         const elapsed = Date.now() - startTime;
         const remaining = 1000 - elapsed;
 
@@ -51,7 +36,7 @@ function App() {
     }, 100);
 
     return () => clearInterval(checkLoading);
-  }, [apiLoading, assetsLoaded]);
+  }, [apiLoading]);
 
   if (showLoader) {
     return (

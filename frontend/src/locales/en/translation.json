@@ -88,6 +88,7 @@
     "blog": {
         "FROM THE BLOG": "FROM THE BLOG",
         "Blogs": "Blogs",
+        "Read Latest": "Read Latest",
         "Discover ideas, inspiration, and expert advice — one article at a time.": "Discover ideas, inspiration, and expert advice — one article at a time.",
         "The Mumbai Metropolitan Region (MMR)": "The Mumbai Metropolitan Region (MMR)",
         "The Mumbai Metropolitan Region (MMR) continues to be one of India's most dynamic real estate markets, with Bhayandar emerging as a prime investment destination. As we move through 2024, several key trends are reshaping the landscape...": "The Mumbai Metropolitan Region (MMR) continues to be one of India's most dynamic real estate markets, with Bhayandar emerging as a prime investment destination. As we move through 2024, several key trends are reshaping the landscape...",
@@ -110,7 +111,9 @@
         "Rahul Mehta": "Rahul Mehta",
         "How Infrastructure Projects are Transforming Property Prices in Bhayandar": "How Infrastructure Projects are Transforming Property Prices in Bhayandar",
         "The ongoing infrastructure upgrades, including new flyovers, metro routes, and improved road connectivity, are directly influencing real estate prices in Bhayandar. This transformation is attracting both end-users and investors seeking long-term gains.": "The ongoing infrastructure upgrades, including new flyovers, metro routes, and improved road connectivity, are directly influencing real estate prices in Bhayandar. This transformation is attracting both end-users and investors seeking long-term gains.",
-        "Neha Patel": "Neha Patel"
+        "Neha Patel": "Neha Patel",
+        "What You Need to Know": "What You Need to Know",
+        "The Future of Real Estate Development": "The Future of Real Estate Development"
     },
     "faq": {
         "frequently asked questions": "frequently asked questions",
@@ -159,5 +162,33 @@
         "Our Team": "Our Team",
         "The people behind Mira Bhayandar Projects": "The people behind Mira Bhayandar Projects",
         "Building trust, innovation, and excellence in real estate.": "Building trust, innovation, and excellence in real estate."
+    },
+    "allProject": {
+        "Explore All The": "Explore All The",
+        "Top Notch Projects": "Top Notch Projects",
+        "Live Your Dream Life...": "Live Your Dream Life...",
+        "Featured Projects": "Featured Projects",
+        "We create spaces that enable Everyday Joys, one community, one family, and one home at a time.": "We create spaces that enable Everyday Joys, one community, one family, and one home at a time."
+    },
+    "contactPage": {
+        "Contact Us": "Contact Us",
+        "Please enter the details below to get in touch with us": "Please enter the details below to get in touch with us",
+        "Name": "Name",
+        "Email": "Email",
+        "Contact No": "Contact No",
+        "Project": "Project",
+        "Select Project": "Select Project",
+        "1BHK": "1BHK",
+        "2BHK": "2BHK",
+        "3BHK": "3BHK",
+        "1+1 JODI": "1+1 JODI",
+        "Location": "Location",
+        "Select a location": "Select a location",
+        "Bhayandar East": "Bhayandar East",
+        "Bhayandar West": "Bhayandar West",
+        "Mira Road": "Mira Road",
+        "Message": "Message",
+        "Send Message": "Send Message",
+        "Cancel": "Cancel"
     }
 }

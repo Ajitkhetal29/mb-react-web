@@ -121,12 +121,16 @@ const Navbar = () => {
       </nav>
 
       {/* Mobile Menu Drawer */}
+
+
       <div
-        className={`fixed top-0 right-0 h-full w-64 bg-gray-900 shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
-          mobileOpen ? "translate-x-0" : "translate-x-full"
+        className={`fixed top-0 right-0 h-screen w-64 bg-gray-900 shadow-lg transform transition-transform duration-300 ease-in-out z-50 ${
+          mobileOpen ? "translate-x-0" : "translate-x-full "
         }`}
       >
-        <nav className="relatuve flex flex-col mt-20 space-y-6 px-6 text-white font-semibold select-none">
+        <nav
+          className={`relative bg-gray-900 flex flex-col mt-15 space-y-6 px-6 text-white font-semibold select-none `}
+        >
           <span
             className="absolute top-5 cursor-pointer right-5 text-2xl"
             onClick={() => setMobileOpen(false)}
@@ -187,7 +191,7 @@ const Navbar = () => {
             }
             onClick={() => setMobileOpen(false)}
           >
-            {t('nav.Blogs')}
+            {t("nav.Blogs")}
           </NavLink>
           <NavLink
             to="/allProjects#contact"

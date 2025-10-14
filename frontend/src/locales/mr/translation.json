@@ -43,7 +43,7 @@
     "Sky Avenue": "स्काय एवेन्यू",
     "Sky Heights": "स्काय हाइट्स",
     "skyline": "स्कायलाइन",
-    "Bhayandar West (Uttan)": "भायंदर वेस्ट (उत्तन)",
+    "Bhayandar West (uttan)": "भायंदर वेस्ट (उत्तन)",
     "We create spaces that enable Everyday Joys, one community, one family, and one home at a time.": "आम्ही असे स्पेस तयार करतो जे रोजच्या आनंदासाठी योग्य आहेत — प्रत्येक कम्युनिटी, प्रत्येक कुटुंब, आणि प्रत्येक घरासाठी."
   },
   "heroAbout": {
@@ -88,6 +88,7 @@
   "blog": {
     "FROM THE BLOG": "ब्लॉग",
     "Blogs": "ब्लॉग",
+    "Read Latest": "नवीनतम वाचा",
     "Discover ideas, inspiration, and expert advice — one article at a time.": "प्रत्येक लेखातून कल्पना, प्रेरणा आणि तज्ज्ञ सल्ला मिळवा.",
     "The Mumbai Metropolitan Region (MMR)": "मुंबई महानगर क्षेत्र (MMR)",
     "The Mumbai Metropolitan Region (MMR) continues to be one of India's most dynamic real estate markets, with Bhayandar emerging as a prime investment destination. As we move through 2024, several key trends are reshaping the landscape...": "मुंबई महानगर क्षेत्र (MMR) भारतातील सर्वात गतिशील रिअल इस्टेट बाजारपेठांपैकी एक आहे, आणि भायंदर आता प्रमुख गुंतवणूक केंद्र बनत आहे. 2024 मध्ये अनेक महत्त्वाच्या ट्रेंड्स या क्षेत्राला नवीन आकार देत आहेत...",
@@ -110,7 +111,10 @@
     "Rahul Mehta": "Rahul Mehta",
     "How Infrastructure Projects are Transforming Property Prices in Bhayandar": "भायंदरमध्ये इन्फ्रास्ट्रक्चर प्रकल्प रिअल इस्टेट किमती कशा बदलत आहेत",
     "The ongoing infrastructure upgrades, including new flyovers, metro routes, and improved road connectivity, are directly influencing real estate prices in Bhayandar. This transformation is attracting both end-users and investors seeking long-term gains.": "नवीन फ्लायओव्हर्स, मेट्रो मार्ग आणि सुधारित रस्ते यासह चालू प्रकल्प भायंदरमधील प्रॉपर्टी किमतींवर थेट परिणाम करत आहेत. या बदलामुळे दीर्घकालीन नफा पाहणारे ग्राहक आणि गुंतवणूकदार आकर्षित होत आहेत.",
-    "Neha Patel": "Neha Patel"
+    "Neha Patel": "Neha Patel",
+     "What You Need to Know": "तुम्हाला काय माहित असणे आवश्यक आहे",
+  "The Future of Real Estate Development": "रिअल इस्टेट विकासाचे भविष्य",
+  "The Next Real Estate Hub": "पुढील रिअल इस्टेट केंद्र"
   },
   "faq": {
     "frequently asked questions": "वारंवार विचारले जाणारे प्रश्न",
@@ -160,5 +164,35 @@
     "Our Team": "आमची टीम",
     "The people behind Mira Bhayandar Projects": "मीरा-भायंदर प्रोजेक्ट्स चे आधारस्तंभ",
     "Building trust, innovation, and excellence in real estate.": "सदैव तुम्हाला चान्गला अनुभव देण्यासाठी प्रयत्नशील असतात"
-  }
+  },
+  "allProject": {
+    "Explore All The": "सर्व प्रकल्प पहा",
+    "Top Notch Projects": "उत्तम दर्जाचे प्रकल्प",
+    "Live Your Dream Life...": "आपल्या स्वप्नातील जीवन जागा",
+    "Featured Projects": "वैशिष्ट्यपूर्ण प्रकल्प",
+    "We create spaces that enable Everyday Joys, one community, one family, and one home at a time.": "आम्ही असे स्पेस तयार करतो जे रोजच्या आनंदासाठी योग्य आहेत — प्रत्येक कम्युनिटी, प्रत्येक कुटुंब, आणि प्रत्येक घरासाठी."
+  },
+    "contactPage": {
+      "Contact Us": "संपर्क करा",
+      "Please enter the details below to get in touch with us": "कृपया आमच्याशी संपर्क साधण्यासाठी खालील तपशील भरा",
+      "Name": "नाव",
+      "Email": "ईमेल",
+      "Contact No": "संपर्क क्रमांक",
+      "Project": "प्रकल्प",
+      "Select Project": "प्रकल्प निवडा",
+      "1BHK": "१BHK",
+      "2BHK": "२BHK",
+      "3BHK": "३BHK",
+      "1+1 JODI": "१+१ जोड्या",
+      "Location": "स्थान",
+      "Select a location": "स्थान निवडा",
+      "Bhayandar East": "भायंदर ईस्ट",
+      "Bhayandar West": "भायंदर वेस्ट",
+      "Mira Road": "मीरा रोड",
+      "Message": "संदेश",
+      "Send Message": "संदेश पाठवा",
+      "Cancel": "रद्द करा"
+    }
+    
+    
 }

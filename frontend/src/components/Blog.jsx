@@ -1,16 +1,42 @@
-import React, { useContext, useEffect, useRef } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { AppConetxt } from "../context/context";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-
+import i18next from "i18next";
+import { translateText } from "../locales/googleTransalation";
 const Blog = ({ allBlogs }) => {
   const parentSection = useRef(null);
-
   const { backendUrl } = useContext(AppConetxt);
   const navigate = useNavigate();
   const { t } = useTranslation();
+  const [translatedBlogs, setTranslatedBlogs] = useState(allBlogs);
 
   useEffect(() => {}, [allBlogs]);
+
+  useEffect(() => {
+    const translateBlogs = async () => {
+      if (!allBlogs?.length) return;
+
+      // If English, no translation needed
+      if (i18next.language === "en") {
+        setTranslatedBlogs(allBlogs);
+        return;
+      }
+
+      // Translate titles and content dynamically
+      const translated = await Promise.all(
+        allBlogs.map(async (blog) => ({
+          ...blog,
+          title: await translateText(blog.title, i18next.language),
+          content: await translateText(blog.content, i18next.language),
+        }))
+      );
+
+      setTranslatedBlogs(translated);
+    };
+
+    translateBlogs();
+  }, [allBlogs, i18next.language]); // runs when language changes
 
   useEffect(() => {
     if (parentSection.current) {
@@ -60,8 +86,8 @@ const Blog = ({ allBlogs }) => {
         </div>
 
         <div className="flex fade-item  justify-center mb-5 gap-y-5 lg:gap-y-0 flex-wrap md:flex-wrap lg:flex-nowrap lg:flex-row lg:justify-between lg:gap-x-8">
-          {allBlogs &&
-            allBlogs.map((blog) => (
+          {translatedBlogs &&
+            translatedBlogs.map((blog) => (
               <div
                 key={blog._id}
                 className="group relative cursor-pointer w-full max-lg:max-w-xl lg:w-1/3 rounded-2xl p-5 transition-all duration-300 border border-gray-200 hover:border-white overflow-hidden"
@@ -87,17 +113,17 @@ const Blog = ({ allBlogs }) => {
                   <div className="flex mb-3 items-center justify-between font-medium">
                     <h6 className="text-sm text-black">
                       {" "}
-                      {t(`blog.${blog.title}`)}
+                    {blog.title}
                     </h6>
                   </div>
                   <p className="text-gray-600 mb-5">
                     {blog.content.length > 100
-                      ? t(`blog.${blog.content}`).slice(0,100) +'...'
-                      : t(`blog.${blog.content}`)}
+                      ? (`${blog.content}`).slice(0, 100) + "..."
+                      : (`${blog.content}`)}
                   </p>
                   <div className="flex items-center justify-between font-medium">
                     <h6 className="text-sm text-gray-900">
-                      {t(`blog.${blog.writer}`)}
+                      {blog.writer}
                     </h6>
                   </div>
                 </div>

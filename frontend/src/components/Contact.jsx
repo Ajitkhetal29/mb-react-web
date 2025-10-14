@@ -1,11 +1,20 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+  useTransition,
+} from "react";
 import emailjs from "emailjs-com";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Contact = () => {
   const [showContactForm, setShowContactForm] = useState(false);
   const formRef = useRef(null);
   const [submitting, setSubmitting] = useState(false);
+  const { t } = useTranslation();
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -25,11 +34,19 @@ const Contact = () => {
 
     try {
       setSubmitting(true);
-      await emailjs.sendForm("service_3qxauyp", "template_pvmnnin", formRef.current, "GoZgeEbgB3GxueDMC");
+      await emailjs.sendForm(
+        "service_3qxauyp",
+        "template_pvmnnin",
+        formRef.current,
+        "GoZgeEbgB3GxueDMC"
+      );
       console.log("email sent");
       setSubmitting(false);
       formRef.current.reset();
-      toast.success("Thank you for contacting us. We will get back to you soon!",{autoClose:5000});
+      toast.success(
+        "Thank you for contacting us. We will get back to you soon!",
+        { autoClose: 5000 }
+      );
     } catch (error) {
       console.log(error);
     }
@@ -40,7 +57,7 @@ const Contact = () => {
     const timer = setTimeout(() => {
       setShowContactForm(true);
       console.log("Form opened");
-    }, 10000);
+    }, 6000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -48,9 +65,8 @@ const Contact = () => {
   return (
     <>
       <div
-        className={`fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-500 ${
-          showContactForm ? "opacity-100 visible" : "opacity-0 invisible"
-        }`}
+        className={`fixed inset-0 flex items-center justify-center z-50 transition-opacity duration-500 ${showContactForm ? "opacity-100 visible" : "opacity-0 invisible"
+          }`}
       >
         {/* Dark backdrop */}
         <div
@@ -62,11 +78,10 @@ const Contact = () => {
         <div
           className={`bg-white rounded-lg shadow-lg w-[90%] sm:w-[80%] md:w-[60%] lg:w-[40%] 
                 max-w-md max-h-[80vh] overflow-y-auto relative transform 
-                transition-all duration-500 ${
-                  showContactForm
-                    ? "scale-100 opacity-100"
-                    : "scale-75 opacity-0"
-                } p-4 sm:p-6 md:p-8`}
+                transition-all duration-500 ${showContactForm
+              ? "scale-100 opacity-100"
+              : "scale-75 opacity-0"
+            } p-4 sm:p-6 md:p-8`}
         >
           {/* Logo */}
           <div className="flex items-center justify-end mb-2 sm:mb-4">
@@ -78,10 +93,12 @@ const Contact = () => {
           </div>
 
           <h2 className="text-xl sm:text-2xl text-center oswald_span mb-2">
-            Contact Us
+            {t("contactPage.Contact Us")}
           </h2>
           <p className="text-sm sm:text-base mb-4 text-center maven-pro">
-            Please enter the details below to get in touch with us
+            {t(
+              `contactPage.Please enter the details below to get in touch with us`
+            )}
           </p>
 
           <form ref={formRef} onSubmit={handleSubmit}>
@@ -91,7 +108,7 @@ const Contact = () => {
                 htmlFor="name"
                 className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Name:
+                {t("contactPage.Name")} :
               </label>
               <input
                 type="text"
@@ -110,7 +127,7 @@ const Contact = () => {
                 htmlFor="email"
                 className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Email:
+                {t("contactPage.Email")} :
               </label>
               <input
                 type="email"
@@ -129,7 +146,7 @@ const Contact = () => {
                 htmlFor="number"
                 className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Contact No:
+                {t("contactPage.Contact No")} :
               </label>
               <input
                 type="tel"
@@ -148,7 +165,7 @@ const Contact = () => {
                 htmlFor="choice"
                 className="block text-gray-700  text-sm font-bold mb-1 maven-pro"
               >
-                Project:
+                {t("contactPage.Project")} :
               </label>
               <select
                 name="choice"
@@ -157,11 +174,11 @@ const Contact = () => {
                 onChange={handleFormdata}
                 className="shadow border maven-pro rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option value="">Select Project</option>
-                <option value="1BHK">1BHK</option>
-                <option value="2BHK">2BHK</option>
-                <option value="3BHK">3BHK</option>
-                <option value="1+1 JODI">1+1 JODI</option>
+                <option value="">{t("contactPage.Select Project")}</option>
+                <option value="1BHK"> {t("contactPage.1BHK")} </option>
+                <option value="2BHK"> {t("contactPage.2BHK")}</option>
+                <option value="3BHK">{t("contactPage.3BHK")} </option>
+                <option value="1+1 JODI"> {t("contactPage.1+1 JODI")} </option>
               </select>
             </div>
 
@@ -171,7 +188,7 @@ const Contact = () => {
                 htmlFor="location"
                 className="block maven-pro text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Location:
+                {t("contactPage.Location")} :
               </label>
               <select
                 name="location"
@@ -180,10 +197,14 @@ const Contact = () => {
                 onChange={handleFormdata}
                 className="shadow border maven-pro rounded w-full py-2 px-3 maven-pro text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
               >
-                <option value="">Select a location</option>
-                <option value="Bhayandar East">Bhayandar East</option>
-                <option value="Bhayandar West">Bhayandar West</option>
-                <option value="Mira road">Mira Road</option>
+                <option value=""> {t("contactPage.Select a location")} </option>
+                <option value="Bhayandar East">
+                  {t("contactPage.Bhayandar East")}
+                </option>
+                <option value="Bhayandar West">
+                  {t("contactPage.Bhayandar West")}
+                </option>
+                <option value="Mira road">{t("contactPage.Mira Road")}</option>
               </select>
             </div>
 
@@ -193,7 +214,7 @@ const Contact = () => {
                 htmlFor="message"
                 className="block text-gray-700 text-sm font-bold mb-1 maven-pro"
               >
-                Message:
+                {t("contactPage.Message")} :
               </label>
               <textarea
                 id="message"
@@ -212,14 +233,14 @@ const Contact = () => {
                 disabled={submitting}
                 className="bg-yellow-500 hover:bg-black maven-pro cursor-pointer text-black  hover:text-white  py-1 px-4 rounded border border-black "
               >
-                Send Message
+                {t("contactPage.Send Message")}
               </button>
               <button
                 type="button"
                 onClick={() => setShowContactForm(false)}
                 className="bg-red-500 hover:bg-black maven-pro text-black cursor-pointer hover:text-white  py-1 px-4 rounded border border-black "
               >
-                Cancel
+                {t("contactPage.Cancel")}
               </button>
             </div>
           </form>

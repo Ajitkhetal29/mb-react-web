@@ -1,11 +1,39 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AppConetxt } from "../context/context";
 import Footer from "../components/Footer";
-import {useTranslation} from 'react-i18next'
+import { useTranslation } from "react-i18next";
+import i18next from "i18next";
+import { translateText } from "../locales/googleTransalation";
 
 const AllBolgs = () => {
-  const { allBlogs ,backendUrl} = useContext(AppConetxt);
-  const {t} = useTranslation();
+  const { allBlogs, backendUrl } = useContext(AppConetxt);
+  const { t } = useTranslation();
+  const [translatedBlogs, setTranslatedBlogs] = useState(allBlogs);
+
+  useEffect(() => {
+    const translateBlogs = async () => {
+      if (!allBlogs?.length) return;
+
+      // If English, no translation needed
+      if (i18next.language === "en") {
+        setTranslatedBlogs(allBlogs);
+        return;
+      }
+
+      // Translate titles and content dynamically
+      const translated = await Promise.all(
+        allBlogs.map(async (blog) => ({
+          ...blog,
+          title: await translateText(blog.title, i18next.language),
+          content: await translateText(blog.content, i18next.language),
+        }))
+      );
+
+      setTranslatedBlogs(translated);
+    };
+
+    translateBlogs();
+  }, [allBlogs, i18next.language]); // runs when language changes
 
   if (!allBlogs) return <div>Loading...</div>;
 
@@ -31,13 +59,13 @@ const AllBolgs = () => {
               {t(`blog.Blogs`)}
             </h1>
             <p className="text-lg sm:text-xl md:text-2xl text-orange-200 maven-pro">
-              {t(`blog.Discover ideas, inspiration, and expert advice — one article at a time.`)}
+              {t(
+                `blog.Discover ideas, inspiration, and expert advice — one article at a time.`
+              )}
             </p>
             <div className="mt-6 flex justify-center lg:justify-start gap-4">
-              <a
-                className="text-white maven-pro border border-white bg-black border-black px-6 py-2 rounded-md shadow-lg hover:bg-white hover:text-black transition-colors"
-              >
-                Read Latest
+              <a className="text-white maven-pro border border-white bg-black border-black px-6 py-2 rounded-md shadow-lg hover:bg-white hover:text-black transition-colors">
+                {t("blog.Read Latest")}
               </a>
             </div>
           </div>
@@ -54,7 +82,10 @@ const AllBolgs = () => {
       </section>
 
       {/* blog section */}
-      <section id="blogSection" className="w-full flex flex-col items-center justify-center px-6 py-12 md:px-16 md:py-16 bg-gray-100">
+      <section
+        id="blogSection"
+        className="w-full flex flex-col items-center justify-center px-6 py-12 md:px-16 md:py-16 bg-gray-100"
+      >
         <div className="flex items-center justify-center w-full mb-6">
           <div className="flex-1 max-w-30 border-t-2 border-gray-800" />
           <h2 className="mx-6 text-2xl md:text-2xl uppercase text-gray-900 oswald_span tracking-wide">
@@ -64,13 +95,15 @@ const AllBolgs = () => {
         </div>
 
         <p className="w-full text-center text-lg md:text-xl italic maven-pro text-orange-500 mb-10 max-w-3xl">
-              {t(`blog.Discover ideas, inspiration, and expert advice — one article at a time.`)}
+          {t(
+            `blog.Discover ideas, inspiration, and expert advice — one article at a time.`
+          )}
         </p>
 
         {/* Blog Grid */}
         <div className="w-full grid grid-cols-1  md:grid-cols-3 gap-8">
-          {allBlogs.length > 0 ? (
-            allBlogs.map((blog, idx) => (
+          {translatedBlogs.length > 0 ? (
+            translatedBlogs.map((blog, idx) => (
               <div
                 key={idx}
                 className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-2xl transition-shadow duration-300 flex flex-col"
@@ -88,10 +121,10 @@ const AllBolgs = () => {
                       {new Date(blog.date).toLocaleDateString()}
                     </span>
                     <h3 className="text-md md:text-xl font-semibold mb-2 text-gray-900 maven-pro">
-                      {t(`blog.${blog.title}`)} 
+                      {blog.title}
                     </h3>
                     <p className="text-gray-700 text-base md:text-md maven-pro leading-relaxed">
-                      {t(`blog.Bhayandar’s Rapid Growth: The Next Real Estate Hub`)}
+                      {blog.content}
                     </p>
                   </div>
                   <div className="mt-auto pt-2 border-t border-gray-200 flex justify-between items-center">
