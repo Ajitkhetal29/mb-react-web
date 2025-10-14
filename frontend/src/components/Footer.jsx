@@ -129,8 +129,8 @@ const Footer = () => {
         </p>
 
         <img
-          src="/img/backgrounds/city-footer.png"
-          className=" w-full z-10 h-50 object-cover "
+          src="/img/backgrounds/footer-1.jpeg"
+          className=" w-full h-50 object-cover "
           alt=""
         />
       </div>

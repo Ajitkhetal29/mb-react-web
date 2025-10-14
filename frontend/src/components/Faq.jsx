@@ -7,35 +7,9 @@ const Faq = () => {
   const [openIndex, setOpenIndex] = useState(null);
   const [currentSlide, setCurrentSlide] = useState(0);
 
-  console.log("faq called");
-
   const { t } = useTranslation();
 
-  const imgs = [
-    "https://napa.wpresidence.net/wp-content/uploads/2014/05/2.6-3-2-1-1024x623.webp",
-    "https://napa.wpresidence.net/wp-content/uploads/2014/05/4.1-1024x623.webp",
-    "https://napa.wpresidence.net/wp-content/uploads/2014/05/2.6-3-2-1-1024x623.webp",
-    "https://napa.wpresidence.net/wp-content/uploads/2014/05/4.1-1024x623.webp",
-  ];
-
   const toggleFaq = (idx) => setOpenIndex(openIndex === idx ? null : idx);
-
-  const prevSlide = () =>
-    setCurrentSlide((prev) => (prev === 0 ? imgs.length - 1 : prev - 1));
-
-  const nextSlide = () =>
-    setCurrentSlide((prev) => (prev === imgs.length - 1 ? 0 : prev + 1));
-
-  const changeSlide = () => {
-    setCurrentSlide((prev) => (prev === imgs.length - 1 ? 0 : prev + 1));
-  };
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      nextSlide();
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [imgs.length]);
 
   return (
     <section className="relative w-full py-10 px-6 md:px-12 bg-gradient-to-b from-gray-50 to-gray-100 overflow-hidden">
@@ -50,7 +24,11 @@ const Faq = () => {
 
       {/* Quote */}
       <p className="text-center italic text-orange-500 text-lg md:text-xl italic maven-pro mb-5">
-      “ {t(`faq.Got questions? We’ve got clear answers — because transparency builds trust.`)} ”
+        “{" "}
+        {t(
+          `faq.Got questions? We’ve got clear answers — because transparency builds trust.`
+        )}{" "}
+        ”
       </p>
 
       {/* Main Layout */}
@@ -58,43 +36,11 @@ const Faq = () => {
         {/* Left: Image Slider */}
         <div className="lg:w-1/2 w  -full relative">
           <div className="relative w-full h-64 md:h-[350px] overflow-hidden rounded-2xl shadow-lg">
-            {imgs.map((img, idx) => (
-              <img
-                key={idx}
-                src={img}
-                className={`absolute w-full h-full object-cover transition-opacity duration-700 ease-in-out ${
-                  currentSlide === idx ? "opacity-100" : "opacity-0"
-                }`}
-                alt={`Slide ${idx}`}
-              />
-            ))}
-          </div>
-
-          {/* Controls */}
-          <button
-            onClick={prevSlide}
-            className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition"
-          >
-            &#10094;
-          </button>
-          <button
-            onClick={nextSlide}
-            className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/40 hover:bg-black/60 text-white rounded-full p-2 transition"
-          >
-            &#10095;
-          </button>
-
-          {/* Dots */}
-          <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2">
-            {imgs.map((_, idx) => (
-              <span
-                key={idx}
-                onClick={() => setCurrentSlide(idx)}
-                className={`w-3 h-3 rounded-full cursor-pointer transition-all ${
-                  currentSlide === idx ? "bg-orange-500" : "bg-white/70"
-                }`}
-              ></span>
-            ))}
+            <img
+              src="/img/backgrounds/faq.jpg"
+              alt=""
+              className="w-full h-full object-cover"
+            />
           </div>
         </div>
 

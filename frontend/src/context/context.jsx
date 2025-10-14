@@ -8,10 +8,10 @@ const AppConetxtProvider = (props) => {
   const [allBlogs, setAllblogs] = useState([]);
   const [allTestimonials, setAllTestimonials] = useState([]);
   const [allFaq, setAllFaq] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
-  
   // fetch  from backend
 
   // fetch all projects
@@ -71,15 +71,30 @@ const AppConetxtProvider = (props) => {
     }
   };
 
-  
-
   useEffect(() => {
-    getAllProjects();
-    getAllBlogs();
-    getAllFaq();
-    getAllTestimonials();
+    const fetchAllData = async () => {
+      try {
+        console.log("Fetching all data...");
+
+        await Promise.all([
+          getAllProjects(),
+          getAllBlogs(),
+          getAllFaq(),
+          getAllTestimonials(),
+        ]);
+
+        console.log("All data fetched");
+      } catch (error) {
+        console.log("Error while fetching data:", error);
+      } finally {
+        setLoading(false); // only stop loading after all data fetched
+      }
+    };
+
+    fetchAllData();
   }, []);
 
+  
   // new project
   const Projects = [
     {
@@ -244,6 +259,7 @@ const AppConetxtProvider = (props) => {
     galleryItems,
     caraouselImages,
     backendUrl,
+    loading,
   };
 
   return (

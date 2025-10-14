@@ -30,7 +30,7 @@ const BackTotopBtn = () => {
   return (
     <button
       type="button"
-      class={`fixed bottom-5 end-5 ${
+      className={`fixed bottom-5 end-5 ${
         showButton ? "" : "hidden"
       } fixed bottom-6 cursor-pointer  right-6 bg-orange-600 text-white p-3 rounded-full shadow-lg hover:bg-black focus:outline-none focus:ring-4 focus:ring-orange-400 transition`}
       onClick={backToTop}

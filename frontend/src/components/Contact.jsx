@@ -71,7 +71,7 @@ const Contact = () => {
           {/* Logo */}
           <div className="flex items-center justify-end mb-2 sm:mb-4">
             <img
-              src="img/logo/logo.png"
+              src="/img/logo/logo.png"
               className="w-20 sm:w-24 md:w-28"
               alt="Logo"
             />

@@ -95,7 +95,7 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
 
               <div className="p-4">
                 <p className="text-xs text-orange-600 flex items-center gap-1">
-                  <img className="h-4" src="img/icons/location.png" alt="" />
+                  <img className="h-4" src="/img/icons/location.png" alt="" />
                   <span className="group-hover:text-black">
                     {t(`featuredProject.${project.location}`)}
                   </span>
@@ -126,7 +126,7 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
 
                   <img
                     className="h-5 w-5 border border-gray-400 rounded-full p-1 group-hover:bg-black transition-all"
-                    src="img/icons/arrow.png"
+                    src="/img/icons/arrow.png"
                     alt=""
                   />
                 </div>

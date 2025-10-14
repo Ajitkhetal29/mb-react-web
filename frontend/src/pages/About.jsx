@@ -74,7 +74,7 @@ const About = () => {
           </div>
         </div>
         <video
-          src="img/backgrounds/large.mp4"
+          src="/img/backgrounds/large.mp4"
           className="w-full object-cover min-h-[50vh] h-full max-h-[90vh]"
           autoPlay
           loop
@@ -121,7 +121,7 @@ const About = () => {
 
           <div ref={imgref} className="flex justify-center w-full lg:h-[50vh] ">
             <img
-              src="img/backgrounds/search-home.png"
+              src="/img/backgrounds/search-home.png"
               alt="Illustration depicting real estate services"
               className="w-full h-full  max-w-md md:max-w-xl rounded-lg  shadow-lg"
               loading="lazy"

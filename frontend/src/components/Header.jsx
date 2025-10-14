@@ -11,7 +11,7 @@ const Header = () => {
       <section className="relative flex items-center justify-center h-[70vh] md:h-[85vh] lg:h-[95vh] overflow-hidden">
         {/* Background Video */}
         <video
-          src="img/carousel/header-video.mp4"
+          src="/img/carousel/header-video.mp4"
           className="absolute inset-0 w-full h-full object-cover"
           autoPlay
           loop
@@ -25,7 +25,7 @@ const Header = () => {
         <div className="relative z-30 flex flex-col items-center text-center px-4 sm:px-8 animate-fadeInUp">
           {/* Logo */}
           <img
-            src="img/logo/logo-white.png"
+            src="/img/logo/logo-white.png"
             className="h-14 sm:h-16 md:h-20 w-auto mb-6 drop-shadow-lg"
             alt="Mira Bhayandar Projects Hub"
           />

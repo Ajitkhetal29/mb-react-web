@@ -289,3 +289,14 @@ card:nth-child(1) { animation-delay: 0.1s; }
 .animate-fadeIn {
   animation: fadeIn 1.2s ease-out both;
 }
+
+
+/* loader */
+
+@keyframes spin-slow {
+  0% { transform: rotateY(0deg); }
+  100% { transform: rotateY(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 4s linear infinite;
+}

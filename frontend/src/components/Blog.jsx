@@ -105,7 +105,7 @@ const Blog = ({ allBlogs }) => {
                 <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex justify-center items-center">
                   <button className="translate-y-full flex gap-2 cursor-pointer group-hover:translate-y-0 transition-transform duration-500  text-black px-5 py-2 rounded-md shadow-lg">
                     <p className="text-white">Read More</p>
-                    <img src="img/icons/arrow-outward.svg" alt="" />
+                    <img src="/img/icons/arrow-outward.svg" alt="" />
                   </button>
                 </div>
               </div>

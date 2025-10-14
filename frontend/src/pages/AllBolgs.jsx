@@ -16,7 +16,7 @@ const AllBolgs = () => {
         {/* Background image overlay */}
         <div className="absolute inset-0">
           <img
-            src="img/carousel/Codename-LIT.jpg"
+            src="/img/carousel/Codename-LIT.jpg"
             alt="Blog Background"
             className="w-full h-full object-cover brightness-75"
           />
@@ -45,7 +45,7 @@ const AllBolgs = () => {
           {/* Decorative Image */}
           <div className="hidden lg:flex flex-1 justify-center items-center">
             <img
-              src="img/backgrounds/blog-header.png"
+              src="/img/backgrounds/blog-header.png"
               alt="Blog Illustration"
               className="w-100 h-auto rounded-lg shadow-2xl object-cover"
             />

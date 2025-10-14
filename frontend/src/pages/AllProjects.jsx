@@ -160,7 +160,7 @@ const AllProjects = () => {
 
           <div className="flex justify-center md:justify-end items-center max-w-sm md:max-w-md lg:max-w-md rounded-tr-[180px] rounded-bl-[180px] overflow-hidden shadow-2xl border-2 border-yellow-400">
             <img
-              src="img/backgrounds/painting-city-skyline-with-blue-building.jpeg"
+              src="/img/backgrounds/painting-city-skyline-with-blue-building.jpeg"
               alt="Top Notch Projects"
               className="object-cover w-full h-64 sm:h-80 md:h-full transition-transform duration-500 hover:scale-105 rounded-tr-[180px] rounded-bl-[180px]"
             />
@@ -193,7 +193,7 @@ const AllProjects = () => {
           {/* Logo */}
           <div className="flex items-center justify-end mb-2 sm:mb-4">
             <img
-              src="img/logo/logo.png"
+              src="/img/logo/logo.png"
               className="w-20 sm:w-24 md:w-28"
               alt="Logo"
             />

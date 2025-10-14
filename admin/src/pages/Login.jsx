@@ -56,7 +56,7 @@ const Login = () => {
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
           <img
             alt="Your Company"
-            src="img/logo/logo.png"
+            src="/img/logo/logo.png"
             className="mx-auto h-10 w-auto"
           />
           <h2 className="mt-10 text-center text-2xl/9 font-bold  text-white oswald_span">
