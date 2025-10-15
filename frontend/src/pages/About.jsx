@@ -64,7 +64,7 @@ const About = () => {
             <h2 className="italiana-regular text-white text-2xl md:text-6xl mb-5">
               {t(`aboutPage.Welcome To Mira-Bhayandar Project Hub`)}
             </h2>
-            <span className="maven-pro italic text-orange-200  md:text-2xl md:mt-10">
+            <span className="maven-pro italic text-yellow-200  md:text-2xl md:mt-10">
               "{" "}
               {t(
                 `aboutPage.Your trusted partner in premium real estate across Mira Bhayandar.`
@@ -74,7 +74,7 @@ const About = () => {
           </div>
         </div>
         <video
-          src="/img/backgrounds/large.mp4"
+          src="/img/backgrounds/about-bg.mp4"
           className="w-full object-cover min-h-[50vh] h-full max-h-[90vh]"
           autoPlay
           loop
@@ -120,12 +120,13 @@ const About = () => {
           </div>
 
           <div ref={imgref} className="flex justify-center w-full lg:h-[50vh] ">
-            <img
-              src="/img/backgrounds/search-home.png"
-              alt="Illustration depicting real estate services"
-              className="w-full h-full  max-w-md md:max-w-xl rounded-lg  shadow-lg"
-              loading="lazy"
-            />
+              <img
+                src="/img/backgrounds/search-home.png"
+                alt="Illustration depicting real estate services"
+                className="w-full h-full  max-w-md md:max-w-xl rounded-lg  shadow-lg"
+                loading="lazy"
+              />
+              {/* <video muted autoPlay loop src="/img/backgrounds/about-person (1).mp4"></video> */}
           </div>
         </div>
       </section>

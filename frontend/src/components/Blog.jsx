@@ -111,26 +111,24 @@ const Blog = ({ allBlogs }) => {
                     </h6>
                   </div>
                   <div className="flex mb-3 items-center justify-between font-medium">
-                    <h6 className="text-sm text-black">
-                      {" "}
-                    {blog.title}
-                    </h6>
+                    <h6 className="text-sm text-black"> {blog.title}</h6>
                   </div>
                   <p className="text-gray-600 mb-5">
                     {blog.content.length > 100
-                      ? (`${blog.content}`).slice(0, 100) + "..."
-                      : (`${blog.content}`)}
+                      ? `${blog.content}`.slice(0, 100) + "..."
+                      : `${blog.content}`}
                   </p>
                   <div className="flex items-center justify-between font-medium">
-                    <h6 className="text-sm text-gray-900">
-                      {blog.writer}
-                    </h6>
+                    <h6 className="text-sm text-gray-900">{blog.writer}</h6>
                   </div>
                 </div>
 
                 <div className="absolute inset-0 bg-black/70 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex justify-center items-center">
-                  <button className="translate-y-full flex gap-2 cursor-pointer group-hover:translate-y-0 transition-transform duration-500  text-black px-5 py-2 rounded-md shadow-lg">
-                    <p className="text-white">Read More</p>
+                  <button
+                    onClick={() => navigate("/allBlogs")}
+                    className="translate-y-full flex gap-2 cursor-pointer group-hover:translate-y-0 transition-transform duration-500  text-black px-5 py-2 rounded-md shadow-lg"
+                  >
+                    <p className="text-white">{t('Read More')}</p>
                     <img src="/img/icons/arrow-outward.svg" alt="" />
                   </button>
                 </div>
@@ -138,11 +136,11 @@ const Blog = ({ allBlogs }) => {
             ))}
         </div>
 
-        <div className="mt-10 flex justify-center">
-          <button
-            onClick={() => navigate("/allBlogs")}
-            className="border cursor-pointer border-black px-6 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500"
-          >
+        <div
+          className="mt-10  flex justify-center"
+          onClick={() => navigate("/allBlogs")}
+        >
+          <button className="border border-black px-6 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
             View All
           </button>
         </div>

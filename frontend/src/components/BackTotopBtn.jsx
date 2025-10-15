@@ -35,7 +35,7 @@ const BackTotopBtn = () => {
       } fixed bottom-6 cursor-pointer  right-6 bg-orange-600 text-white p-3 rounded-full shadow-lg hover:bg-black focus:outline-none focus:ring-4 focus:ring-orange-400 transition`}
       onClick={backToTop}
     >
-      <span class="[&>svg]:w-4">
+      <span className="[&>svg]:w-4">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           className="h-6 w-6"

@@ -154,14 +154,14 @@ const Project = () => {
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/60 to-black/70 z-10"></div>
 
         {/* Content Container */}
-        <div className="relative z-20 flex flex-col items-center justify-center text-center px-6 md:px-12 max-w-3xl mx-auto">
+        <div className="relative  z-20 flex flex-col items-center justify-center text-center px-6 md:px-12 max-w-3xl mx-auto">
           <img
             src={`${backendUrl}/${project.logo}`}
             alt="Anandam Logo"
-            className="h-24 w-24 md:h-32 md:w-32 mb-6 drop-shadow-lg"
+            className="h-32 w-32 md:h-46 md:w-50 mb-6 drop-shadow-lg bg-black/10 rounded-full"
             loading="lazy"
           />
-          <h1 className="text-white text-6xl sm:text-7xl md:text-8xl font-extrabold italiana-regular select-none drop-shadow-xl">
+          <h1 className="text-white text-6xl sm:text-7xl md:t ext-8xl font-extrabold italiana-regular select-none drop-shadow-xl">
             {project.name}
           </h1>
           <span className="text-yellow-400 text-2xl sm:text-3xl maven-pro mt-2 tracking-wide drop-shadow-md italic">

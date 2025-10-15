@@ -138,7 +138,10 @@ const FeaturedProjects = ({ projects, projectBtn }) => {
       {/* Bottom Button */}
       {projectBtn && (
         <div ref={btnParent} className="mt-10 fade-btn flex justify-center">
-          <button className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500">
+          <button
+            onClick={() => navigate("/allProjects")}
+            className="border cursor-pointer border-black px-5 py-2 uppercase text-sm font-medium bg-black text-white hover:bg-white hover:text-black transition-all duration-500"
+          >
             {t("featuredProject.Explore all properties")}
           </button>
         </div>

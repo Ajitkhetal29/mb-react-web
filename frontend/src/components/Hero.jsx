@@ -109,7 +109,7 @@ const Hero = () => {
         >
           <div className="absolute w-72 h-72 bg-orange-100 rounded-full blur-3xl opacity-40 animate-pulse"></div>
           <img
-            src="/img/backgrounds/beautiful-towers-background.png"
+            src="/img/backgrounds/beautiful-towers-background (1).png"
             alt="Modern real estate cityscape with a beautiful tower"
             className="relative z-10 w-full max-w-md transition-transform duration-500 hover:scale-105 md:max-w-lg object-contain drop-shadow-2xl"
             loading="lazy"
