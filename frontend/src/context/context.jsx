@@ -99,23 +99,23 @@ const AppConetxtProvider = (props) => {
   // raw data
 
   const galleryItems = [
-    { src: "img/gallery/5.webp", title: "Modern Kitchen" },
-    { src: "img/gallery/2.webp", title: "Spacious Living Room" },
-    { src: "img/gallery/3.webp", title: "Cozy Bedroom" },
-    { src: "img/gallery/4.webp", title: "Elegant Dining Area" },
-    { src: "img/gallery/5.webp", title: "Luxurious Bathroom" },
-    { src: "img/gallery/6.webp", title: "Outdoor Patio" },
-    { src: "img/gallery/3.webp", title: "Home Office" },
-    { src: "img/gallery/8.webp", title: "Modern Kitchen 2" },
-    { src: "img/gallery/9.webp", title: "Open Floor Plan" },
+    { src: "/img/gallery/5.webp", title: "Modern Kitchen" },
+    { src: "/img/gallery/2.webp", title: "Spacious Living Room" },
+    { src: "/img/gallery/3.webp", title: "Cozy Bedroom" },
+    { src: "/img/gallery/4.webp", title: "Elegant Dining Area" },
+    { src: "/img/gallery/5.webp", title: "Luxurious Bathroom" },
+    { src: "/img/gallery/6.webp", title: "Outdoor Patio" },
+    { src: "/img/gallery/3.webp", title: "Home Office" },
+    { src: "/img/gallery/8.webp", title: "Modern Kitchen 2" },
+    { src: "/img/gallery/9.webp", title: "Open Floor Plan" },
   ];
 
   const caraouselImages = [
-    { src: "img/carousel/1.png", title: "1" },
-    { src: "img/carousel/5.png", title: "5" },
-    { src: "img/carousel/6.png", title: "6" },
-    { src: "img/carousel/7.png", title: "7" },
-    { src: "img/carousel/8.png", title: "8" },
+    { src: "/img/carousel/1.png", title: "1" },
+    { src: "/img/carousel/5.png", title: "5" },
+    { src: "/img/carousel/6.png", title: "6" },
+    { src: "/img/carousel/7.png", title: "7" },
+    { src: "/img/carousel/8.png", title: "8" },
   ];
 
 

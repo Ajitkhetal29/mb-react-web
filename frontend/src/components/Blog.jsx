@@ -128,7 +128,7 @@ const Blog = ({ allBlogs }) => {
                     onClick={() => navigate("/allBlogs")}
                     className="translate-y-full flex gap-2 cursor-pointer group-hover:translate-y-0 transition-transform duration-500  text-black px-5 py-2 rounded-md shadow-lg"
                   >
-                    <p className="text-white">{t('Read More')}</p>
+                    <p className="text-white">Read More</p>
                     <img src="/img/icons/arrow-outward.svg" alt="" />
                   </button>
                 </div>
